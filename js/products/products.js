@@ -716,7 +716,7 @@ function loadProducts() {
 // ============================
 // PRODUCTS — Firestore Collection حقيقية (Pagination: limit() + startAfter())
 // ============================
-var FIRESTORE_PAGE_SIZE = 60;       // الصفحة الأولى أصغر لتقليل بيانات Firestore أثناء الإقلاع
+var FIRESTORE_PAGE_SIZE = 100;      // حجم كل صفحة تُجلب من Firestore (limit)
 var _productsLastDoc = null;          // آخر مستند مُحمّل، يُستخدم في startAfter()
 var _productsAllLoaded = false;       // true عند استنفاذ كل صفحات Firestore
 var _productsCollectionReady = false; // true إذا كانت Collection الجديدة تحتوي بيانات فعلاً
@@ -1893,11 +1893,9 @@ async function initializeProductsModule() {
       document.getElementById('homePage')?.classList.add('active');
     }
   });
-  // لا نجلب بقية الكتالوج أثناء قياس الصفحة الأولى. ننتظر اكتمال load ثم 6 ثوانٍ؛
-  // البحث/الفلاتر/عرض المزيد ما زالت تستدعي ensureAllProductsLoaded() فوراً عند الحاجة.
-  const scheduleRestOfCatalog = () => setTimeout(_loadRestOfCatalog, 6000);
-  if (document.readyState === 'complete') scheduleRestOfCatalog();
-  else window.addEventListener('load', scheduleRestOfCatalog, { once: true, passive: true });
+  // نؤجل تحميل بقية الكتالوج حتى يفرغ المتصفح من رسم الصفحة الأولى
+  if ('requestIdleCallback' in window) requestIdleCallback(_loadRestOfCatalog, { timeout: 3000 });
+  else setTimeout(_loadRestOfCatalog, 1500);
 }
 
 // يستدعيه app.js بعد تحميل جميع الوحدات، ويمنع تشغيل التهيئة قبل cart/auth/navigation.
@@ -2497,7 +2495,7 @@ function confirmSizePicker() {
   bumpCartIcon();
 }
 
-function productCardHTML(p) {
+function productCardHTML(p, isLcpPriority = false) {
   const isSizes = !!p.hasSizes;
   const _sizeKids = isSizes ? getSizeChildren(p) : [];
   const _someSizeOffer = isSizes && !getActiveQtyOffer(p.id) && _sizeKids.some(k => getActiveQtyOffer(k.id));
@@ -2542,7 +2540,7 @@ function productCardHTML(p) {
             : (p.badge ? `<div class="product-badge" style="${p.badge==='الأكثر مبيعاً'?'background:linear-gradient(135deg, var(--gold-light), var(--gold));box-shadow:0 3px 8px rgba(184,134,11,0.35)':''}">${t(escHtml(p.badge), p.badge==='جديد'?'New':p.badge==='الأكثر مبيعاً'?'Best Seller':escHtml(p.badge))}</div>` : ''))}
       <div class="product-img-wrap" onclick="event.stopPropagation();openProductDetail(${p.id})" title="${t('التفاصيل','Details')}" style="position:relative;cursor:pointer;${outOfStock?'opacity:0.5':''}">
         ${p.image
-          ? `<img src="${escHtml(cldOptimize(p.image, 400))}" alt="${escHtml(p.ar)}" loading="lazy" decoding="async" />`
+          ? `<img src="${escHtml(cldOptimize(p.image, 240))}" alt="${escHtml(p.ar)}" loading="${isLcpPriority ? 'eager' : 'lazy'}" ${isLcpPriority ? 'fetchpriority="high" decoding="sync"' : 'decoding="async"'} width="240" height="240" />`
           : `<span class="emoji-fallback">${escHtml(p.icon || '')}</span>`
         }
         ${hasQtyOffer ? `<div class="qty-offer-ribbon-static">⏰ ${t('عرض لفترة محدودة','Limited time offer')}</div>` : ''}
@@ -2663,13 +2661,9 @@ async function renderProducts() {
   const visibleProducts = filtered.slice(0, productsDisplayLimit);
   grid.dataset.totalFiltered = filtered.length;
   if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-  grid.innerHTML = visibleProducts.map(p => productCardHTML(p)).join('');
-  // صورة واحدة فقط فوق الطي تحصل على أولوية عالية؛ إعطاء عدة صور high يزاحم LCP على الهاتف.
-  const firstProductImage = grid.querySelector('img[loading="lazy"]');
-  if (firstProductImage) {
-    firstProductImage.loading = 'eager';
-    firstProductImage.setAttribute('fetchpriority', 'high');
-  }
+  // نعطي صورة أول بطاقة فقط أولوية عالية؛ هي المرشح الطبيعي لـ LCP على الهاتف.
+  // بقية الصور تبقى lazy حتى لا تنافس صورة LCP على الشبكة.
+  grid.innerHTML = visibleProducts.map((p, i) => productCardHTML(p, i === 0)).join('');
   renderBadgeSections();
   setupInfiniteScroll();
 }
