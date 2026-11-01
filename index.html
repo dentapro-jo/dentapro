@@ -1,0 +1,2891 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.gstatic.com https://*.onesignal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://onesignal.com https://*.onesignal.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://*.onesignal.com https://res.cloudinary.com https://*.tile.openstreetmap.org https://www.gstatic.com; connect-src 'self' https://nominatim.openstreetmap.org https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://res.cloudinary.com https://api.cloudinary.com https://*.cloudfunctions.net https://*.run.app https://*.workers.dev https://onesignal.com https://*.onesignal.com; frame-src https://www.openstreetmap.org https://onesignal.com https://*.onesignal.com; object-src 'none'; base-uri 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+<script>
+(function(){
+  function fixViewport(){
+    if (window.innerWidth >= 768) return;
+    var vp = document.querySelector('meta[name="viewport"]');
+    if (vp && window.innerWidth > 0) {
+      vp.setAttribute('content', 'width=' + window.innerWidth + ', initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover');
+    }
+  }
+  fixViewport();
+  window.addEventListener('resize', fixViewport);
+  document.addEventListener('DOMContentLoaded', fixViewport);
+})();
+</script>
+<title>DentaPro | متجر مستلزمات طب الأسنان</title>
+<meta name="description" content="DentaPro - متجر متخصص في مستلزمات طب الأسنان: أجهزة، أدوات يدوية، مواد طبية، أدوات تعقيم وتقويم وزراعة أسنان. توصيل سريع لعيادات الأسنان.">
+<link rel="alternate" hreflang="ar" href="https://mohaalkh-source.github.io/dentapro/">
+<link rel="alternate" hreflang="x-default" href="https://mohaalkh-source.github.io/dentapro/">
+<meta name="keywords" content="مستلزمات طب الأسنان, أدوات طبية, أجهزة أسنان, متجر طبي, تعقيم, تقويم أسنان, زراعة أسنان">
+<meta property="og:title" content="DentaPro | متجر مستلزمات طب الأسنان">
+<meta property="og:description" content="متجر متخصص في مستلزمات طب الأسنان لعيادات وأطباء الأسنان.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mohaalkh-source.github.io/dentapro/">
+<link rel="manifest" href="manifest.json">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "DentaPro",
+  "description": "متجر متخصص في مستلزمات طب الأسنان: أجهزة، أدوات يدوية، مواد طبية، أدوات تعقيم وتقويم وزراعة أسنان.",
+  "url": "https://mohaalkh-source.github.io/dentapro/",
+  "telephone": "+962790408680",
+  
+  "areaServed": ["JO","SA","AE","KW","BH","QA","OM"],
+  "priceRange": "$$"
+}
+</script>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+
+<link rel="stylesheet" href="./css/bundle.css?v=r14">
+<link rel="modulepreload" href="./js/firebase/firebase-init.js?v=r14">
+<link rel="modulepreload" href="./js/app.js?v=r14">
+<link rel="modulepreload" href="./js/config.js?v=r14">
+<link rel="modulepreload" href="./js/constants.js?v=r14">
+<link rel="modulepreload" href="./js/state.js?v=r14">
+<link rel="modulepreload" href="./js/utils.js?v=r14">
+<link rel="modulepreload" href="./js/firebase/firebase-services.js?v=r14">
+<link rel="preload" as="script" href="./js/products/products.js?v=r14">
+<link rel="preload" as="script" href="./js/cart/cart.js?v=r14">
+<link rel="preload" as="script" href="./js/location/location.js?v=r14">
+<link rel="preload" as="script" href="./js/ui/navigation.js?v=r14">
+<link rel="preload" as="script" href="./js/user/auth-ui.js?v=r14">
+<script src="./js/shared/media.js?v=r14"></script>
+<script src="./js/shared/discounts.js?v=r14"></script>
+<script src="./js/shared/coupons.js?v=r14" defer></script>
+<script src="./js/shared/credit.js?v=r14" defer></script>
+<script src="./js/shared/loyalty.js?v=r14"></script>
+<script src="./js/shared/ad-banner.js?v=r14"></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="./js/push/onesignal.js?v=r14"></script>
+<script type="module" src="./js/firebase/firebase-init.js?v=r14"></script>
+<script type="module" src="./js/app.js?v=r14"></script>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splashScreen" style="position:fixed;inset:0;z-index:99999;
+  background:linear-gradient(135deg,#063d5e,#0a5c8a,#1a8bbf);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.5s ease, visibility 0.5s ease;">
+  <div style="width:100px;height:100px;border-radius:24px;background:#fff;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);margin-bottom:20px;
+    animation:splashPop 0.6s cubic-bezier(0.34,1.56,0.64,1)">
+    <img src="./icons/icon-192.png" alt="DentaPro" width="100" height="100" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <div style="color:#fff;font-size:26px;font-weight:900;letter-spacing:-0.5px">
+    Denta<span style="color:#00c2a8">Pro</span>
+  </div>
+  <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:8px">
+    متجر مستلزمات طب الأسنان
+  </div>
+  <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,0.2);
+    border-top-color:#00c2a8;border-radius:50%;margin-top:32px;
+    animation:spin 0.8s linear infinite"></div>
+</div>
+
+<!-- HEADER -->
+  <!-- OFFERS TICKER: يطفو ثابتاً فوق الهيدر، هذا العنصر يحجز له مساحة فوق الهيدر عند ظهوره -->
+<div id="tickerSpacer" style="height:0"></div>
+
+<!-- OFFERS LIST: يظهر ثابتاً فوق كل شي بأعلى الشاشة -->
+<div class="offers-ticker" id="offersTicker" style="display:none">
+  <div class="offers-ticker-track" id="offersTickerTrack"></div>
+</div>
+<header>
+  <div id="offlineBanner">
+    <i class="fas fa-wifi" style="opacity:0.9"></i>
+    <span data-ar="لا يوجد اتصال بالإنترنت — سيتم إعادة المحاولة تلقائياً" data-en="No internet connection — will retry automatically">لا يوجد اتصال بالإنترنت — سيتم إعادة المحاولة تلقائياً</span>
+  </div>
+  <div class="header-inner">
+    <button class="hamburger-btn" onclick="toggleMobileDrawer()" aria-label="القائمة" title="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="logo" onclick="goHome()">
+  <span class="logo-3d-wrap"><img class="logo-3d-spin" src="./icons/header-logo.png" alt="DentaPro" width="44" height="44" fetchpriority="high" decoding="async" style="width:44px;height:44px;object-fit:contain"></span>
+  <span class="logo-text">Denta<span>Pro</span></span>
+</a>
+    <div class="header-actions">
+      <div id="authHeaderArea">
+        <!-- يُملأ بـ JS -->
+      </div>
+<button class="lang-btn" aria-label="تغيير اللغة / Change language" onclick="toggleLang()">
+        <i class="fas fa-globe"></i>
+        <span id="langLabel">EN</span>
+        <i class="fas fa-chevron-down" style="font-size:9px;opacity:.55"></i>
+      </button>
+      <button class="dark-toggle-inline" id="darkToggle" onclick="toggleDarkMode()" title="الوضع الليلي">
+        <i class="fas fa-moon" id="darkIcon"></i>
+        <span data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</span>
+      </button>
+      <button class="offers-pill-btn" onclick="goToOffersFiltered('all')">
+        <i class="fas fa-tag"></i>
+        <span data-ar="العروض" data-en="Offers">العروض</span>
+      </button>
+    </div>
+    <div class="header-row-break"></div>
+ <div class="header-search" style="position:relative">
+  <input type="text" id="searchInput" placeholder="ابحث عن منتج... / Search product..." autocomplete="off">
+  <button type="button" class="header-search-submit" onclick="document.getElementById('searchInput').focus()" title="بحث" aria-label="بحث">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+<button aria-label="المفضلة" class="notif-btn" id="favBtn" onclick="openFavoritesPage()" title="المفضلة">
+      <i class="fas fa-heart"></i>
+    </button>
+    <button class="notif-btn" id="reorderMobileBtn" onclick="openReorderedProductsPage()" title="طلباتي السابقة" aria-label="طلباتي السابقة">
+      <i class="fas fa-history"></i>
+      <span class="notif-btn-label" data-ar="طلباتي السابقة" data-en="Previous Orders">طلباتي السابقة</span>
+    </button>
+    <button class="notif-btn" id="msgBtn" onclick="openClientMessages()" style="display:none" title="تواصل مع الإدارة">
+      <i class="fas fa-comment-dots"></i>
+      <span class="notif-btn-label" data-ar="الرسائل" data-en="Messages">الرسائل</span>
+      <span class="notif-badge" id="msgBadge" style="display:none">0</span>
+    </button>
+    <button class="notif-btn" id="notifBtn" onclick="toggleNotifDropdown()" style="display:none">
+      <i class="fas fa-bell"></i>
+      <span class="notif-badge" id="notifBadge" style="display:none">0</span>
+    </button>
+    <button class="cart-btn" onclick="openCart()">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+  </header>
+  <div id="searchSuggestions" style="display:none;position:fixed;
+       background:#fff;border:1.5px solid var(--border);border-radius:14px;max-height:340px;overflow-y:auto;
+       z-index:1500;box-shadow:var(--shadow-lg)"></div>
+  <div class="notif-dropdown" id="notifDropdown">
+    <div class="notif-dropdown-header">
+      <span class="notif-dropdown-title"><i class="fas fa-bell"></i> الإشعارات</span>
+      <button class="notif-mark-read-btn" onclick="markAllNotifsRead()">تعليم الكل كمقروء</button>
+    </div>
+    <div id="notifList"></div>
+  </div>
+  <div id="sessionWelcomeHost" style="max-width:1180px;margin:12px auto 0;padding:0 24px;position:relative;z-index:20"></div>
+
+<!-- MOBILE DRAWER MENU -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleMobileDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-header">
+    <span class="logo-text">Denta<span>Pro</span></span>
+    <button class="drawer-close-btn" onclick="toggleMobileDrawer()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="mobile-drawer-body">
+    <button class="drawer-link" onclick="goHome();toggleMobileDrawer()"><i class="fas fa-home"></i><span data-ar="الرئيسية" data-en="Home">الرئيسية</span></button>
+    <button class="drawer-link" onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'});toggleMobileDrawer()"><i class="fas fa-th-large"></i><span data-ar="المنتجات" data-en="Products">المنتجات</span></button>
+    <button class="drawer-link" onclick="goToOffersFiltered('all');toggleMobileDrawer()"><i class="fas fa-tag"></i><span data-ar="العروض" data-en="Offers">العروض</span></button>
+    <button class="drawer-link" onclick="openFavoritesPage();toggleMobileDrawer()"><i class="fas fa-heart"></i><span data-ar="المفضلة" data-en="Favorites">المفضلة</span></button>
+    <button class="drawer-link" onclick="openClientOrders();toggleMobileDrawer()"><i class="fas fa-box"></i><span data-ar="طلباتي" data-en="My Orders">طلباتي</span></button>
+    <button class="drawer-link" onclick="openTrackOrderPage();toggleMobileDrawer()"><i class="fas fa-search-location"></i><span data-ar="تتبع طلب سابق" data-en="Track an Order">تتبع طلب سابق</span></button>
+    <div class="drawer-divider"></div>
+    <button class="drawer-link" onclick="toggleLang();toggleMobileDrawer()"><i class="fas fa-globe"></i><span data-ar="English" data-en="العربية">English</span></button>
+    <button class="drawer-link" onclick="toggleDarkMode()"><i class="fas fa-moon"></i><span data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</span></button>
+    <div class="drawer-divider"></div>
+    <button class="drawer-link" onclick="openMyQuotesPage();toggleMobileDrawer()"><i class="fas fa-file-invoice-dollar"></i><span data-ar="عروض أسعاري" data-en="My Quotes">عروض أسعاري</span></button>
+    <button class="drawer-link" onclick="openEditProfile();toggleMobileDrawer()"><i class="fas fa-user-edit"></i><span data-ar="تعديل الملف" data-en="Edit Profile">تعديل الملف</span></button>
+    <button class="drawer-link" id="drawerAuthBtn" onclick="handleDrawerAuthClick();toggleMobileDrawer()"><i class="fas fa-sign-out-alt" id="drawerAuthIcon"></i><span id="drawerAuthLabel" data-ar="تسجيل الخروج" data-en="Log Out">تسجيل الخروج</span></button>
+    <button class="drawer-link" onclick="openDeleteAccountModal();toggleMobileDrawer()"><i class="fas fa-user-times"></i><span data-ar="حذف الحساب نهائياً" data-en="Delete Account">حذف الحساب نهائياً</span></button>
+  </div>
+</div>
+
+<div id="adBannerSection" style="display:none;background:#fff;border-bottom:1px solid var(--border)">
+  <div id="adBannerSlide" style="width:100%;max-width:1180px;margin:0 auto;height:180px;cursor:pointer;overflow:hidden;position:relative">
+    <div id="adBannerSlideInner" style="width:100%;height:100%;display:flex;align-items:stretch;transition:transform 0.28s ease"></div>
+  </div>
+</div>
+<div id="adBannerDots" style="display:none;justify-content:center;align-items:center;gap:8px;padding:6px 0;max-width:1180px;margin:0 auto;background:transparent"></div>
+
+<!-- HERO -->
+<div class="page-section active" id="homePage">
+<section class="hero" id="heroSection" style="display:none">
+  <div class="hero-inner">
+    <div class="hero-content" id="heroContentWrap" style="display:block;overflow:hidden">
+      <img id="heroImageEl" style="display:none;max-width:120px;max-height:120px;border-radius:16px;object-fit:cover;float:right;margin:0 0 12px 20px" alt="">
+      <h1 id="heroTitleEl" style="margin:0"></h1>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section style="padding:4px 24px 4px">
+  <div class="section-inner">
+    <div class="section-header" style="display:none">
+      <div class="section-tag" data-ar="الأقسام" data-en="CATEGORIES">الأقسام</div>
+      <h2 class="section-title" data-ar="تصفح حسب الفئة" data-en="Browse by Category">تصفح حسب الفئة</h2>
+    </div>
+    <div class="category-picker" id="categoriesGrid" aria-label="اختيار القسم"></div>
+
+  </div>
+</section>
+<!-- OFFERS -->
+<div id="dynamicArea" class="is-loading">
+<section id="offersSection" style="padding:4px 24px 16px;display:none">
+  <div class="section-inner">
+    <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;text-align:right">
+      <div style="display:none">
+        <div class="section-tag" style="background:rgba(245,158,11,0.12);color:#d97706">🎁 عروض خاصة</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="أفضل العروض والباقات" data-en="Best Offers &amp; Bundles">أفضل العروض والباقات</h2>
+      </div>
+      <button onclick="goToOffersFiltered('all')" style="display:none">
+        عرض الكل
+      </button>
+    </div>
+    <div class="offers-grid" id="offersGrid"></div>
+  </div>
+</section>
+<!-- BEST SELLERS -->
+<!-- BADGE SECTIONS: قسم لكل شارة (الأكثر مبيعاً، جديد، خصم ...) يُولَّد من المنتجات التي حدّد الأدمن شارتها؛ لا يظهر شيء إن لم يوجد منتج بشارة -->
+<section id="badgeSections" style="padding:0"></section>
+<section id="productsSection" style="padding:12px 24px 64px">
+  <div class="section-inner">
+    <div class="products-header" style="margin-bottom:12px">
+      <div style="display:none">
+        <div class="section-tag" data-ar="المنتجات" data-en="PRODUCTS">المنتجات</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="المنتجات المتاحة" data-en="Available Products">المنتجات المتاحة</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <select aria-label="ترتيب المنتجات" id="sortSelect" onchange="productsDisplayLimit=PRODUCTS_PAGE_SIZE;renderProducts()"
+          style="padding:8px 14px;border-radius:50px;border:2px solid var(--border);background:#fff;
+                 font-family:inherit;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;outline:none">
+          <option value="default" data-ar="الترتيب الافتراضي" data-en="Default Sorting">الترتيب الافتراضي</option>
+          <option value="price_asc" data-ar="السعر: من الأقل للأعلى" data-en="Price: Low to High">السعر: من الأقل للأعلى</option>
+          <option value="price_desc" data-ar="السعر: من الأعلى للأقل" data-en="Price: High to Low">السعر: من الأعلى للأقل</option>
+          <option value="newest" data-ar="الأحدث أولاً" data-en="Newest First">الأحدث أولاً</option>
+          <option value="bestselling" data-ar="الأكثر مبيعاً" data-en="Best Selling">الأكثر مبيعاً</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- شريط الفلاتر -->
+    <div class="filters-bar">
+      <div class="filter-group">
+        <label data-ar="السعر من" data-en="Price from">السعر من</label>
+        <input type="number" class="filter-price-input" id="filterPriceMin" placeholder="0" min="0" oninput="productsDisplayLimit=PRODUCTS_PAGE_SIZE;renderProducts()">
+        <label data-ar="إلى" data-en="to">إلى</label>
+        <input type="number" class="filter-price-input" id="filterPriceMax" placeholder="∞" min="0" oninput="productsDisplayLimit=PRODUCTS_PAGE_SIZE;renderProducts()">
+      </div>
+      <div class="filter-group">
+        <label data-ar="الماركة" data-en="Brand">الماركة</label>
+        <select aria-label="تصفية حسب الماركة" class="filter-select" id="filterBrand" onchange="productsDisplayLimit=PRODUCTS_PAGE_SIZE;renderProducts()">
+          <option value="all" data-ar="كل الماركات" data-en="All Brands">كل الماركات</option>
+        </select>
+      </div>
+      <div class="filter-checkbox-wrap">
+        <input type="checkbox" id="filterInStock" onchange="productsDisplayLimit=PRODUCTS_PAGE_SIZE;renderProducts()">
+        <label for="filterInStock" data-ar="المتوفر فقط" data-en="In Stock Only">المتوفر فقط</label>
+      </div>
+      <span class="filter-results-count" id="filterResultsCount"></span>
+      <button class="filter-clear-btn" onclick="clearFilters()" data-ar="إلغاء الفلاتر" data-en="Clear Filters">إلغاء الفلاتر</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid"></div>
+    <div style="text-align:center;margin-top:28px" id="loadMoreWrap">
+      <button class="btn-primary" id="loadMoreBtn" onclick="loadMoreProducts()" style="display:none">
+        <span data-ar="عرض المزيد" data-en="Load More">عرض المزيد</span>
+      </button>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag" style="background:rgba(255,255,255,0.15);color:#fff" data-ar="لماذا نحن؟" data-en="WHY US?">لماذا نحن؟</div>
+      <h2 class="section-title" style="color:#fff" data-ar="ثقة أكثر من 850 عيادة" data-en="Trusted by 850+ Clinics">ثقة أكثر من 850 عيادة</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-shipping-fast"></i></div>
+        <div class="feature-title" data-ar="توصيل خلال 24 ساعة" data-en="24-Hour Delivery">توصيل خلال 24 ساعة</div>
+        <div class="feature-desc" data-ar="توصيل سريع مع تتبع الشحنة لحظة بلحظة" data-en="Fast delivery across all Gulf regions with real-time tracking">توصيل سريع  مع تتبع الشحنة لحظة بلحظة</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+        <div class="feature-title" data-ar="منتجات معتمدة 100%" data-en="100% Certified Products">منتجات معتمدة 100%</div>
+        <div class="feature-desc" data-ar="جميع المنتجات حاصلة على اعتمادات FDA وCE وهيئة الغذاء والدواء" data-en="All products hold FDA, CE and local regulatory certifications">جميع المنتجات حاصلة على اعتمادات FDA وCE وهيئة الغذاء والدواء</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-tags"></i></div>
+        <div class="feature-title" data-ar="أسعار الجملة للعيادات" data-en="Wholesale Prices for Clinics">أسعار الجملة للعيادات</div>
+        <div class="feature-desc" data-ar="أسعار خاصة للأطباء المسجلين والعيادات مع خصومات تصاعدية" data-en="Special pricing for registered doctors and clinics with tiered discounts">أسعار خاصة للأطباء المسجلين والعيادات مع خصومات تصاعدية</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <div class="feature-title" data-ar="دعم فني متخصص" data-en="Specialized Technical Support">دعم فني متخصص</div>
+        <div class="feature-desc" data-ar="" data-en="A specialized team of dentists ready to answer your inquiries"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- end homePage -->
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title"><i class="fas fa-shopping-cart"></i> <span data-ar="سلة التسوق" data-en="Shopping Cart">سلة التسوق</span> <span id="cartItemsCount" style="font-size:14px;opacity:0.8">(0)</span></div>
+    <button class="close-btn" aria-label="إغلاق" onclick="closeCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <i class="fas fa-shopping-basket"></i>
+      <p data-ar="السلة فارغة" data-en="Cart is empty">السلة فارغة</p>
+      <small data-ar="أضف منتجات للبدء" data-en="Add products to get started">أضف منتجات للبدء</small>
+    </div>
+  </div>
+  <div class="free-ship-wrap" id="freeShipWrap"></div>
+  <div class="cart-footer">
+    <div id="couponBox" style="margin-bottom:10px"></div>
+    <div class="cart-total-row">
+      <span class="cart-total-label" data-ar="الإجمالي" data-en="Total">الإجمالي</span>
+      <span class="cart-total-price" id="cartTotal">0.00 <small style="font-size:14px;font-weight:600">د.أ</small></span>
+    </div>
+    <button class="checkout-btn" onclick="openOrderModal()">
+      <i class="fas fa-arrow-left" id="checkoutArrow"></i>
+      <span data-ar="إتمام الطلب" data-en="Proceed to Order">إتمام الطلب</span>
+    </button>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-clipboard-list"></i> <span data-ar="تفاصيل الطلب" data-en="Order Details">تفاصيل الطلب</span></div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeOrderModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- Steps -->
+      <div class="modal-steps">
+        <div class="step active" id="step1"><div class="step-num">1</div><span data-ar="ملخص" data-en="Summary">ملخص</span></div>
+        <div class="step" id="step2"><div class="step-num">2</div><span data-ar="بياناتك" data-en="Your Info">بياناتك</span></div>
+        <div class="step" id="step3"><div class="step-num">3</div><span data-ar="الموقع" data-en="Location">الموقع</span></div>
+        <div class="step" id="step4"><div class="step-num">4</div><span data-ar="تأكيد" data-en="Confirm">تأكيد</span></div>
+      </div>
+
+      <!-- STEP 1: Order Summary -->
+      <div id="modalStep1">
+        <div class="order-summary">
+          <div class="order-summary-title"><i class="fas fa-list"></i> <span data-ar="مراجعة الطلب" data-en="Order Review">مراجعة الطلب</span></div>
+          <div id="modalSummaryItems"></div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Customer Info -->
+      <div id="modalStep2" style="display:none">
+        <div id="autoFillBanner" style="display:none;margin-bottom:16px;padding:12px 16px;
+          background:linear-gradient(135deg,rgba(0,194,168,0.1),rgba(10,92,138,0.06));
+          border:1.5px solid rgba(0,194,168,0.4);border-radius:12px;
+          display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:10px">
+            <i class="fas fa-magic" style="color:var(--accent);font-size:18px"></i>
+            <div>
+              <div style="font-weight:700;font-size:13px;color:var(--primary-dark)">ملء تلقائي من ملفك الشخصي</div>
+              <div style="font-size:12px;color:var(--text-muted)">اضغط لملء البيانات تلقائياً</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="autoFillFromProfile()" style="padding:8px 18px;border-radius:50px;
+              background:linear-gradient(135deg,var(--accent),#00a896);color:#fff;border:none;
+              font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;
+              display:flex;align-items:center;gap:6px">
+              <i class="fas fa-magic"></i> ملء تلقائي
+            </button>
+            <button onclick="openEditProfile()" style="padding:8px 18px;border-radius:50px;
+              background:transparent;color:var(--primary);border:2px solid var(--border);
+              font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;
+              display:flex;align-items:center;gap:6px">
+              <i class="fas fa-user-edit"></i> تعديل الملف
+            </button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-hospital" style="color:var(--primary-light)"></i> <span data-ar="اسم العيادة / المنشأة" data-en="Clinic / Business Name">اسم العيادة / المنشأة</span> <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <input type="text" class="form-input" id="clinicName" placeholder="عيادة الدكتور...">
+              <i class="fas fa-hospital input-icon"></i>
+            </div>
+            <div class="field-error" id="clinicNameError"><i class="fas fa-exclamation-circle"></i> <span data-ar="هذا الحقل مطلوب" data-en="This field is required">هذا الحقل مطلوب</span></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user-md" style="color:var(--primary-light)"></i> <span data-ar="اسم الطبيب / المسؤول" data-en="Doctor / Contact Name">اسم الطبيب / المسؤول</span> <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <input type="text" class="form-input" id="doctorName" placeholder="د. محمد...">
+              <i class="fas fa-user-md input-icon"></i>
+            </div>
+            <div class="field-error" id="doctorNameError"><i class="fas fa-exclamation-circle"></i> <span data-ar="هذا الحقل مطلوب" data-en="This field is required">هذا الحقل مطلوب</span></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-phone" style="color:var(--primary-light)"></i> <span data-ar="رقم الهاتف (واتساب)" data-en="Phone Number (WhatsApp)">رقم الهاتف (واتساب)</span> <span class="required">*</span></label>
+          <div class="phone-input-wrap">
+            <select aria-label="رمز الدولة" class="country-code" id="countryCode">
+              <option value="+962" selected>🇯🇴 +962</option>
+              <option value="+966">🇸🇦 +966</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+965">🇰🇼 +965</option>
+              <option value="+973">🇧🇭 +973</option>
+              <option value="+974">🇶🇦 +974</option>
+              <option value="+968">🇴🇲 +968</option>
+              <option value="+213">🇩🇿 +213</option>
+              <option value="+216">🇹🇳 +216</option>
+              <option value="+212">🇲🇦 +212</option>
+            </select>
+            <div class="input-with-icon" style="flex:1">
+              <input type="tel" class="form-input" id="phoneNumber" placeholder="5xxxxxxxx">
+              <i class="fas fa-phone input-icon"></i>
+            </div>
+          </div>
+          <div class="field-error" id="phoneError"><i class="fas fa-exclamation-circle"></i> <span data-ar="رقم الهاتف غير صحيح" data-en="Invalid phone number">رقم الهاتف غير صحيح</span></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-phone-alt" style="color:var(--text-muted)"></i> <span data-ar="الرقم البديل أو رقم السكرتيرة (اختياري)" data-en="Alternate or secretary number (optional)">الرقم البديل أو رقم السكرتيرة (اختياري)</span></label>
+          <div class="input-with-icon">
+            <input type="tel" class="form-input" id="altPhone" placeholder="07XXXXXXXX">
+            <i class="fas fa-phone-alt input-icon"></i>
+          </div>
+        </div>
+        <div id="guestAccountFieldsWrap" style="border-top:1.5px dashed var(--border);margin-top:16px;padding-top:16px">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">
+            <i class="fas fa-info-circle"></i> بيانصير عندك حساب تلقائياً بعد الطلب — الأسهل تحدّد كلمة سر عشان تدخل بيها لاحقاً وتتابع طلباتك
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-envelope" style="color:var(--text-muted)"></i> <span data-ar="البريد الإلكتروني (اختياري)" data-en="Email (optional)">البريد الإلكتروني (اختياري)</span></label>
+            <input type="email" class="form-input" id="guestEmail" placeholder="بريدك الإلكتروني (اختياري)">
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> <span data-ar="كلمة المرور" data-en="Password">كلمة المرور</span> <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <input type="password" class="form-input" id="guestPassword" placeholder="8 أحرف على الأقل" oninput="checkPassStrength(this.value)">
+              <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('guestPassword',this)"></i>
+            </div>
+            <div class="pass-strength">
+              <div class="pass-strength-bar"><div class="pass-strength-fill" id="guestPassStrengthFill"></div></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> <span data-ar="تأكيد كلمة المرور" data-en="Confirm Password">تأكيد كلمة المرور</span> <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <input type="password" class="form-input" id="guestPasswordConfirm" placeholder="أعد كتابة كلمة المرور">
+              <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('guestPasswordConfirm',this)"></i>
+            </div>
+            <div class="field-error" id="guestPasswordError"><i class="fas fa-exclamation-circle"></i> <span>كلمتا المرور غير متطابقتين، أو أقل من 8 أحرف</span></div>
+          </div>
+        </div>
+        </div>
+
+      <!-- STEP 3: Location -->
+      <div id="modalStep3" style="display:none">
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marker-alt" style="color:var(--primary-light)"></i> <span data-ar="تحديد الموقع" data-en="Set Location">تحديد الموقع</span> <span class="required">*</span></label>
+          <div class="location-section">
+            <div class="location-methods">
+              <button class="loc-method-btn active" id="btnManual" onclick="switchLocMethod('manual')">
+                <i class="fas fa-keyboard"></i> <span data-ar="كتابة يدوية" data-en="Type Address">كتابة يدوية</span>
+              </button>
+              <button class="loc-method-btn" id="btnGPS" onclick="getGPSLocation()">
+                <i class="fas fa-crosshairs"></i> <span data-ar="موقعي الحالي" data-en="My Location">موقعي الحالي</span>
+              </button>
+              <button class="loc-method-btn" id="btnMapPick" onclick="openMapPicker('cart')">
+                <i class="fas fa-map-marked-alt"></i> <span data-ar="اختر من الخريطة" data-en="Pick on Map">اختر من الخريطة</span>
+              </button>
+            </div>
+
+            <!-- Manual Input -->
+            <div id="manualInput">
+              <input type="text" class="form-input" id="addressInput"
+                placeholder="المدينة، الحي، الشارع، رقم المبنى / City, District, Street, Building No."
+                style="margin-bottom:10px" oninput="onAddressType()">
+            </div>
+
+            <!-- GPS Loading -->
+            <div class="gps-loading" id="gpsLoading">
+              <div class="spinner"></div>
+              <span data-ar="جاري تحديد موقعك..." data-en="Getting your location...">جاري تحديد موقعك...</span>
+            </div>
+
+            <!-- Map Preview -->
+            <div class="map-preview" id="mapPreview">
+              <i class="fas fa-map-marked-alt"></i>
+              <div class="map-placeholder-text" data-ar="حدد موقعك عبر GPS أو اكتب العنوان يدوياً" data-en="Set your location via GPS or type it manually"> </div>
+            </div>
+
+            <!-- Location Confirmed -->
+            <div class="location-confirm" id="locationConfirm">
+              <i class="fas fa-check-circle"></i>
+              <span id="locationConfirmText"></span>
+            </div>
+
+            <div class="field-error" id="locationError" style="margin-top:8px"><i class="fas fa-exclamation-circle"></i> <span data-ar="يرجى تحديد الموقع" data-en="Please set a location">يرجى تحديد الموقع</span></div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-sticky-note" style="color:var(--accent2)"></i> <span data-ar="ملاحظات إضافية / تعليمات التسليم" data-en="Additional Notes / Delivery Instructions">ملاحظات إضافية / تعليمات التسليم</span> <small style="color:var(--text-muted);font-weight:500" data-ar="(اختياري)" data-en="(optional)">(اختياري)</small></label>
+          <textarea class="form-textarea" id="orderNotes" maxlength="500"
+            placeholder="مثال: التوصيل في الصباح فقط — الطابق الثالث — اتصل قبل الوصول بـ 30 دقيقة...&#10;e.g., Morning delivery only — 3rd floor — Call 30 mins before arrival..."
+            oninput="updateCharCount()"></textarea>
+          <div class="char-counter"><span id="charCount">0</span>/500</div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Confirm -->
+      <div id="modalStep4" style="display:none">
+        <div class="order-summary">
+          <div class="order-summary-title"><i class="fas fa-check-double"></i> <span data-ar="تأكيد الطلب النهائي" data-en="Final Order Confirmation">تأكيد الطلب النهائي</span></div>
+          <div id="confirmDetails"></div>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <div class="success-title" data-ar="تم إرسال طلبك بنجاح! 🎉" data-en="Order Submitted Successfully! 🎉">تم إرسال طلبك بنجاح! 🎉</div>
+        <div class="success-sub" data-ar="سيتواصل معك فريقنا خلال 30 دقيقة لتأكيد الطلب والمتابعة" data-en="Our team will contact you within 30 minutes to confirm and follow up">سيتواصل معك فريقنا خلال 30 دقيقة لتأكيد الطلب والمتابعة</div>
+        <div class="order-number" id="orderNumberDisplay">#DP-000000</div>
+        <button onclick="copyDisplayedOrderNumber()" style="background:none;border:1.5px solid var(--border);border-radius:8px;
+          padding:5px 12px;font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer;margin-bottom:8px">
+          <i class="fas fa-copy"></i> نسخ رقم الطلب
+        </button>
+        <div class="order-total-display" id="orderTotalDisplay" style="margin:8px 0 16px;font-size:15px;font-weight:700;color:var(--primary-dark)"></div>
+        <div class="success-actions">
+          <button class="whatsapp-btn" onclick="sendWhatsApp()">
+            <i class="fab fa-whatsapp"></i> <span data-ar="تواصل عبر واتساب" data-en="Contact via WhatsApp">تواصل عبر واتساب</span>
+          </button>
+          <button class="track-btn" onclick="closeOrderModal();clearCart()">
+            <span data-ar="متابعة التسوق" data-en="Continue Shopping">متابعة التسوق</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer" id="modalFooter">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="display:none">
+        <i class="fas fa-arrow-right" id="backArrow"></i> <span data-ar="رجوع" data-en="Back">رجوع</span>
+      </button>
+      <button class="btn-next" id="btnNext" onclick="nextStep()">
+        <span data-ar="التالي" data-en="Next">التالي</span> <i class="fas fa-arrow-left" id="nextArrow"></i>
+      </button>
+      <button class="btn-submit" id="btnSubmit" onclick="submitOrder()" style="display:none">
+        <i class="fas fa-paper-plane"></i> <span data-ar="إرسال الطلب" data-en="Send Order">إرسال الطلب</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MAP PICKER MODAL -->
+<div class="modal-overlay" id="mapPickerModal" style="z-index:4500">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-map-marked-alt"></i> <span data-ar="اختر موقعك من الخريطة" data-en="Pick Your Location">اختر موقعك من الخريطة</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeMapPicker()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">
+        <i class="fas fa-info-circle"></i> <span data-ar="اضغط على الخريطة أو اسحب الدبوس لتحديد موقعك بدقة" data-en="Tap the map or drag the pin to set your exact location">اضغط على الخريطة أو اسحب الدبوس لتحديد موقعك بدقة</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+        <button type="button" onclick="locateOnPicker()" style="padding:8px 14px;border-radius:50px;border:1.5px solid var(--primary);background:#f0f8ff;color:var(--primary);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer"><i class="fas fa-crosshairs"></i> موقعي الحالي</button>
+        <span id="mapPickerGpsStatus" style="font-size:12px;font-weight:600;color:var(--text-muted)"></span>
+      </div>
+      <div style="position:relative;margin-bottom:10px">
+        <div style="display:flex;gap:8px">
+          <input type="text" class="form-input" id="mapPickerSearch" placeholder="🔍 ابحث عن منطقة أو شارع أو معلم... / Search address" autocomplete="off" style="flex:1"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();searchPickerAddress();}">
+          <button aria-label="بحث" type="button" onclick="searchPickerAddress()" style="padding:0 16px;border-radius:var(--radius-sm);border:none;background:var(--primary);color:#fff;font-family:inherit;font-weight:700;cursor:pointer"><i class="fas fa-search"></i></button>
+        </div>
+        <div id="mapPickerResults" style="display:none;position:absolute;top:100%;inset-inline:0;z-index:1000;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-top:4px;max-height:200px;overflow-y:auto;box-shadow:0 6px 20px rgba(0,0,0,.12)"></div>
+      </div>
+      <div id="leafletPickerMap" style="width:100%;height:340px;border-radius:var(--radius-sm);border:2px solid var(--border)"></div>
+      <div id="mapPickerArea" style="margin-top:10px;font-size:13px;font-weight:700;color:var(--primary-dark);min-height:20px"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeMapPicker()"><i class="fas fa-times"></i> <span data-ar="إلغاء" data-en="Cancel">إلغاء</span></button>
+      <button class="btn-submit" onclick="confirmMapPick()"><i class="fas fa-check"></i> <span data-ar="تأكيد الموقع" data-en="Confirm Location">تأكيد الموقع</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENTS LIST MODAL -->
+<div class="modal-overlay" id="clientsListModal" style="align-items:flex-start;padding:0;overflow-y:auto">
+  <div style="background:#f0f4f8;min-height:100vh;width:100%;max-width:100%">
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d3561);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onclick="closeClientsListModal()" style="padding:9px 16px;border-radius:50px;background:rgba(255,255,255,0.12);color:#fff;border:2px solid rgba(255,255,255,0.2);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px">
+          <i class="fas fa-arrow-right"></i> الرئيسية
+        </button>
+        <div style="color:#fff;font-weight:900;font-size:17px">العملاء</div>
+      </div>
+      <button aria-label="إغلاق" onclick="closeClientsListModal()" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.2);cursor:pointer;font-size:15px">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div style="padding:20px 28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <div style="font-size:14px;color:var(--text-muted);font-weight:700" id="clientsListCount"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button onclick="openCreditAdmin()"
+            style="padding:9px 16px;border-radius:50px;border:2px solid #a78bfa;background:#f5f3ff;color:#6d28d9;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+            <i class="fas fa-file-invoice-dollar"></i> الذمم
+          </button>
+          <button onclick="openGlobalDeliveryDiscountModal()"
+            style="padding:9px 16px;border-radius:50px;border:2px solid var(--border);background:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+            <i class="fas fa-truck"></i> الخصم العام على التوصيل
+          </button>
+          <select aria-label="نوع العملاء" id="clientsListType" onchange="renderClientsList()"
+            style="padding:9px 16px;border-radius:50px;border:2px solid var(--border);background:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+            <option value="all">الكل</option>
+            <option value="members">الأعضاء</option>
+            <option value="guests">غير الأعضاء</option>
+          </select>
+          <select aria-label="ترتيب العملاء" id="clientsListSort" onchange="renderClientsList()"
+            style="padding:9px 16px;border-radius:50px;border:2px solid var(--border);background:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">
+            <option value="name">ترتيب حسب: الاسم (أبجدي)</option>
+            <option value="spent">ترتيب حسب: مجموع المشتريات</option>
+          </select>
+          <input type="text" id="clientsListSearch" placeholder="🔍 ابحث بالاسم أو جزء من رقم الهاتف..." oninput="renderClientsList()"
+            style="padding:9px 16px;border-radius:50px;border:2px solid var(--border);font-family:inherit;font-size:13px;min-width:220px">
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:16px;border:1px solid #e2eaf0;overflow:hidden">
+        <div id="clientsListBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL MODAL -->
+<div class="modal-overlay" id="clientDetailModal" style="align-items:flex-start;padding:0;overflow-y:auto">
+  <div style="background:#f0f4f8;min-height:100vh;width:100%;max-width:100%">
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d3561);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onclick="closeClientDetailModal()" style="padding:9px 16px;border-radius:50px;background:rgba(255,255,255,0.12);color:#fff;border:2px solid rgba(255,255,255,0.2);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px">
+          <i class="fas fa-arrow-right"></i> العملاء
+        </button>
+        <div style="color:#fff;font-weight:900;font-size:17px">تفاصيل العميل</div>
+      </div>
+      <button aria-label="إغلاق" onclick="closeClientDetailModal()" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.2);cursor:pointer;font-size:15px">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div style="padding:20px 28px;max-width:760px;margin:0 auto" id="clientDetailBody"></div>
+  </div>
+</div>
+
+<!-- DELIVERY SETTINGS MODAL (per-customer) -->
+<div class="modal-overlay" id="deliverySettingsModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-truck"></i> إعدادات التوصيل — <span id="deliverySettingsClientName"></span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeDeliverySettingsModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="deliveryEnabled" style="width:20px;height:20px;cursor:pointer">
+          <span style="font-weight:700">تفعيل أجور التوصيل لهذا العميل</span>
+        </label>
+        <small style="color:var(--text-muted);display:block;margin-top:4px">غير مفعّل = التوصيل مجاني دائماً لهذا العميل</small>
+      </div>
+      <div class="form-group">
+        <label class="form-label">قيمة التوصيل (د.أ)</label>
+        <input type="number" class="form-input" id="deliveryFee" min="0" step="0.1" placeholder="اتركها فارغة = غير محدد بعد">
+        <small style="color:var(--text-muted);display:block;margin-top:4px">فارغة = "المجموع + خدمة التوصيل" بالفاتورة · صفر = مجاني · رقم = هذا المبلغ</small>
+      </div>
+      <small style="color:var(--text-muted);display:block;margin-top:4px">
+        ملاحظة: خصم التوصيل حسب مجموع الفاتورة أصبح إعداداً عاماً واحداً للمتجر (من صفحة العملاء الرئيسية)، ولما يكون مفعّلاً يتجاوز إعدادات هذا العميل.
+      </small>
+      <div id="deliverySettingsError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px;margin-top:10px"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeDeliverySettingsModal()">إلغاء</button>
+      <button class="btn-submit" onclick="saveDeliverySettings()"><i class="fas fa-save"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL DELIVERY DISCOUNT MODAL (applies to everyone, overrides per-client pricing) -->
+<div class="modal-overlay" id="globalDeliveryDiscountModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-truck"></i> الخصم العام على التوصيل (لجميع العملاء)</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeGlobalDeliveryDiscountModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="globalDeliveryDiscountEnabled" onchange="toggleGlobalDeliveryTiersSection()" style="width:20px;height:20px;cursor:pointer">
+          <span style="font-weight:700">تفعيل خصم على التوصيل حسب مجموع الفاتورة</span>
+        </label>
+        <small style="color:var(--text-muted);display:block;margin-top:4px">عند التفعيل: يُطبَّق على جميع العملاء (مسجّلين وغير مسجّلين) ويُلغي أي أجور توصيل خاصة بأي عميل</small>
+      </div>
+      <div id="globalDeliveryTiersWrap" style="display:none">
+        <div id="globalDeliveryTiersList" style="margin-bottom:10px"></div>
+        <button type="button" onclick="addGlobalDeliveryTierRow()" style="padding:8px 16px;border-radius:10px;background:#f8fbfd;border:1.5px solid var(--border);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+          <i class="fas fa-plus"></i> إضافة درجة
+        </button>
+      </div>
+      <div id="globalDeliveryError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px;margin-top:10px"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeGlobalDeliveryDiscountModal()">إلغاء</button>
+      <button class="btn-submit" onclick="saveGlobalDeliveryDiscount()"><i class="fas fa-save"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CLIENT ORDERS PAGE ===== -->
+<div class="page-section" id="ordersPage">
+  <div class="orders-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-tag">طلباتي</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="تتبع طلباتك" data-en="Track Your Orders">تتبع طلباتك</h2>
+      </div>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div id="clientOrdersList">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+<!-- ===== COMPARE BAR ===== -->
+<div class="compare-bar" id="compareBar">
+  <div class="compare-bar-items" id="compareBarItems"></div>
+  <div style="display:flex;gap:10px">
+    <button class="btn-primary" style="padding:9px 22px;font-size:13px" onclick="openComparePage()">
+      <i class="fas fa-balance-scale"></i> قارن الآن
+    </button>
+    <button onclick="clearCompare()" style="padding:9px 16px;border-radius:50px;background:transparent;
+      border:2px solid var(--border);color:var(--text-muted);font-family:inherit;font-size:13px;
+      font-weight:700;cursor:pointer">مسح الكل</button>
+  </div>
+</div>
+
+<!-- ===== COMPARE PAGE ===== -->
+<div class="page-section" id="comparePage">
+  <div class="orders-page">
+    <div style="margin-bottom:24px">
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div class="section-tag">مقارنة المنتجات</div>
+    <h2 class="section-title" data-ar="قارن بين المنتجات المختارة" data-en="Compare Selected Products">قارن بين المنتجات المختارة</h2>
+    <div id="compareTableWrap" style="margin-top:24px"></div>
+  </div>
+</div>
+
+<!-- ===== FAVORITES PAGE ===== -->
+<div class="page-section" id="favoritesPage">
+  <div class="orders-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-tag">❤️ المفضلة</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="منتجاتك المفضلة" data-en="Your Favorite Products">منتجاتك المفضلة</h2>
+      </div>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div id="favoriteQuotesSection" style="margin:0 0 28px;display:none">
+      <div class="section-tag">🔖 عروض الأسعار المحفوظة</div>
+      <div id="favoriteQuotesList" style="display:grid;gap:14px;margin-top:14px"></div>
+    </div>
+    <div class="products-grid" id="favoritesGrid"></div>
+  </div>
+</div>
+
+<!-- ===== MY QUOTES PAGE ===== -->
+<div class="page-section" id="reorderedProductsPage">
+  <div class="orders-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-tag">🔄 إعادة الطلب</div>
+        <h2 class="section-title" style="margin-bottom:0">منتجاتك المطلوبة سابقاً</h2>
+      </div>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:18px">
+      <button id="reorderSortRecentBtn" onclick="setReorderSort('recent')" style="padding:8px 16px;border-radius:50px;border:1.5px solid var(--primary-light);background:var(--primary);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+        <i class="fas fa-clock"></i> الأحدث
+      </button>
+      <button id="reorderSortFrequentBtn" onclick="setReorderSort('frequent')" style="padding:8px 16px;border-radius:50px;border:1.5px solid var(--border);background:#fff;color:var(--text-muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+        <i class="fas fa-fire"></i> الأكثر طلباً
+      </button>
+    </div>
+    <div class="products-grid" id="reorderedProductsGrid"></div>
+  </div>
+</div>
+<div class="page-section" id="myQuotesPage">
+  <div class="orders-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-tag">عروض أسعاري</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="طلبات عروض الأسعار" data-en="Quote Requests">طلبات عروض الأسعار</h2>
+      </div>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div id="myQuotesList"></div>
+  </div>
+</div>
+<!-- ===== MESSAGES PAGE (CLIENT) ===== -->
+<div class="page-section" id="messagesPage">
+  <div class="orders-page">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-tag">💬 المراسلات</div>
+        <h2 class="section-title" style="margin-bottom:0" data-ar="تواصل مع فريق DentaPro" data-en="Contact the DentaPro Team">تواصل مع فريق DentaPro</h2>
+      </div>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div id="clientMessagesThread" style="background:#fff;border:1px solid var(--border);border-radius:16px;
+      padding:18px;min-height:300px;max-height:480px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px"></div>
+    <div id="clientChatImgPreviewWrap" style="display:none;margin-bottom:10px;position:relative;width:fit-content">
+      <img id="clientChatImgPreview" style="max-width:120px;max-height:120px;border-radius:10px;border:2px solid var(--border);display:block">
+      <button onclick="clearClientChatImage()" style="position:absolute;top:-8px;left:-8px;width:22px;height:22px;border-radius:50%;background:var(--danger);color:#fff;border:none;cursor:pointer;font-size:11px">✕</button>
+    </div>
+    <div style="display:flex;gap:10px">
+      <input type="file" id="clientChatImgFile" accept="image/*" style="display:none" onchange="handleClientChatImageSelect(event)">
+      <button aria-label="إرفاق صورة" onclick="document.getElementById('clientChatImgFile').click()" title="إرفاق صورة"
+        style="width:44px;height:44px;border-radius:50%;background:#f0f8ff;color:var(--primary);border:2px solid var(--border);cursor:pointer;flex-shrink:0">
+        <i class="fas fa-paperclip"></i>
+      </button>
+      <input type="text" class="form-input" id="clientMsgInput" placeholder="اكتب رسالتك أو استفسارك هنا..."
+        onkeydown="if(event.key==='Enter'){event.preventDefault();sendClientMessageFromInput();}">
+      <button aria-label="إرسال" class="btn-primary" style="padding:0 24px;flex-shrink:0" onclick="sendClientMessageFromInput()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== PRODUCT DETAIL PAGE ===== -->
+<!-- ===== PRODUCT DETAIL PAGE ===== -->
+<div class="page-section" id="productDetailPage">
+  <div class="orders-page">
+    <div style="margin-bottom:24px">
+      <button onclick="closeProductDetail()" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> رجوع
+      </button>
+    </div>
+    <div id="productDetailContent">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+<!-- ===== ABOUT / CONTACT PAGE ===== -->
+<div class="page-section" id="aboutPage">
+  <div class="orders-page" style="max-width:760px">
+    <div style="margin-bottom:24px">
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+
+    <div class="section-tag">من نحن</div>
+    <h2 class="section-title" data-ar="DentaPro — شريكك الموثوق في مستلزمات طب الأسنان" data-en="DentaPro — Your Trusted Partner in Dental Supplies">DentaPro — شريكك الموثوق في مستلزمات طب الأسنان</h2>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin:16px 0 32px">
+      DentaPro هو متجر متخصص في توفير أجهزة وأدوات ومواد طب الأسنان لعيادات وأطباء الأسنان في المنطقة.
+      نوفر منتجات أصلية 100% من أفضل العلامات العالمية، بأسعار جملة تنافسية، وتوصيل سريع لجميع العيادات المسجلة لدينا.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:40px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center">
+        <div style="font-size:28px;margin-bottom:8px">📦</div>
+        <div style="font-weight:800;color:var(--primary-dark)">+2500 منتج</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center">
+        <div style="font-size:28px;margin-bottom:8px">🏥</div>
+        <div style="font-weight:800;color:var(--primary-dark)">+850 عيادة عميل</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center">
+        <div style="font-size:28px;margin-bottom:8px">🚚</div>
+        <div style="font-weight:800;color:var(--primary-dark)">توصيل خلال 24 ساعة</div>
+      </div>
+    </div>
+
+    <div class="section-tag">تواصل معنا</div>
+    <h2 class="section-title" style="margin-bottom:20px" data-ar="نحن هنا لمساعدتك" data-en="We're Here to Help">نحن هنا لمساعدتك</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px">
+      <a href="https://wa.me/962790408680" target="_blank" style="text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px;color:inherit">
+        <div style="width:44px;height:44px;border-radius:50%;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="fab fa-whatsapp"></i></div>
+        <div>
+          <div style="font-weight:800;font-size:14px;color:var(--primary-dark)">واتساب</div>
+          <div style="font-size:13px;color:var(--text-muted)">+962 7 90 40 86 80</div>
+        </div>
+      </a>
+      <a class="dp-messenger-link" data-show="flex" href="#" target="_blank" rel="noopener" style="display:none;text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;align-items:center;gap:12px;color:inherit">
+        <div style="width:44px;height:44px;border-radius:50%;background:#0084ff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px"><i class="fab fa-facebook-messenger"></i></div>
+        <div>
+          <div style="font-weight:800;font-size:14px;color:var(--primary-dark)">ماسنجر</div>
+          <div style="font-size:13px;color:var(--text-muted)">راسلنا على فيسبوك</div>
+        </div>
+      </a>
+      <a href="https://wa.me/962790408680?text=السلام عليكم، أحتاج مساعدة من فضلك" style="text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px;color:inherit">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fab fa-whatsapp"></i></div>
+        <div>
+          <div style="font-weight:800;font-size:14px;color:var(--primary-dark)">واتساب</div>
+          <div style="font-size:13px;color:var(--text-muted)">+962 7 90 40 86 80</div>
+        </div>
+      </a>
+      <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--accent2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-clock"></i></div>
+        <div>
+          <div style="font-weight:800;font-size:14px;color:var(--primary-dark)">ساعات العمل</div>
+          <div style="font-size:13px;color:var(--text-muted)">9 صباحًا - 9 مساءً</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">الاسم</label>
+      <input type="text" class="form-input" id="contactName" placeholder="اسمك الكامل">
+    </div>
+    <div class="form-group">
+      <label class="form-label">البريد الإلكتروني</label>
+      <input type="email" class="form-input" id="contactEmail" placeholder="example@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">رسالتك</label>
+      <textarea class="form-textarea" id="contactMessage" placeholder="اكتب رسالتك هنا..."></textarea>
+    </div>
+    <button class="btn-primary" onclick="sendContactMessage()">
+      <i class="fas fa-paper-plane"></i> إرسال الرسالة
+    </button>
+  </div>
+</div>
+<!-- ===== GUEST TRACK ORDER PAGE ===== -->
+<div class="page-section" id="trackOrderPage">
+  <div class="orders-page" style="max-width:600px">
+    <div style="margin-bottom:24px">
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+    <div class="section-tag">تتبع الطلب</div>
+    <h2 class="section-title" data-ar="تتبع طلبك أو عرض السعر" data-en="Track Your Order or Quote">تتبع طلبك أو عرض السعر</h2>
+    <div id="trackRecentBox" style="display:none;margin-bottom:24px"></div>
+    <p style="color:var(--text-muted);font-size:14px;margin:8px 0 24px;line-height:1.7">
+      أدخل رقم الطلب أو عرض السعر (كما وصلك بشاشة التأكيد أو واتساب) ورقم الهاتف المستخدم عند الطلب.
+    </p>
+    <div class="form-group">
+      <label class="form-label">رقم الطلب / عرض السعر <span class="required">*</span></label>
+      <input type="text" class="form-input" id="trackOrderId" placeholder="DP-XXXXX-XXX أو QT-XXXXX-XXX" style="text-transform:uppercase">
+    </div>
+    <div class="form-group">
+      <label class="form-label">رقم الهاتف <span class="required">*</span></label>
+      <input type="tel" class="form-input" id="trackOrderPhone" placeholder="05xxxxxxxx" onkeydown="if(event.key==='Enter')trackGuestOrder()">
+    </div>
+    <div id="trackErrorBox" style="display:none;align-items:center;gap:8px;color:var(--danger);font-size:13px;font-weight:700;
+      padding:10px 14px;background:#fff5f5;border-radius:8px;margin-bottom:16px">
+      <i class="fas fa-exclamation-circle"></i> <span id="trackErrorMsg"></span>
+    </div>
+    <button class="btn-primary" style="width:100%" onclick="trackGuestOrder()">
+      <i class="fas fa-search"></i> بحث
+    </button>
+    <div id="trackResultBox" style="margin-top:24px"></div>
+  </div>
+</div>
+<!-- ORDER CONFIRMATION MODAL (guest orders — رقم الطلب + نسخ/واتساب) -->
+<div class="modal-overlay" id="orderConfirmModal">
+  <div class="modal" style="max-width:420px;text-align:center">
+    <div class="modal-body" style="padding:32px 24px">
+      <div style="font-size:48px;margin-bottom:12px">🎉</div>
+      <h3 style="margin:0 0 8px;color:var(--primary-dark)">تم إرسال طلبك بنجاح</h3>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:20px">احتفظ برقم طلبك لتتمكن من تتبعه لاحقاً</p>
+      <div style="background:#f8fbfd;border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">رقم الطلب</div>
+        <div id="orderConfirmNumber" style="font-size:20px;font-weight:900;color:var(--primary-dark);letter-spacing:0.5px"></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button onclick="copyOrderConfirmNumber()" class="btn-back" style="flex:1"><i class="fas fa-copy"></i> نسخ الرقم</button>
+        <button onclick="shareOrderConfirmWhatsApp()" style="flex:1;background:#25D366;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+          <i class="fab fa-whatsapp"></i> واتساب
+        </button>
+      </div>
+      <button onclick="closeOrderConfirmModal()" class="btn-primary" style="width:100%;margin-top:14px">حسناً</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ERROR PAGE ===== -->
+<div class="page-section" id="errorPage">
+  <div class="orders-page" style="max-width:760px;text-align:center;padding-top:60px">
+    <div style="font-size:64px;margin-bottom:20px" id="errorPageIcon">⚠️</div>
+    <h2 class="section-title" id="errorPageTitle" data-ar="حدث خطأ ما" data-en="Something Went Wrong">حدث خطأ ما</h2>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.8;margin:16px auto 32px;max-width:420px" id="errorPageMessage">
+      تعذّر تحميل هذه الصفحة. يرجى التحقق من اتصال الإنترنت والمحاولة مجدداً.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" id="errorPageRetryBtn" onclick="location.reload()">
+        <i class="fas fa-rotate-right"></i> إعادة المحاولة
+      </button>
+      <button onclick="showPage('home')" class="btn-back" style="display:flex">
+        <i class="fas fa-arrow-right"></i> <span data-ar="العودة للمتجر" data-en="Back to Store">العودة للمتجر</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Denta<span>Pro</span></span>
+        <p class="footer-desc" data-ar="المتجر المتخصص الأول لمستلزمات طب الأسنان. نوفر أفضل المنتجات الطبية المعتمدة بأسعار تنافسية." data-en="The leading specialized dental supplies store in the Gulf region. We provide the best certified medical products at competitive prices.">المتجر المتخصص الأول لمستلزمات طب الأسنان.</p>
+        <div class="social-links">
+          <a class="social-link" href="#" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-link" href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+          <a class="social-link" href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+          <a class="social-link" href="#" aria-label="لينكدإن"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-ar="الأقسام" data-en="Categories">الأقسام</h4>
+        <ul>
+          <li><a href="#" data-ar="الأجهزة والمعدات" data-en="Devices & Equipment">الأجهزة والمعدات</a></li>
+          <li><a href="#" data-ar="الأدوات اليدوية" data-en="Hand Instruments">الأدوات اليدوية</a></li>
+          <li><a href="#" data-ar="المواد الطبية" data-en="Medical Materials">المواد الطبية</a></li>
+          <li><a href="#" data-ar="التقويم" data-en="Orthodontics">التقويم</a></li>
+          <li><a href="#" data-ar="زراعة الأسنان" data-en="Dental Implants">زراعة الأسنان</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-ar="الشركة" data-en="Company">الشركة</h4>
+        <ul>
+          <li><a href="#" onclick="showPage('about')" data-ar="من نحن" data-en="About Us">من نحن</a></li>
+          <li><a href="#" onclick="showPage('about')" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a></li>
+          <li><a href="#" data-ar="المدونة الطبية" data-en="Medical Blog">المدونة الطبية</a></li>
+          <li><a href="#" data-ar="برنامج العيادات" data-en="Clinic Program">برنامج العيادات</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-ar="الدعم" data-en="Support">الدعم</h4>
+        <ul>
+          <li><a href="#" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a></li>
+          <li><a href="#" data-ar="سياسة الإرجاع" data-en="Return Policy">سياسة الإرجاع</a></li>
+          
+          <li><a href="#" data-ar="الشحن والتوصيل" data-en="Shipping Info">الشحن والتوصيل</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-ar="© 2026 DentaPro — جميع الحقوق محفوظة" data-en="© 2026 DentaPro — All Rights Reserved">© 2026 DentaPro — جميع الحقوق محفوظة</p>
+      <div class="footer-payments">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">MADA</span>
+        <span class="payment-icon">APPLE PAY</span>
+        <span class="payment-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header" id="authModalHeader" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-user-circle"></i> <span id="authModalTitle">تسجيل الدخول</span></div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+
+      <!-- TABS -->
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">
+          <i class="fas fa-sign-in-alt"></i> دخول
+        </button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">
+          <i class="fas fa-user-plus"></i> حساب جديد
+        </button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="authLoginForm" novalidate onsubmit="event.preventDefault();doLogin()">
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-envelope" style="color:var(--primary-light)"></i> البريد الإلكتروني أو اسم المستخدم <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="text" class="form-input" id="loginIdentifier" placeholder="example@email.com أو admin">
+            <i class="fas fa-at input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> كلمة المرور <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="password" class="form-input" id="loginPassword" placeholder="••••••••">
+            <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('loginPassword',this)"></i>
+          </div>
+        </div>
+        <div id="loginError" style="display:none" class="field-error show">
+          <i class="fas fa-exclamation-circle"></i> <span id="loginErrorMsg">بيانات الدخول غير صحيحة</span>
+        </div>
+        <button type="submit" class="btn-next" style="width:100%;justify-content:center;margin-top:8px">
+          <i class="fas fa-sign-in-alt"></i> دخول
+        </button>
+        <button type="button" onclick="sendPasswordReset()" style="width:100%;margin-top:10px;border:0;background:transparent;color:var(--primary);font-family:inherit;font-weight:700;cursor:pointer">
+          نسيت كلمة المرور؟ إرسال رابط استعادة
+        </button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="authRegisterForm" novalidate style="display:none" onsubmit="event.preventDefault();doRegister()">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">الاسم الأول <span class="required">*</span></label>
+            <input type="text" class="form-input" id="regFirstName" placeholder="محمد">
+          </div>
+          <div class="form-group">
+            <label class="form-label">اسم العيادة <span class="required">*</span></label>
+            <input type="text" class="form-input" id="regClinic" placeholder="عيادة الابتسامة">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-envelope" style="color:var(--primary-light)"></i> البريد الإلكتروني <small style="color:var(--text-muted);font-weight:500">(اختياري)</small></label>
+          <div class="input-with-icon">
+            <input type="email" class="form-input" id="regEmail" placeholder="doctor@clinic.com (اختياري)">
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-phone" style="color:var(--primary-light)"></i> رقم الهاتف <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="tel" class="form-input" id="regPhone" placeholder="05xxxxxxxx">
+            <i class="fas fa-phone input-icon"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marker-alt" style="color:var(--primary-light)"></i> وصف الموقع اليدوي <small style="color:var(--text-muted);font-weight:500">(اختياري)</small></label>
+          <textarea class="form-textarea" id="regLocationText" placeholder="مثال: عمّان، الدوار السابع، مقابل..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-map-marked-alt" style="color:var(--primary-light)"></i> تحديد الموقع عبر GPS <small style="color:var(--text-muted);font-weight:500">(اختياري)</small></label>
+          <input type="hidden" id="regLocationLat" value="">
+          <input type="hidden" id="regLocationLng" value="">
+          <div style="display:flex;gap:8px">
+            <button type="button" onclick="detectRegLocation()" style="flex:1;padding:11px;border-radius:var(--radius-sm);
+              background:#f0f8ff;color:var(--primary);border:1.5px dashed var(--border);font-family:inherit;
+              font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+              <i class="fas fa-crosshairs"></i> موقعي الحالي
+            </button>
+            <button type="button" onclick="openProfileMapPicker('reg')" style="flex:1;padding:11px;border-radius:var(--radius-sm);
+              background:#0a5c8a;color:#fff;border:none;font-family:inherit;
+              font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+              <i class="fas fa-map-marked-alt"></i> اختر من الخريطة
+            </button>
+          </div>
+          <div id="regLocationStatus" style="display:none;margin-top:8px;font-size:12px;font-weight:600"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> كلمة المرور <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="password" class="form-input" id="regPassword" placeholder="8 أحرف على الأقل" oninput="checkPassStrength(this.value)">
+            <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('regPassword',this)"></i>
+          </div>
+          <div class="pass-strength">
+            <div class="pass-strength-bar"><div class="pass-strength-fill" id="passStrengthFill"></div></div>
+            <div class="pass-strength-text" id="passStrengthText"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> تأكيد كلمة المرور <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="password" class="form-input" id="regPasswordConfirm" placeholder="أعد كتابة كلمة المرور">
+            <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('regPasswordConfirm',this)"></i>
+          </div>
+        </div>
+        <div id="regError" style="display:none" class="field-error show">
+          <i class="fas fa-exclamation-circle"></i> <span id="regErrorMsg">يرجى ملء جميع الحقول</span>
+        </div>
+        <button type="submit" class="btn-submit" style="width:100%;justify-content:center;margin-top:8px">
+          <i class="fas fa-user-plus"></i> إنشاء الحساب
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- ADMIN PANEL FULL -->
+<div class="modal-overlay" id="adminPanel" style="align-items:flex-start;padding:0;overflow-y:auto">
+  <div style="background:#f0f4f8;min-height:100vh;width:100%;max-width:100%">
+    
+    <!-- Admin Header -->
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d3561);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button onclick="closeAdmin()" style="padding:9px 16px;border-radius:50px;background:rgba(255,255,255,0.12);color:#fff;border:2px solid rgba(255,255,255,0.2);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+          <i class="fas fa-arrow-right"></i> الرئيسية
+        </button>
+        <div style="color:#fff;font-weight:900;font-size:17px" id="adminPanelTitle">المنتجات</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button aria-label="إغلاق" onclick="closeAdmin()" style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.2);cursor:pointer;font-size:15px">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Products Tab Toolbar -->
+    <div id="adminProductsToolbar" style="padding:20px 28px 0;display:flex;gap:10px;flex-wrap:wrap">
+      <button onclick="openAddProduct()" style="padding:9px 20px;border-radius:50px;background:#00c2a8;color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px">
+        <i class="fas fa-plus"></i> إضافة منتج
+      </button>
+      <button onclick="openAddCategory()" style="padding:9px 20px;border-radius:50px;background:#0a5c8a;color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px">
+        <i class="fas fa-folder-plus"></i> إضافة قسم
+      </button>
+    </div>
+
+    <!-- Stats Bar -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;padding:24px 28px 0">
+      <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid #e2eaf0;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:#0a5c8a" id="adminStatTotal">0</div>
+        <div style="font-size:13px;color:#5a7a90;margin-top:4px">إجمالي المنتجات</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid #e2eaf0;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:#00c2a8" id="adminStatCats">0</div>
+        <div style="font-size:13px;color:#5a7a90;margin-top:4px">الفئات</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid #e2eaf0;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:#f59e0b" id="adminStatOffers">0</div>
+        <div style="font-size:13px;color:#5a7a90;margin-top:4px">منتجات بخصم</div>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid #e2eaf0;text-align:center">
+        <div style="font-size:28px;font-weight:900;color:#22c55e" id="adminStatNew">0</div>
+        <div style="font-size:13px;color:#5a7a90;margin-top:4px">منتجات جديدة</div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div id="adminFilterBar" style="padding:20px 28px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <div style="position:relative;flex:1;min-width:200px">
+        <input type="text" id="adminSearch" placeholder="🔍 ابحث في المنتجات..." oninput="renderAdminTable()"
+          style="width:100%;padding:11px 16px;border-radius:50px;border:2px solid #d0e4ef;background:#fff;font-family:inherit;font-size:14px;outline:none">
+      </div>
+      <select aria-label="تصفية حسب القسم" id="adminCatFilter" onchange="renderAdminTable()"
+        style="padding:11px 16px;border-radius:50px;border:2px solid #d0e4ef;background:#fff;font-family:inherit;font-size:14px;outline:none;cursor:pointer">
+        <option value="all">كل الفئات</option>
+      </select>
+      <button type="button" onclick="printProductsList()" title="طباعة قائمة المنتجات للتدقيق"
+        style="padding:11px 18px;border-radius:50px;border:2px solid #d0e4ef;background:#fff;color:var(--primary-dark);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">
+        <i class="fas fa-print"></i> طباعة
+      </button>
+    </div>
+    <!-- Points Panel (Admin) -->
+    <div id="adminPointsWrap" style="display:none;padding:0 28px 28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">إدارة نقاط العملاء</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:4px">أضف نقاط لأي عميل مسجل</div>
+        </div>
+      </div>
+
+      <!-- إعدادات احتساب نقاط الشراء تلقائيًا -->
+      <div style="background:#fff;border-radius:14px;padding:18px;border:1px solid #e2eaf0;margin-bottom:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-weight:800;color:var(--primary-dark);font-size:15px">
+              <i class="fas fa-magic" style="color:var(--accent2)"></i> احتساب نقاط الشراء تلقائيًا
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px">
+              نسبة عامة تحوّل سعر أي منتج (غير محدد يدويًا) لنقاط شراء تلقائيًا
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="autoPointsEnabled" style="width:20px;height:20px;cursor:pointer">
+            <span style="font-size:13px;font-weight:700;color:var(--text-muted)">تفعيل</span>
+          </label>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+          <input type="number" id="autoPointsPercent" min="0" step="0.1" placeholder="مثال: 20"
+            style="width:120px;padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);font-family:inherit;font-size:14px">
+          <span style="font-size:13px;color:var(--text-muted);font-weight:700">%</span>
+          <button onclick="saveAutoPointsConfig()"
+            style="padding:9px 20px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer">
+            حفظ
+          </button>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          مثال: منتج سعره 10 د.أ ونسبة 20% ← 2 نقطة (السعر × النسبة ÷ 100، بدون فواصل)
+        </div>
+      </div>
+
+      <!-- إعدادات النقاط التلقائية من قيمة الطلب (تُضاف لرصيد العميل عند التسليم) -->
+      <div style="background:#fff;border-radius:14px;padding:18px;border:1px solid #e2eaf0;margin-bottom:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-weight:800;color:var(--primary-dark);font-size:15px">
+              <i class="fas fa-coins" style="color:var(--accent2)"></i> نقاط تلقائية من قيمة الطلب
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px">
+              نسبة من قيمة الطلب تُضاف كنقاط لرصيد العميل تلقائيًا عند تسليم الطلب
+            </div>
+          </div>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="earnPointsEnabled" style="width:20px;height:20px;cursor:pointer">
+            <span style="font-size:13px;font-weight:700;color:var(--text-muted)">تفعيل</span>
+          </label>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px">
+          <input type="number" id="earnPointsPercent" min="0" step="0.1" placeholder="مثال: 5"
+            style="width:120px;padding:9px 12px;border-radius:10px;border:1.5px solid var(--border);font-family:inherit;font-size:14px">
+          <span style="font-size:13px;color:var(--text-muted);font-weight:700">%</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="earnPointsIncludeOffers" style="width:18px;height:18px;cursor:pointer">
+            <span style="font-size:13px;color:var(--text-muted)">احتساب النقاط على بنود عروض الكمية والباقات</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="earnPointsIncludeDiscounted" style="width:18px;height:18px;cursor:pointer">
+            <span style="font-size:13px;color:var(--text-muted)">احتساب النقاط على المنتجات ذات الخصم المؤقت والطلبات المشمولة بالخصم المخصص</span>
+          </label>
+        </div>
+        <button onclick="saveEarnPointsConfig()"
+          style="margin-top:14px;padding:9px 20px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer">
+          حفظ
+        </button>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px">
+          البنود غير المفعّلة أعلاه تُستثنى من الحساب، وباقي الطلب يأخذ نقاط عادي. تغيير النسبة لا يؤثر على الطلبات المسلَّمة سابقًا.
+        </div>
+      </div>
+
+      <div id="adminPointsList">
+        <!-- filled by JS -->
+      </div>
+    </div>
+<!-- Offers Panel (Admin) -->
+<div id="adminOffersWrap" style="display:none;padding:0 28px 28px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">إدارة العروض</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px">عروض الكمية والباقات</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onclick="openAddQtyOffer()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <i class="fas fa-tag"></i> عرض كمية
+      </button>
+      <button onclick="openAddBundle()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <i class="fas fa-gift"></i> باقة جديدة
+      </button>
+      <button onclick="openCouponsAdmin()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <i class="fas fa-ticket-alt"></i> أكواد الخصم
+      </button>
+      <button onclick="openAddTextOffer()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,#7e22ce,#a855f7);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <i class="fas fa-bullhorn"></i> إضافة نص
+      </button>
+    </div>
+  </div>
+  <div id="adminOffersList"></div>
+</div>
+
+<div id="adminHomeBannerWrap" style="display:none;padding:0 28px 28px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">تعديل الصفحة الرئيسية</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px">شريط صور مجدولة أعلى الصفحة الرئيسية (حتى 10 صور)</div>
+    </div>
+    <button id="addHomeBannerBtn" onclick="openAddHomeBannerSlide()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+      <i class="fas fa-plus"></i> إضافة صورة
+    </button>
+  </div>
+  <div id="adminHomeBannerList"></div>
+</div>
+
+<!-- TEXT OFFER MODAL -->
+<div class="modal-overlay" id="textOfferModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#7e22ce,#a855f7)">
+      <div class="modal-title"><i class="fas fa-bullhorn"></i> إضافة نص إعلاني</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeTextOfferModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="textOfferId">
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-align-right" style="color:#a855f7"></i> نص الإعلان (عربي) <span class="required">*</span></label>
+        <textarea class="form-textarea" id="textOfferText" placeholder="مثال: توصيل مجاني لجميع الطلبات فوق 50 دينار"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-align-right" style="color:#a855f7"></i> نص الإعلان (إنجليزي) <small style="color:var(--text-muted);font-weight:500">(اختياري)</small></label>
+        <textarea class="form-textarea" id="textOfferTextEn" placeholder="Example: Free delivery on all orders over 50 JOD"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-hourglass-half" style="color:#a855f7"></i> تاريخ الانتهاء <small style="color:var(--text-muted);font-weight:500">(اختياري — اتركه فارغًا ليبقى دائمًا)</small></label>
+        <input type="datetime-local" class="form-input" id="textOfferExpiry">
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px;background:#f8fbfd;padding:12px 16px;border-radius:12px">
+        <input type="checkbox" id="textOfferShowBanner" style="width:20px;height:20px;cursor:pointer">
+        <label for="textOfferShowBanner" style="margin:0;cursor:pointer;font-size:13px;font-weight:700">
+          عرضه أيضاً بخانة الإعلان العريضة (تحت الشريط المتحرك)
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-image" style="color:var(--primary-light)"></i> صورة (اختياري — تظهر فقط في الإعلان العريضة)</label>
+        <div class="img-upload-area" id="textOfferImgUploadArea" onclick="triggerTextOfferImgUpload()">
+          <input type="file" id="textOfferImageFile" accept="image/*" onchange="handleTextOfferImageUpload(event)" onclick="event.stopPropagation()">
+          <img class="img-preview-box" id="textOfferImgPreviewBox" src="" alt="preview">
+          <span class="img-upload-icon">📷</span>
+          <div class="img-upload-text">انقر لاختيار صورة</div>
+          <div class="img-upload-hint">PNG، JPG، WEBP — بحد أقصى 2MB</div>
+        </div>
+        <button type="button" id="removeTextOfferImgBtn" onclick="removeTextOfferImage()"
+          style="display:none;margin-top:8px;padding:6px 16px;border-radius:50px;background:#fff5f5;color:var(--danger);border:2px solid #fecaca;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">
+          <i class="fas fa-trash-alt"></i> حذف الصورة
+        </button>
+      </div>
+      <div id="textOfferError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> يرجى كتابة نص الإعلان
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeTextOfferModal()"><i class="fas fa-times"></i> إلغاء</button>
+      <button class="btn-submit" onclick="saveTextOffer()" style="background:linear-gradient(135deg,#7e22ce,#a855f7)"><i class="fas fa-save"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+<!-- Quotes Panel (Admin) -->
+<div id="adminQuotesWrap" style="display:none;padding:0 28px 28px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">طلبات عروض الأسعار</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px">حدد السعر لكل مادة وأرسل العرض للعميل</div>
+    </div>
+    <button onclick="resetQuotesBadgeCounter()" style="padding:9px 16px;border-radius:50px;border:1.5px solid var(--border);background:#fff;color:var(--text-muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+      <i class="fas fa-broom"></i> تصفير العداد
+    </button>
+  </div>
+  <div id="adminQuotesList"></div>
+</div>
+<!-- Messages Panel (Admin) -->
+<div id="adminMessagesWrap" style="display:none;padding:0 28px 28px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">رسائل العملاء</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:4px">تواصل مع عميل محدد أو أرسل رسالة جماعية</div>
+    </div>
+    <button onclick="openBroadcastMessageModal()" style="padding:9px 18px;border-radius:50px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">
+      <i class="fas fa-bullhorn"></i> إرسال رسالة للعملاء
+    </button>
+  </div>
+  <div id="adminMessagesList"></div>
+</div>
+
+<!-- Roles Management (Admin Only) -->
+<div id="adminRolesWrap" style="display:none;padding:0 28px 28px">
+  <div style="margin-bottom:18px">
+    <div style="font-size:17px;font-weight:900;color:var(--primary-dark)">إدارة صلاحيات المستخدمين</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-top:4px">حدّد دور المستخدم: مدير النظام (Admin) أو مدير فرعي (Manager) أو عميل (Customer)</div>
+  </div>
+  <div style="background:#fff;border-radius:16px;border:1px solid #e2eaf0;padding:20px;max-width:560px">
+    <label style="font-size:13px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:8px">البحث بالبريد الإلكتروني أو اسم المستخدم</label>
+    <div style="display:flex;gap:10px">
+      <input type="text" id="roleSearchEmail" placeholder="example@email.com أو اسم المستخدم"
+        style="flex:1;padding:11px 16px;border:2px solid var(--border);border-radius:50px;font-family:inherit;font-size:14px"
+        onkeydown="if(event.key==='Enter')searchUserForRole()">
+      <button onclick="searchUserForRole()" style="padding:11px 22px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-family:inherit;font-weight:700;cursor:pointer">بحث</button>
+    </div>
+    <div id="roleSearchResult" style="margin-top:18px;display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+  <div style="margin-top:24px;font-size:12px;color:var(--text-muted);max-width:560px">
+    <i class="fas fa-info-circle"></i> تغيير الصلاحية يحتاج من المستخدم تسجيل خروج ودخول مجدداً لتفعيله بالكامل.
+  </div>
+
+  <!-- قائمة المدراء الحاليين -->
+  <div style="margin-top:32px">
+    <div style="font-size:16px;font-weight:900;color:var(--primary-dark);margin-bottom:4px">
+      <i class="fas fa-user-shield" style="color:#e53e3e"></i> المدراء الحاليون
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:14px">مدير النظام الرئيسي والمدراء الفرعيون المسجّلون حالياً</div>
+    <div id="adminStaffList" style="display:flex;flex-direction:column;gap:10px;max-width:700px"></div>
+  </div>
+</div>
+
+<!-- Orders Table (Admin) -->
+<!-- Orders Table (Admin) -->
+    <div id="adminOrdersWrap" style="display:none" class="admin-orders-wrap">
+      <div style="background:#fff;border-radius:16px;border:1px solid #e2eaf0;overflow:hidden">
+        <!-- Header Row -->
+        <div class="admin-order-row header-row">
+          <div>رقم الطلب / العميل</div>
+          <div>المنتجات</div>
+          <div>الإجمالي</div>
+          <div>التاريخ</div>
+          <div>الحالة</div>
+          <div></div>
+        </div>
+        <div id="adminOrdersBody">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+    <!-- Products Table -->
+    <div id="adminProductsWrap" style="padding:0 28px 28px">
+      <div style="background:#fff;border-radius:16px;border:1px solid #e2eaf0;overflow:hidden">
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse" id="adminTable">
+            <thead>
+              <tr style="background:#f8fbfd;border-bottom:2px solid #e2eaf0">
+                <th style="padding:14px 16px;text-align:right;font-size:13px;color:#5a7a90;font-weight:700">المنتج</th>
+                <th style="padding:14px 16px;text-align:right;font-size:13px;color:#5a7a90;font-weight:700">الفئة</th>
+                <th style="padding:14px 16px;text-align:right;font-size:13px;color:#5a7a90;font-weight:700">السعر</th>
+                <th style="padding:14px 16px;text-align:right;font-size:13px;color:#5a7a90;font-weight:700">السعر القديم</th>
+                <th style="padding:14px 16px;text-align:right;font-size:13px;color:#5a7a90;font-weight:700">الشارة</th>
+                <th style="padding:14px 16px;text-align:center;font-size:13px;color:#5a7a90;font-weight:700">إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT PRODUCT MODAL -->
+<div class="modal-overlay" id="productFormModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#1a1a2e,#2d3561)">
+      <div class="modal-title" id="productFormTitle"><i class="fas fa-box"></i> إضافة منتج جديد</div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeProductForm()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editProductId">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الاسم بالعربي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="pAr" placeholder="اسم المنتج بالعربية">
+        </div>
+        <div class="form-group">
+          <label class="form-label">الاسم بالإنجليزي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="pEn" placeholder="Product name in English">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الوصف بالعربي</label>
+          <input type="text" class="form-input" id="pDescAr" placeholder="وصف مختصر">
+        </div>
+        <div class="form-group">
+          <label class="form-label">الوصف بالإنجليزي</label>
+          <input type="text" class="form-input" id="pDescEn" placeholder="Short description">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الماركة (Brand) <span class="required">*</span></label>
+          <input type="text" class="form-input" id="pBrand" placeholder="مثال: 3M, DENTSPLY">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-image" style="color:var(--primary-light)"></i>
+            الصورة الرئيسية (اختياري)
+          </label>
+          <div class="img-upload-area" id="imgUploadArea" onclick="triggerImgUpload()">
+            <input type="file" id="pImageFile" accept="image/*"
+              onchange="handleImageUpload(event)" onclick="event.stopPropagation()">
+            <img class="img-preview-box" id="imgPreviewBox" src="" alt="preview">
+            <span class="img-upload-icon">📷</span>
+            <div class="img-upload-text">انقر لاختيار صورة</div>
+            <div class="img-upload-hint">PNG، JPG، WEBP — بحد أقصى 2MB</div>
+          </div>
+          <button type="button" id="removeImgBtn" onclick="removeProductImage()"
+            style="display:none;margin-top:8px;padding:6px 16px;border-radius:50px;
+                   background:#fff5f5;color:var(--danger);border:2px solid #fecaca;
+                   font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">
+            <i class="fas fa-trash-alt"></i> حذف الصورة
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-images" style="color:var(--primary-light)"></i>
+          صور إضافية للمعرض (اختياري)
+          <small style="color:var(--text-muted);font-weight:500">— حتى 4 صور تظهر بمعرض الصور بصفحة المنتج</small>
+        </label>
+        <div id="extraImagesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px"></div>
+        <div class="img-upload-area" id="extraImgUploadArea" onclick="triggerExtraImgUpload()" style="padding:14px">
+          <input type="file" id="pExtraImageFile" accept="image/*"
+            onchange="handleExtraImageUpload(event)" onclick="event.stopPropagation()">
+          <span class="img-upload-icon" style="font-size:22px;margin-bottom:2px;display:block">➕</span>
+          <div class="img-upload-text" style="font-size:12px">إضافة صورة للمعرض</div>
+        </div>
+      </div>
+      <div class="form-group" style="background:#f8fbfd;border:1px dashed var(--primary-light);border-radius:12px;padding:12px">
+        <label style="display:flex;align-items:center;gap:8px;font-weight:700;cursor:pointer">
+          <input type="checkbox" id="pHasSizes" onchange="toggleSizesEditor()" style="width:18px;height:18px">
+          هذا المنتج متعدد المقاسات (لكل مقاس سعره ومخزونه)
+        </label>
+        <div id="pSizesEditor" style="display:none;margin-top:10px">
+          <div id="pSizesRows"></div>
+          <button type="button" onclick="addSizeRow()" style="padding:7px 16px;border-radius:50px;border:1px dashed var(--primary);background:#fff;color:var(--primary-dark);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+            <i class="fas fa-plus"></i> إضافة مقاس
+          </button>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:8px">عند تفعيله يُستخدم سعر ومخزون كل مقاس بدل السعر والمخزون العامين. يظهر المنتج للعميل ببطاقة واحدة يختار منها المقاس.</div>
+        </div>
+      </div>
+      <div class="form-row" id="pPriceRow">
+        <div class="form-group">
+          <label class="form-label">السعر (د.أ) <span class="required">*</span></label>
+          <input type="number" class="form-input" id="pPrice" placeholder="0.00" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">السعر القديم (اختياري)</label>
+          <input type="number" class="form-input" id="pOldPrice" placeholder="السعر قبل الخصم" min="0">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-ruler-combined" style="color:var(--primary-light)"></i>
+            الحجم
+          </label>
+          <input type="text" class="form-input" id="pUnitQty" placeholder="مثال: 500 مل, 10 قطع, 1 كغم">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-box" style="color:var(--primary-light)"></i>
+            وحدة البيع <span class="required">*</span>
+          </label>
+          <select aria-label="وحدة المنتج" class="form-input" id="pUnit" style="cursor:pointer">
+            <option value="قطعة">قطعة</option>
+            <option value="علبة">علبة</option>
+            <option value="صندوق">صندوق</option>
+            <option value="أنبوب">أنبوب</option>
+            <option value="كغم">كغم</option>
+            <option value="غرام">غرام</option>
+            <option value="لتر">لتر</option>
+            <option value="مل">مل</option>
+            <option value="طقم">طقم</option>
+            <option value="زوج">زوج</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الفئة <span class="required">*</span></label>
+          <select aria-label="قسم المنتج" class="form-input" id="pCat" style="cursor:pointer"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">الشارة (Badge)</label>
+          <input type="text" class="form-input" id="pBadge" maxlength="25" autocomplete="off" aria-label="شارة المنتج" placeholder="اكتب الشارة بنفسك (اختياري) — مثال: جديد، خصم 20%، عرض الأسبوع">
+        </div>
+      </div>
+      <div class="form-group" style="background:#fff9ee;border:1px dashed #f59e0b;border-radius:12px;padding:10px 12px">
+        <label style="display:flex;align-items:center;gap:8px;font-weight:700;cursor:pointer">
+          <input type="checkbox" id="pStudentPack" style="width:18px;height:18px">
+          🎓 قسم الطلاب
+        </label>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">عند التفعيل يظهر المنتج أيضاً في قسم الطلاب (بجانب قسمه الأصلي)، وعند الإلغاء يخرج منه ويبقى في قسمه.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-globe" style="color:var(--primary-light)"></i>
+          بلد المنشأ (اختياري)
+        </label>
+        <input type="text" class="form-input" id="pCountry" placeholder="مثال: 🇺🇸 أمريكا">
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-star" style="color:var(--accent2)"></i>
+          نقاط الشراء
+          <small style="color:var(--text-muted);font-weight:500">(كم نقطة يحتاج العميل لشراء هذا المنتج)</small>
+        </label>
+        <div style="display:flex;align-items:center;gap:10px">
+          <input type="number" class="form-input" id="pPoints" placeholder="مثال: 100" min="0" style="flex:1">
+          <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:12px;font-weight:700;color:var(--text-muted);cursor:pointer">
+            <input type="checkbox" id="pPointsManual" checked onchange="document.getElementById('pPoints').disabled=!this.checked" style="width:17px;height:17px;cursor:pointer">
+            يدوية
+          </label>
+        </div>
+        <small style="color:var(--text-muted);display:block;margin-top:4px">
+          لو ألغيت التحديد، بتُحسب النقاط تلقائيًا من سعر المنتج حسب النسبة العامة (إعدادات النقاط)
+        </small>
+      </div>
+      <div class="form-group" id="pStockGroup">
+        <label class="form-label">
+          <i class="fas fa-boxes" style="color:var(--primary-light)"></i>
+          الكمية المتوفرة (المخزون)
+          <small style="color:var(--text-muted);font-weight:500">(اتركه فارغًا أو 0 لإخفاء المنتج كـ "نفذت الكمية")</small>
+        </label>
+        <input type="number" class="form-input" id="pStock" placeholder="مثال: 50" min="0">
+      </div>
+      <div id="productFormError" style="display:none;color:#e53e3e;font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> يرجى ملء جميع الحقول الإلزامية
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeProductForm()"><i class="fas fa-times"></i> إلغاء</button>
+      <button class="btn-submit" onclick="saveProduct()"><i class="fas fa-save"></i> حفظ المنتج</button>
+    </div>
+  </div>
+</div>
+<!-- ADD POINTS MODAL -->
+<div class="modal-overlay" id="addPointsModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#d97706,#f59e0b)">
+      <div class="modal-title"><i class="fas fa-star"></i> إضافة نقاط للعميل</div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeAddPointsModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pointsTargetEmail">
+      <input type="hidden" id="pointsTargetUid">
+      <div style="background:#fffbeb;border:1.5px solid #f59e0b;border-radius:var(--radius-sm);padding:14px;margin-bottom:20px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:28px">👤</span>
+        <div>
+          <div style="font-weight:800;font-size:15px;color:var(--primary-dark)" id="pointsTargetName"></div>
+          <div style="font-size:12px;color:var(--text-muted)" id="pointsTargetEmail2"></div>
+        </div>
+      </div>
+      <div style="background:#f8fbfd;border-radius:var(--radius-sm);padding:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;color:var(--text-muted);font-weight:600">الرصيد الحالي</span>
+        <span style="font-size:20px;font-weight:900;color:#d97706" id="pointsCurrentBalance">0 🏆</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-plus-circle" style="color:#f59e0b"></i>
+          عدد النقاط المضافة <span class="required">*</span>
+        </label>
+        <input type="number" class="form-input" id="pointsAmount" placeholder="مثال: 100" min="1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-sticky-note" style="color:var(--accent2)"></i>
+          سبب الإضافة (اختياري)
+        </label>
+        <input type="text" class="form-input" id="pointsReason" placeholder="مثال: مكافأة على الولاء">
+      </div>
+      <div id="pointsModalError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> يرجى إدخال عدد النقاط
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeAddPointsModal()">إلغاء</button>
+      <button onclick="confirmAddPoints()" style="padding:12px 28px;border-radius:50px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px">
+        <i class="fas fa-star"></i> حفظ التغير
+      </button>
+    </div>
+  </div>
+</div>
+<!-- QTY OFFER MODAL -->
+<div class="modal-overlay" id="qtyOfferModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title" id="qtyOfferTitle"><i class="fas fa-tag"></i> إضافة عرض كمية</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQtyOfferModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="qtyOfferId">
+      <div class="form-group">
+        <label class="form-label">المادة <span class="required">*</span></label>
+        <input type="text" class="form-input" id="qtyOfferProductSearch" placeholder="🔍 ابحث عن المادة بالاسم أو الماركة..." autocomplete="off" oninput="dpFillMaterialSelect('qtyOfferProduct','qtyOfferProductSearch')" style="margin-bottom:8px">
+        <select aria-label="مادة عرض الكمية" class="form-input" id="qtyOfferProduct" style="cursor:pointer" onchange="onQtyOfferProductChange()"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          مستويات الكمية <span class="required">*</span>
+          <small style="color:var(--text-muted);font-weight:500">(كمية ← السعر الإجمالي ← المقاسات المشمولة)</small>
+        </label>
+        <div id="qtyTiersList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>
+        <button type="button" onclick="addTierRow()" style="padding:8px 16px;border-radius:50px;background:#f0f8ff;color:var(--primary);border:1.5px solid var(--border);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">
+          <i class="fas fa-plus"></i> إضافة مستوى
+        </button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-clock" style="color:#be123c"></i> تاريخ ووقت انتهاء العرض
+          <small style="color:var(--text-muted);font-weight:500">(اختياري — اتركه فارغاً ليبقى العرض بدون تاريخ انتهاء)</small>
+        </label>
+        <input type="datetime-local" class="form-input" id="qtyOfferExpiry">
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px;background:#f8fbfd;padding:12px 16px;border-radius:12px">
+        <input type="checkbox" id="qtyOfferShowBanner" style="width:20px;height:20px;cursor:pointer">
+        <label for="qtyOfferShowBanner" style="margin:0;cursor:pointer;font-size:13px;font-weight:700">
+          عرضه أيضاً بخانة الإعلان العريضة (تحت الشريط المتحرك)
+        </label>
+      </div>
+      <div id="qtyOfferError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> <span id="qtyOfferErrorMsg">يرجى ملء الحقول بشكل صحيح</span>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeQtyOfferModal()">إلغاء</button>
+      <button class="btn-submit" onclick="saveQtyOffer()"><i class="fas fa-save"></i> حفظ العرض</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOME BANNER SLIDE MODAL -->
+<div class="modal-overlay" id="homeBannerSlideModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title" id="homeBannerSlideTitle"><i class="fas fa-image"></i> إضافة صورة</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeHomeBannerSlideModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="homeBannerSlideId">
+      <div class="form-group">
+        <label class="form-label">الصورة <span class="required">*</span></label>
+        <img id="homeBannerImagePreview" style="display:none;width:100%;max-height:160px;border-radius:12px;margin-bottom:10px;object-fit:cover">
+        <label style="display:block;padding:10px;border-radius:10px;border:1.5px dashed var(--border);text-align:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--text-muted)">
+          <i class="fas fa-image"></i> اختر صورة
+          <input type="file" accept="image/*" style="display:none" onchange="handleHomeBannerImageSelect(this)">
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-clock" style="color:#15803d"></i> وقت البداية
+          <small style="color:var(--text-muted);font-weight:500">(اختياري — فارغ = تظهر فوراً)</small>
+        </label>
+        <input type="datetime-local" class="form-input" id="homeBannerStartAt">
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-hourglass-half" style="color:#be123c"></i> وقت الانتهاء
+          <small style="color:var(--text-muted);font-weight:500">(اختياري — فارغ = دائمة)</small>
+        </label>
+        <input type="datetime-local" class="form-input" id="homeBannerEndAt">
+      </div>
+      <div class="form-group">
+        <label class="form-label">عند الضغط على الصورة</label>
+        <select aria-label="نوع رابط البانر" class="form-input" id="homeBannerLinkType" style="cursor:pointer" onchange="setHomeBannerLinkType(this.value)">
+          <option value="none">بدون رابط</option>
+          <option value="product">فتح منتج معيّن</option>
+          <option value="category">فتح قسم معيّن</option>
+          <option value="qtyoffer">فتح عرض كمية لمنتج معيّن</option>
+          <option value="bundle">فتح باقة معيّنة</option>
+          <option value="url">فتح رابط خارجي</option>
+        </select>
+      </div>
+      <div class="form-group" id="homeBannerLinkProductWrap" style="display:none;position:relative">
+        <label class="form-label">المنتج</label>
+        <input type="hidden" id="homeBannerLinkProductId">
+        <input type="text" class="form-input" id="homeBannerLinkProductSearch" placeholder="ابحث عن المنتج بالاسم أو الماركة"
+          oninput="filterHomeBannerLinkProductList()" onfocus="showHomeBannerLinkProductList()" autocomplete="off">
+        <div id="homeBannerLinkProductDropdown" style="display:none;position:absolute;top:100%;right:0;left:0;background:#fff;
+          border:1.5px solid var(--border);border-radius:12px;max-height:260px;overflow-y:auto;z-index:20;box-shadow:var(--shadow-lg)"></div>
+      </div>
+      <div class="form-group" id="homeBannerLinkCategoryWrap" style="display:none">
+        <label class="form-label">القسم</label>
+        <select aria-label="قسم رابط البانر" class="form-input" id="homeBannerLinkCategory" style="cursor:pointer"></select>
+      </div>
+      <div class="form-group" id="homeBannerLinkQtyOfferWrap" style="display:none">
+        <label class="form-label">المنتج (عروض الكمية الحالية فقط)</label>
+        <select aria-label="مادة عرض الكمية" class="form-input" id="homeBannerLinkQtyOfferProduct" style="cursor:pointer"></select>
+      </div>
+      <div class="form-group" id="homeBannerLinkBundleWrap" style="display:none">
+        <label class="form-label">الباقة (الباقات الحالية فقط)</label>
+        <select aria-label="الباقة" class="form-input" id="homeBannerLinkBundle" style="cursor:pointer"></select>
+      </div>
+      <div class="form-group" id="homeBannerLinkUrlWrap" style="display:none">
+        <label class="form-label">الرابط</label>
+        <input type="url" class="form-input" id="homeBannerLinkUrl" placeholder="https://example.com" autocomplete="off">
+      </div>
+      <div id="homeBannerSlideError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> <span id="homeBannerSlideErrorMsg">يرجى ملء الحقول بشكل صحيح</span>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeHomeBannerSlideModal()">إلغاء</button>
+      <button class="btn-submit" onclick="saveHomeBannerSlide()"><i class="fas fa-save"></i> حفظ</button>
+    </div>
+  </div>
+</div>
+<!-- BUNDLE MODAL -->
+<div class="modal-overlay" id="bundleModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#d97706,#f59e0b)">
+      <div class="modal-title" id="bundleModalTitle"><i class="fas fa-gift"></i> إضافة باقة جديدة</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeBundleModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="bundleId">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">اسم الباقة بالعربي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="bundleNameAr" placeholder="مثال: باقة التعقيم الشاملة">
+        </div>
+        <div class="form-group">
+          <label class="form-label">اسم الباقة بالإنجليزي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="bundleNameEn" placeholder="e.g. Sterilization Bundle">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">الوصف بالعربي</label>
+          <input type="text" class="form-input" id="bundleDescAr" placeholder="وصف مختصر">
+        </div>
+        <div class="form-group">
+          <label class="form-label">الوصف بالإنجليزي</label>
+          <input type="text" class="form-input" id="bundleDescEn" placeholder="Short description">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-image" style="color:var(--primary-light)"></i> صورة الباقة (اختياري)</label>
+        <div class="img-upload-area" id="bundleImgUploadArea" onclick="triggerBundleImgUpload()">
+          <input type="file" id="bundleImageFile" accept="image/*" onchange="handleBundleImageUpload(event)" onclick="event.stopPropagation()">
+          <img class="img-preview-box" id="bundleImgPreviewBox" src="" alt="preview">
+          <span class="img-upload-icon">📷</span>
+          <div class="img-upload-text">انقر لاختيار صورة</div>
+          <div class="img-upload-hint">PNG، JPG، WEBP — بحد أقصى 2MB</div>
+        </div>
+        <button type="button" id="removeBundleImgBtn" onclick="removeBundleImage()"
+          style="display:none;margin-top:8px;padding:6px 16px;border-radius:50px;background:#fff5f5;color:var(--danger);border:2px solid #fecaca;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">
+          <i class="fas fa-trash-alt"></i> حذف الصورة
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">منتجات الباقة <span class="required">*</span></label>
+        <input type="text" class="form-input" id="bundleAddProductSearch" placeholder="🔍 ابحث عن المادة بالاسم أو الماركة..." autocomplete="off" oninput="dpFillMaterialSelect('bundleAddProductSelect','bundleAddProductSearch')" style="margin-bottom:8px">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <select aria-label="مادة الباقة" class="form-input" id="bundleAddProductSelect" style="flex:2;cursor:pointer" onchange="onBundleProductChange()"></select>
+          <input type="number" class="form-input" id="bundleAddProductQty" placeholder="الكمية" min="1" value="1" style="flex:1">
+          <button type="button" onclick="addBundleItemRow()" style="padding:0 18px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0">
+            <i class="fas fa-plus"></i> إضافة
+          </button>
+        </div>
+        <div id="bundleSizesPanel" style="display:none;margin-bottom:10px"></div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">
+          <i class="fas fa-info-circle"></i> اختر المادة وحدد كميتها (وإن كانت لها مقاسات فحدّد المسموح منها) ثم اضغط "إضافة" — كرر لكل مادة. لتعديل مادة مضافة اخترها وأضفها مجدداً
+        </div>
+        <div id="bundleItemsList" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">سعر الباقة الإجمالي (د.أ) <span class="required">*</span></label>
+          <input type="number" class="form-input" id="bundlePrice" placeholder="0.00" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-star" style="color:var(--accent2)"></i> نقاط الشراء (اختياري)</label>
+          <input type="number" class="form-input" id="bundlePoints" placeholder="مثال: 50" min="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-clock" style="color:#be123c"></i> تاريخ ووقت انتهاء العرض
+          <small style="color:var(--text-muted);font-weight:500">(اختياري — اتركه فارغاً ليبقى العرض بدون تاريخ انتهاء)</small>
+        </label>
+        <input type="datetime-local" class="form-input" id="bundleExpiry">
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px;background:#f8fbfd;padding:12px 16px;border-radius:12px">
+        <input type="checkbox" id="bundleShowBanner" style="width:20px;height:20px;cursor:pointer">
+        <label for="bundleShowBanner" style="margin:0;cursor:pointer;font-size:13px;font-weight:700">
+          عرضها أيضاً بخانة الإعلان العريضة (تحت الشريط المتحرك)
+        </label>
+      </div>
+
+      <div style="background:#f8fbfd;border-radius:10px;padding:12px;margin-top:8px;display:flex;justify-content:space-between;font-size:13px">
+        <span style="color:var(--text-muted)">السعر الأصلي لمنتجات الباقة منفردة</span>
+        <strong id="bundleOriginalPreview" style="color:var(--primary-dark)">0 د.أ</strong>
+      </div>
+
+      <div id="bundleError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px;background:#fff5f5;border-radius:8px;margin-top:10px">
+        <i class="fas fa-exclamation-circle"></i> <span id="bundleErrorMsg">يرجى ملء جميع الحقول المطلوبة</span>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeBundleModal()">إلغاء</button>
+      <button class="btn-submit" onclick="saveBundle()"><i class="fas fa-save"></i> حفظ الباقة</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE REQUEST MODAL (طلب عرض سعر من العميل) -->
+<div class="modal-overlay" id="quoteRequestModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-file-invoice-dollar"></i> <span data-ar="طلب عرض سعر" data-en="Request a Quote">طلب عرض سعر</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQuoteRequestModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:#f0f8ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:20px;font-size:13px;color:var(--text-muted);display:flex;align-items:flex-start;gap:10px">
+        <i class="fas fa-info-circle" style="color:var(--primary);margin-top:2px"></i>
+        <span>اختر المادة (أو أكثر) وحدد الكمية المطلوبة(اختياري) — يمكنك ترك الكمية فارغة. سنرسل لك عرض السعر النهائي خلال وقت قصير.</span>
+      </div>
+<div id="quoteGuestFields" style="display:none;margin-bottom:20px">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user" style="color:var(--primary-light)"></i> الاسم <span class="required">*</span></label>
+            <input type="text" class="form-input" id="quoteGuestName" placeholder="اسمك الكامل">
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-phone" style="color:var(--primary-light)"></i> رقم الهاتف <span class="required">*</span></label>
+            <input type="tel" class="form-input" id="quoteGuestPhone" placeholder="05xxxxxxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-hospital" style="color:var(--primary-light)"></i> اسم العيادة (اختياري)</label>
+          <input type="text" class="form-input" id="quoteGuestClinic" placeholder="عيادة...">
+        </div>
+      </div>
+      <div style="position:relative;margin-bottom:10px">
+        <div id="quoteNoResultsHint"
+          style="display:none;position:absolute;bottom:calc(100% + 6px);right:0;left:0;background:#fff;
+                 border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;text-align:center;
+                 font-size:13px;font-weight:700;color:var(--primary);z-index:60;box-shadow:var(--shadow-lg)">
+          اضغط على زر ( اضافة +)
+        </div>
+        <input type="text" class="form-input" id="quoteProductSearch"
+          placeholder="🔍 ابحث عن المادة بالاسم أو الماركة، أو اكتب اسم مادة غير موجودة..."
+          oninput="filterQuoteProductList()" onfocus="showQuoteProductList()" autocomplete="off">
+        <input type="hidden" id="quoteAddProductSelect">
+        <div id="quoteProductDropdown"
+          style="display:none;position:absolute;top:calc(100% + 4px);right:0;left:0;background:#fff;
+                 border:1.5px solid var(--border);border-radius:12px;max-height:240px;overflow-y:auto;
+                 z-index:60;box-shadow:var(--shadow-lg)"></div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <input type="number" class="form-input" id="quoteAddProductQty" placeholder="الكمية (اختياري)" min="1" style="flex:1">
+        <button type="button" onclick="addQuoteItemRow()" style="padding:0 18px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0">
+          <i class="fas fa-plus"></i>إضافة
+        </button>
+      </div>
+
+      <div id="quoteItemsList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-sticky-note" style="color:var(--accent2)"></i> ملاحظات إضافية (اختياري)</label>
+        <textarea class="form-textarea" id="quoteNotes" maxlength="500" placeholder="مثال: أحتاج توصيل عاجل، أو استفسار عن بديل لهذه المادة..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-image" style="color:var(--primary-light)"></i> إرفاق صورة (اختياري)</label>
+        <div id="quoteImgPreviewWrap" style="display:none;margin-bottom:10px;position:relative;width:fit-content">
+          <img id="quoteImgPreview" style="max-width:140px;max-height:140px;border-radius:10px;border:2px solid var(--border);display:block">
+          <button type="button" onclick="clearQuoteImage()" style="position:absolute;top:-8px;left:-8px;width:22px;height:22px;border-radius:50%;background:var(--danger);color:#fff;border:none;cursor:pointer;font-size:11px">✕</button>
+        </div>
+        <div class="img-upload-area" id="quoteImgUploadArea" onclick="triggerQuoteImgUpload()">
+          <input type="file" id="quoteItemImgFile" accept="image/*" onchange="handleQuoteImageSelect(event)" onclick="event.stopPropagation()">
+          <span class="img-upload-icon">📷</span>
+          <div class="img-upload-text">انقر لاختيار صورة</div>
+          <div class="img-upload-hint">PNG، JPG، WEBP — بحد أقصى 5MB</div>
+        </div>
+      </div>
+
+      <div id="quoteFormError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> <span id="quoteFormErrorMsg">يرجى إضافة مادة واحدة على الأقل</span>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeQuoteRequestModal()">إلغاء</button>
+      <button type="button" class="btn-submit" onclick="submitQuoteRequest(event)"><i class="fas fa-paper-plane"></i> إرسال طلب عرض السعر</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ORDER MODAL -->
+<div class="modal-overlay" id="quickOrderModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-bolt"></i> <span data-ar="طلب سريع" data-en="Quick Order">طلب سريع</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQuickOrderModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:#f0f8ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:13px;color:var(--text-muted);display:flex;align-items:flex-start;gap:10px">
+        <i class="fas fa-info-circle" style="color:var(--primary);margin-top:2px"></i>
+        <span>اكتب اسم كل مادة تحتاجها. إذا اخترت من الاقتراحات المطابقة يظهر سعرها فوراً، وإذا كتبت اسم غير موجود بالكتالوج تُرسل كطلب عرض سعر لتُسعَّر لاحقاً.</span>
+      </div>
+
+      <div style="position:relative;margin-bottom:10px">
+        <div id="qoNoResultsHint"
+          style="display:none;position:absolute;bottom:calc(100% + 6px);right:0;left:0;background:#fff;
+                 border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;text-align:center;
+                 font-size:13px;font-weight:700;color:var(--primary);z-index:60;box-shadow:var(--shadow-lg)">
+          اضغط "إضافة" +
+        </div>
+        <input type="text" class="form-input" id="qoProductSearch"
+          placeholder="🔍 ابحث عن المادة بالاسم أو الماركة، أو اكتب اسم مادة غير موجودة..."
+          oninput="filterQOProductList()" onfocus="showQOProductList()" autocomplete="off">
+        <input type="hidden" id="qoAddProductSelect">
+        <div id="qoProductDropdown"
+          style="display:none;position:absolute;top:calc(100% + 4px);right:0;left:0;background:#fff;
+                 border:1.5px solid var(--border);border-radius:12px;max-height:240px;overflow-y:auto;
+                 z-index:60;box-shadow:var(--shadow-lg)"></div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <input type="number" class="form-input" id="qoAddProductQty" placeholder="الكمية" min="1" value="1" style="flex:1">
+        <button type="button" onclick="addQOItemRow()" style="padding:0 18px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0">
+          <i class="fas fa-plus"></i>إضافة
+        </button>
+      </div>
+
+      <div id="qoItemsList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;color:var(--text-muted);font-weight:700" id="quickOrderTotalLabel">الإجمالي: بانتظار التحديد الكامل</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-submit" onclick="submitQuickOrder(event)" style="width:100%">
+        <i class="fas fa-paper-plane"></i> إرسال الطلب
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ORDER INFO MODAL -->
+<div class="modal-overlay" id="qoInfoModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-user-edit"></i> <span data-ar="بيانات التواصل" data-en="Contact Details">بيانات التواصل</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQOInfoModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:#f0f8ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:18px;font-size:13px;color:var(--text-muted)">
+        <i class="fas fa-info-circle" style="color:var(--primary)"></i> يرجى إدخال بياناتك لإتمام إرسال الطلب السريع
+      </div>
+      <div class="form-group">
+        <label class="form-label">اسم العيادة / المنشأة <span class="required">*</span></label>
+        <input type="text" class="form-input" id="qoClinicInput" placeholder="عيادة الدكتور...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">اسم الطبيب / المسؤول <span class="required">*</span></label>
+        <input type="text" class="form-input" id="qoDoctorInput" placeholder="د. محمد...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">رقم الهاتف (واتساب) <span class="required">*</span></label>
+        <input type="tel" class="form-input" id="qoPhoneInput" placeholder="07xxxxxxxx">
+      </div>
+      <div style="border-top:1.5px dashed var(--border);margin-top:10px;padding-top:14px">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">
+          <i class="fas fa-info-circle"></i> بيانصير عندك حساب تلقائياً بعد الطلب — الأسهل تحدّد كلمة سر عشان تدخل بيها لاحقاً وتتابع طلباتك
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-envelope" style="color:var(--text-muted)"></i> البريد الإلكتروني (اختياري)</label>
+          <input type="email" class="form-input" id="qoGuestEmail" placeholder="بريدك الإلكتروني (اختياري)">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> كلمة المرور <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="password" class="form-input" id="qoGuestPassword" placeholder="8 أحرف على الأقل">
+            <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('qoGuestPassword',this)"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><i class="fas fa-lock" style="color:var(--primary-light)"></i> تأكيد كلمة المرور <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <input type="password" class="form-input" id="qoGuestPasswordConfirm" placeholder="أعد كتابة كلمة المرور">
+            <i class="fas fa-eye input-icon" style="cursor:pointer;pointer-events:all" onclick="togglePassVis('qoGuestPasswordConfirm',this)"></i>
+          </div>
+        </div>
+      </div>
+      <div id="qoInfoError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> يرجى ملء جميع الحقول المطلوبة
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeQOInfoModal()">إلغاء</button>
+      <button type="button" class="btn-next" onclick="submitQOInfo(event)"><span>التالي</span> <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ORDER LOCATION MODAL -->
+<div class="modal-overlay" id="qoLocationModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-map-marker-alt"></i> <span data-ar="تحديد الموقع" data-en="Set Location">تحديد الموقع</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQOLocationModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:#f0f8ff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:18px;font-size:13px;color:var(--text-muted)">
+        <i class="fas fa-info-circle" style="color:var(--primary)"></i> حدد موقعك لإتمام إرسال الطلب السريع
+      </div>
+      <div class="location-section">
+        <div class="location-methods">
+          <button class="loc-method-btn active" id="qoBtnManual" onclick="qoSwitchLocMethod('manual')">
+            <i class="fas fa-keyboard"></i> كتابة يدوية
+          </button>
+          <button class="loc-method-btn" id="qoBtnGPS" onclick="qoGetGPSLocation()">
+            <i class="fas fa-crosshairs"></i> موقعي الحالي
+          </button>
+          <button class="loc-method-btn" id="qoBtnMap" onclick="openProfileMapPicker('qo')">
+            <i class="fas fa-map-marked-alt"></i> اختر من الخريطة
+          </button>
+        </div>
+        <div id="qoManualInput">
+          <input type="text" class="form-input" id="qoAddressInput" placeholder="المدينة، الحي، الشارع، رقم المبنى" oninput="qoOnAddressType()">
+        </div>
+        <div class="gps-loading" id="qoGpsLoading">
+          <div class="spinner"></div>
+          <span>جاري تحديد موقعك...</span>
+        </div>
+        <div class="map-preview" id="qoMapPreview">
+          <i class="fas fa-map-marked-alt"></i>
+          <div class="map-placeholder-text">حدد موقعك عبر GPS أو اكتب العنوان يدوياً</div>
+        </div>
+        <div class="location-confirm" id="qoLocationConfirm">
+          <i class="fas fa-check-circle"></i>
+          <span id="qoLocationConfirmText"></span>
+        </div>
+        <div class="field-error" id="qoLocationError" style="margin-top:8px">
+          <i class="fas fa-exclamation-circle"></i> يرجى تحديد الموقع
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeQOLocationModal()">إلغاء</button>
+      <button type="button" class="btn-submit" onclick="submitQOLocation(event)"><i class="fas fa-paper-plane"></i> إرسال الطلب</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRICE QUOTE MODAL (ADMIN) -->
+<div class="modal-overlay" id="priceQuoteModal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#0a5c8a,#1a8bbf)">
+      <div class="modal-title"><i class="fas fa-tag"></i> تحديد سعر العرض</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closePriceQuoteModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="priceQuoteDocId">
+      <div id="priceQuoteItemsForm" style="display:flex;flex-direction:column;gap:12px"></div>
+      <div style="margin-top:14px;padding:12px 14px;background:#f8fbfd;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <label for="priceQuoteDeliveryFee" style="font-size:13px;font-weight:700;color:var(--text)">
+          <i class="fas fa-truck" style="color:var(--primary)"></i> أجور التوصيل
+        </label>
+        <input type="number" id="priceQuoteDeliveryFee" min="0" step="0.1" placeholder="مثال: 2.00"
+          style="width:120px;padding:7px 10px;border-radius:8px;border:1.5px solid var(--border);font-family:inherit;font-size:13px;text-align:center">
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:6px">
+        اترك الحقل فارغاً إذا كانت أجور التوصيل غير محددة بعد. سيتم عرض القيمة للعميل ضمن إجمالي العرض حتى لا يتفاجأ بها لاحقاً.
+      </div>
+      <div id="priceQuoteError" style="display:none;margin-top:14px;color:var(--danger);font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px">
+        <i class="fas fa-exclamation-circle"></i> يرجى تحديد سعر صحيح لكل المواد
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closePriceQuoteModal()">إلغاء</button>
+      <button class="btn-submit" onclick="sendQuotePricing()"><i class="fas fa-paper-plane"></i> إرسال العرض للعميل</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CATEGORY MODAL -->
+<div class="modal-overlay" id="addCategoryModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#1a1a2e,#2d3561)">
+      <div class="modal-title" id="catFormTitle"><i class="fas fa-folder-plus"></i> إضافة قسم جديد</div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeAddCategory()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editCatId">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">اسم القسم بالعربي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="catNameAr" placeholder="مثال: التخدير">
+        </div>
+        <div class="form-group">
+          <label class="form-label">اسم القسم بالإنجليزي <span class="required">*</span></label>
+          <input type="text" class="form-input" id="catNameEn" placeholder="e.g. Anesthesia">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-image" style="color:var(--primary-light)"></i>
+            صورة القسم (اختياري)
+          </label>
+          <div class="img-upload-area" id="catImgUploadArea" onclick="triggerCatImgUpload()">
+            <input type="file" id="catImageFile" accept="image/*"
+              onchange="handleCatImageUpload(event)" onclick="event.stopPropagation()">
+            <img class="img-preview-box" id="catImgPreviewBox" src="" alt="preview">
+            <span class="img-upload-icon">📷</span>
+            <div class="img-upload-text">انقر لاختيار صورة</div>
+            <div class="img-upload-hint">PNG، JPG، WEBP — بحد أقصى 2MB</div>
+          </div>
+          <button type="button" id="removeCatImgBtn" onclick="removeCategoryImage()"
+            style="display:none;margin-top:8px;padding:6px 16px;border-radius:50px;
+                   background:#fff5f5;color:var(--danger);border:2px solid #fecaca;
+                   font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">
+            <i class="fas fa-trash-alt"></i> حذف الصورة
+          </button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">المعرّف (ID) <span class="required">*</span></label>
+          <input type="text" class="form-input" id="catId" placeholder="مثال: anes" maxlength="10">
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px">
+            <i class="fas fa-info-circle"></i> حروف إنجليزية صغيرة فقط بدون مسافات
+          </div>
+        </div>
+      </div>
+      <div id="catFormError" style="display:none;color:#e53e3e;font-size:13px;font-weight:700;
+           padding:10px 14px;background:#fff5f5;border-radius:8px;margin-top:8px">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="catFormErrorMsg">يرجى ملء جميع الحقول المطلوبة</span>
+      </div>
+
+      <!-- قائمة الأقسام الحالية -->
+      <div style="margin-top:24px">
+        <div style="font-weight:800;font-size:14px;color:var(--primary-dark);margin-bottom:12px;
+                    display:flex;align-items:center;gap:8px">
+          <i class="fas fa-list" style="color:var(--primary-light)"></i> الأقسام الحالية
+        </div>
+        <div id="catCurrentList" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeAddCategory()"><i class="fas fa-times"></i> إلغاء</button>
+      <button class="btn-submit" onclick="saveCategory()"><i class="fas fa-save"></i> حفظ القسم</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="deleteConfirmModal" style="z-index:5000">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#c53030,#e53e3e)">
+      <div class="modal-title"><i class="fas fa-trash-alt"></i> تأكيد الحذف</div>
+      <button class="close-btn" aria-label="إغلاق" onclick="closeDeleteConfirm()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding:32px">
+      <div style="font-size:52px;margin-bottom:16px">⚠️</div>
+      <div style="font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:8px">هل أنت متأكد من حذف هذا المنتج؟</div>
+      <div style="font-size:14px;color:#5a7a90" id="deleteProductName"></div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeDeleteConfirm()">إلغاء</button>
+      <button onclick="confirmDelete()" style="padding:12px 28px;border-radius:50px;background:linear-gradient(135deg,#c53030,#e53e3e);color:#fff;border:none;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px">
+        <i class="fas fa-trash-alt"></i> نعم، احذف
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="heroTitleEditModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-heading"></i> تعديل بانر الصفحة الرئيسية</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeHeroTitleEditModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="padding:20px;max-height:70vh;overflow-y:auto">
+
+      <label style="display:block;font-weight:800;font-size:14px;margin-bottom:10px;color:var(--primary-dark)">الأسطر بالعربي (كل سطر اختياري)</label>
+      <div id="heroLinesArContainer"></div>
+
+      <label style="display:block;font-weight:800;font-size:14px;margin:18px 0 10px;color:var(--primary-dark)">الأسطر بالإنجليزي (كل سطر اختياري)</label>
+      <div id="heroLinesEnContainer"></div>
+
+      <label style="display:block;font-weight:800;font-size:14px;margin:18px 0 10px;color:var(--primary-dark)">صورة البانر (اختياري)</label>
+      <img id="heroImagePreview" style="display:none;max-width:120px;max-height:120px;border-radius:12px;margin-bottom:10px;object-fit:cover">
+      <div style="display:flex;gap:10px;margin-bottom:20px">
+        <label style="flex:1;padding:10px;border-radius:10px;border:1.5px dashed var(--border);text-align:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--text-muted)">
+          <i class="fas fa-image"></i> اختر صورة
+          <input type="file" accept="image/*" style="display:none" onchange="handleHeroImageSelect(this)">
+        </label>
+        <button type="button" onclick="removeHeroImage()" style="padding:10px 16px;border-radius:10px;border:1.5px solid var(--danger);background:#fff5f5;color:var(--danger);font-weight:700;font-size:13px;cursor:pointer">
+          <i class="fas fa-trash-alt"></i> إزالة
+        </button>
+      </div>
+
+      <label style="display:block;font-weight:800;font-size:14px;margin-bottom:10px;color:var(--primary-dark)">مدة عرض البانر (اختياري — يختفي تلقائياً بعد هذا الموعد)</label>
+      <input type="datetime-local" id="heroExpiryInput" style="width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--border);font-family:inherit;font-size:13px;margin-bottom:10px">
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <button type="button" onclick="setHeroExpiryPreset(1)" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:700;cursor:pointer">يوم</button>
+        <button type="button" onclick="setHeroExpiryPreset(7)" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:700;cursor:pointer">أسبوع</button>
+        <button type="button" onclick="setHeroExpiryPreset(30)" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:700;cursor:pointer">شهر</button>
+        <button type="button" onclick="document.getElementById('heroExpiryInput').value=''" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:700;cursor:pointer">بدون انتهاء</button>
+      </div>
+
+      <button class="btn-primary" style="width:100%" onclick="saveHeroTitle()">
+        <i class="fas fa-save"></i> حفظ التعديل
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="adminSendOrderModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-header" style="background:linear-gradient(135deg,#16a34a,#22c55e)">
+      <div class="modal-title"><i class="fas fa-paper-plane"></i> إرسال طلبية لـ <span id="sendOrderClientName"></span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeAdminSendOrderModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="sendOrderClientEmail">
+      <input type="hidden" id="sendOrderClientUid">
+      <input type="hidden" id="sendOrderClientPhone">
+      <input type="hidden" id="sendOrderClientClinic">
+
+      <div class="form-group" style="position:relative">
+        <label class="form-label"><i class="fas fa-search"></i> البحث عن مادة في المتجر</label>
+        <input type="text" class="form-input" id="sendOrderProductSearch" placeholder="اكتب اسم المادة..." oninput="searchSendOrderProducts()" autocomplete="off">
+        <div id="sendOrderSearchResults" style="display:none;position:absolute;top:100%;right:0;left:0;background:#fff;border:1.5px solid var(--border);border-radius:14px;max-height:260px;overflow-y:auto;z-index:20;box-shadow:var(--shadow-lg)"></div>
+      </div>
+      <button type="button" onclick="toggleSendOrderCustomForm()" style="width:100%;padding:10px;border-radius:12px;border:2px dashed var(--border);background:#f8fbfd;color:var(--primary);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:14px">
+        <i class="fas fa-plus-circle"></i> إضافة مادة غير موجودة في المتجر
+      </button>
+
+      <div id="sendOrderCustomForm" style="display:none;background:#f8fbfd;border-radius:14px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input type="text" id="sendOrderCustomName" placeholder="اسم المادة" class="form-input" style="flex:2">
+          <input type="number" id="sendOrderCustomPrice" placeholder="السعر" class="form-input" style="flex:1" min="0" step="0.01">
+        </div>
+        <button type="button" onclick="addSendOrderCustomItem()" class="btn-primary" style="width:100%">
+          <i class="fas fa-check"></i> إضافة للطلبية
+        </button>
+      </div>
+
+      <div id="sendOrderItemsList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+      <div id="sendOrderEmptyState" style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px">
+        لم تُضف أي مادة بعد
+      </div>
+
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-wallet"></i> طريقة الدفع</label>
+        <div style="display:flex;gap:8px" id="sendOrderPayMethodGroup">
+          <button type="button" class="pay-method-mini" data-val="money" onclick="setSendOrderPayMethod('money')" style="flex:1;padding:10px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">نقدًا</button>
+          <button type="button" class="pay-method-mini" data-val="points" onclick="setSendOrderPayMethod('points')" style="flex:1;padding:10px;border-radius:10px;border:none;background:#f8fbfd;color:var(--text-muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">من النقاط</button>
+          <button type="button" class="pay-method-mini" data-val="free" onclick="setSendOrderPayMethod('free')" style="flex:1;padding:10px;border-radius:10px;border:none;background:#f8fbfd;color:var(--text-muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">مجانًا</button>
+          <button type="button" class="pay-method-mini" data-val="credit" onclick="setSendOrderPayMethod('credit')" style="flex:1;padding:10px;border-radius:10px;border:none;background:#f8fbfd;color:var(--text-muted);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">🧾 ذمم</button>
+        </div>
+      </div>
+
+      <div class="form-group" id="sendOrderDiscountBox" style="display:none">
+        <label class="form-label"><i class="fas fa-percentage"></i> خصم على المجموع (اختياري)</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button type="button" id="sendOrderDiscTypeFixed" onclick="setSendOrderDiscountType('fixed')" style="flex:1;padding:9px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">مبلغ ثابت (د.أ)</button>
+          <button type="button" id="sendOrderDiscTypePercent" onclick="setSendOrderDiscountType('percent')" style="flex:1;padding:9px;border-radius:10px;border:none;background:#f8fbfd;color:var(--text-muted);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">نسبة %</button>
+        </div>
+        <input type="number" id="sendOrderDiscountValue" class="form-input" min="0" step="0.01" placeholder="مثال: 5.00" oninput="updateSendOrderTotalDisplay()">
+      </div>
+
+      <div style="background:#f8fbfd;border-radius:12px;padding:14px;margin-top:8px">
+        <div id="sendOrderTotalBeforeRow" style="display:none;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:12px;color:var(--text-muted)">المجموع قبل الخصم</span>
+          <span id="sendOrderTotalBeforeDisplay" style="font-size:13px;color:var(--text-muted);text-decoration:line-through"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-weight:700;color:var(--text-muted)">الإجمالي</span>
+          <strong id="sendOrderTotalDisplay" style="font-size:20px;color:var(--primary)">0.00 د.أ</strong>
+        </div>
+        <div id="sendOrderDeliveryRow" style="text-align:left"></div>
+      </div>
+
+      <div id="sendOrderError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;padding:10px 14px;background:#fff5f5;border-radius:8px;margin-top:12px">
+        <i class="fas fa-exclamation-circle"></i> أضف مادة واحدة على الأقل
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-back" onclick="closeAdminSendOrderModal()"><i class="fas fa-times"></i> إلغاء</button>
+      <button class="btn-submit" id="sendOrderSubmitBtn" onclick="submitAdminSendOrder()" style="background:linear-gradient(135deg,#16a34a,#22c55e)"><i class="fas fa-paper-plane"></i> إرسال الطلبية</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="clientOrdersReportModal">
+  <div class="modal" style="max-width:720px;max-height:88vh">
+    <div class="modal-header" style="background:linear-gradient(135deg,#7e22ce,#a855f7)">
+      <div class="modal-title"><i class="fas fa-file-invoice"></i> تفاصيل طلبات العميل</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button onclick="printClientOrdersReport()" style="padding:8px 16px;border-radius:50px;background:rgba(255,255,255,0.18);color:#fff;border:1.5px solid rgba(255,255,255,0.5);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap"><i class="fas fa-print"></i> طباعة / تصدير PDF</button>
+        <button aria-label="إغلاق" class="close-btn" onclick="closeClientOrdersReportModal()"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="reportClientEmail">
+      <input type="hidden" id="reportClientName">
+      <input type="hidden" id="reportClientClinic">
+      <input type="hidden" id="reportClientPhone">
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:end">
+        <div style="flex:1;min-width:130px">
+          <label class="form-label" style="font-size:12px">من تاريخ</label>
+          <input type="date" class="form-input" id="reportFromDate">
+        </div>
+        <div style="flex:1;min-width:130px">
+          <label class="form-label" style="font-size:12px">إلى تاريخ</label>
+          <input type="date" class="form-input" id="reportToDate">
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label class="form-label" style="font-size:12px">حالة الطلب</label>
+          <select aria-label="تصفية حسب الحالة" class="form-input" id="reportStatusFilter" onchange="runClientOrdersReport()">
+            <option value="all">كل الحالات</option>
+            <option value="pending">في الانتظار</option>
+            <option value="confirmed">تم التأكيد</option>
+            <option value="preparing">جاري التجهيز</option>
+            <option value="shipped">في الشحن</option>
+            <option value="delivered">تم التسليم</option>
+            <option value="cancelled">ملغي</option>
+          </select>
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label class="form-label" style="font-size:12px">طريقة الدفع</label>
+          <select aria-label="تصفية حسب طريقة الدفع" class="form-input" id="reportPayMethodFilter" onchange="runClientOrdersReport()">
+            <option value="all">كل الطرق</option>
+            <option value="money">نقدًا</option>
+            <option value="points">نقاط</option>
+            <option value="credit">ذمم</option>
+            <option value="free">مجانًا</option>
+          </select>
+        </div>
+        <button onclick="runClientOrdersReport()" style="padding:10px 20px;border-radius:10px;background:var(--primary);color:#fff;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;height:42px">
+          <i class="fas fa-search"></i> بحث
+        </button>
+      </div>
+
+      <div id="clientOrdersReportBody"></div>
+    </div>
+  </div>
+</div>
+  <div class="modal-overlay" id="customDiscountSettingsModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-user-tag"></i> إعدادات الخصم المخصص</div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeCustomDiscountSettingsModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="customDiscountSettingsBody" style="padding:20px;max-height:75vh;overflow-y:auto"></div>
+  </div>
+</div>
+<!-- ACCOUNT MENU MODAL (تُستخدم من زر "حسابي" بالشريط السفلي، بنفس محتوى قائمة الحساب العلوية) -->
+<div class="modal-overlay" id="accountMenuModal" style="align-items:flex-end;padding:0" onclick="if(event.target===this) closeAccountMenu()">
+  <div class="modal" style="max-width:100%;width:100%;border-radius:20px 20px 0 0;margin:0">
+    <div style="width:40px;height:4px;background:var(--border);border-radius:50px;margin:12px auto 4px"></div>
+    <div id="accountMenuItems" style="padding:8px 0 calc(8px + env(safe-area-inset-bottom,0))"></div>
+  </div>
+</div>
+<!-- BOTTOM NAV BAR -->
+<div id="bottomNavBar" style="position:fixed;bottom:0;left:0;right:0;z-index:1600;
+  background:var(--card);border-top:1px solid var(--border);
+  box-shadow:0 -2px 16px rgba(10,92,138,0.08);
+  display:flex;align-items:center;justify-content:space-around;
+  padding:8px 4px calc(8px + env(safe-area-inset-bottom,0)) 4px;">
+
+  <div class="bottom-nav-item" id="contactNavBtn" onclick="toggleContactMenu()"
+    style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    padding:6px 4px;border-radius:12px;transition:all 0.2s;flex:1;max-width:80px">
+    <i class="fas fa-headset" style="font-size:20px"></i>
+    <span style="font-size:10px;font-weight:700" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</span>
+  </div>
+
+  <div class="bottom-nav-item" data-page="cart" onclick="openCart();updateBottomNav('cart')"
+    style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    padding:6px 4px;border-radius:12px;transition:all 0.2s;flex:1;max-width:80px;position:relative">
+    <i class="fas fa-shopping-cart" style="font-size:20px"></i>
+    <span style="font-size:10px;font-weight:700" data-ar="السلة" data-en="Cart">السلة</span>
+    <span id="bottomNavCartBadge" style="display:none;position:absolute;top:-2px;left:50%;margin-left:8px;
+      background:var(--accent2);color:#fff;border-radius:50%;width:16px;height:16px;
+      font-size:9px;align-items:center;justify-content:center">0</span>
+  </div>
+
+  <div class="bottom-nav-item" data-page="quickOrder" onclick="openQuickOrderModal()"
+    style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    padding:6px 4px;border-radius:12px;transition:all 0.2s;flex:1;max-width:80px">
+    <span class="quick-order-icon-glow">
+      <i class="fas fa-bolt" style="font-size:19px;color:var(--primary)"></i>
+    </span>
+    <span style="font-size:10px;font-weight:700;color:var(--primary)" data-ar="طلب سريع" data-en="Quick Order">طلب سريع</span>
+  </div>
+
+  <div class="bottom-nav-item" data-page="quoteRequest" onclick="openQuoteRequestModal()"
+    style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    padding:6px 4px;border-radius:12px;transition:all 0.2s;flex:1;max-width:96px">
+    <i class="fas fa-file-invoice-dollar" style="font-size:20px"></i>
+    <span style="font-size:10px;font-weight:700" data-ar="اطلب عرض" data-en="Request Quote">اطلب عرض</span>
+  </div>
+
+  <div class="bottom-nav-item" id="bottomNavAccountBtn" data-page="account" onclick="handleBottomNavAccount();updateBottomNav('account')"
+    style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;
+    padding:6px 4px;border-radius:12px;transition:all 0.2s;flex:1;max-width:96px">
+    <i class="fas fa-bars" id="bottomNavAccountIcon" style="font-size:22px"></i>
+    <span id="bottomNavAccountLabel" style="font-size:10px;font-weight:700;display:none"></span>
+  </div>
+</div>
+
+
+
+<div class="modal-overlay" id="quickViewModal">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-eye"></i> <span data-ar="نظرة سريعة" data-en="Quick View">نظرة سريعة</span></div>
+      <button aria-label="إغلاق" class="close-btn" onclick="closeQuickView()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="quick-view-content" id="quickViewBody"></div>
+    </div>
+  </div>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+
+<!-- ─── لسان جانبي موحّد يجمع الأزرار العائمة الأربعة ─── -->
+<div class="fab-fan-wrap" id="fabFanWrap">
+  <button aria-label="أدوات سريعة" class="fab-fan-tab" id="fabFanTab" onclick="toggleFabFan()" title="أدوات سريعة">
+    <div class="fab-fan-mini-icons">
+      <span class="fab-mini fab-mini-1"><i class="fas fa-search"></i></span>
+      <span class="fab-mini fab-mini-2"><i class="fab fa-whatsapp"></i></span>
+      <span class="fab-mini fab-mini-3"><i class="fas fa-chevron-up"></i></span>
+      <span class="fab-mini fab-mini-4"><i class="fas fa-th-large"></i></span>
+    </div>
+    <i class="fas fa-chevron-left fab-fan-arrow" id="fabFanArrow"></i>
+  </button>
+
+  <button class="fab-fan-item fab-points" id="fabPointsBtn" onclick="closeFabFan()" style="display:none">
+    <i class="fas fa-trophy"></i>
+    <span class="fab-fan-label" id="fabPointsLabel">النقاط</span>
+  </button>
+
+  <button class="fab-fan-item fab-search" id="fabSearchBtn" onclick="focusSearchInput();closeFabFan()">
+    <i class="fas fa-search"></i>
+    <span class="fab-fan-label">البحث</span>
+  </button>
+
+  <button class="fab-fan-item fab-whatsapp" onclick="window.open('https://wa.me/962790408680?text=مرحباً، أود الاستفسار عن منتجاتكم في DentaPro','_blank');closeFabFan()">
+    <i class="fab fa-whatsapp"></i>
+    <span class="fab-fan-label">واتساب</span>
+  </button>
+
+  <button class="fab-fan-item scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'});closeFabFan()">
+    <i class="fas fa-chevron-up"></i>
+    <span class="fab-fan-label">الصعود للأعلى</span>
+  </button>
+
+  <button class="fab-fan-item fab-view-toggle" id="fabViewToggle" onclick="toggleCompactView();closeFabFan()">
+    <i class="fas fa-th-large" id="fabViewToggleIcon"></i>
+    <span class="fab-fan-label">طريقة العرض</span>
+  </button>
+</div>
+
+<!-- قائمة "تواصل معنا" — تُفتح من زر الشريط السفلي -->
+<div class="contact-fab-menu" id="contactFabMenu">
+  <button class="contact-fab-item" onclick="showPage('messages');closeContactFab()">
+    <i class="fas fa-comment-dots"></i><span>رسالة داخل التطبيق</span>
+  </button>
+  <a class="contact-fab-item" href="https://wa.me/962790408680" target="_blank" onclick="closeContactFab()">
+    <i class="fab fa-whatsapp"></i><span>واتساب</span>
+  </a>
+  <a class="contact-fab-item dp-messenger-link" data-show="flex" href="#" target="_blank" rel="noopener" style="display:none" onclick="closeContactFab()">
+    <i class="fab fa-facebook-messenger"></i><span>ماسنجر</span>
+  </a>
+  <a class="contact-fab-item" href="tel:+962790408680" onclick="closeContactFab()">
+    <i class="fas fa-phone"></i><span>اتصال</span>
+  </a>
+  <a class="contact-fab-item" href="sms:+962790408680" onclick="closeContactFab()">
+    <i class="fas fa-comment-sms"></i><span>SMS</span>
+  </a>
+</div>
+
+<script>
+// زر ماسنجر (فيسبوك): ضع هنا رابط صفحتك أو اسمها (الجزء بعد facebook.com/) أو رقمها. اتركه فارغاً لإخفاء الزر.
+//  • اسم الصفحة أو رقمها أو رابط profile.php?id=… ← يفتح محادثة ماسنجر مباشرة (m.me).
+//  • رابط مشاركة facebook.com/share/… ← يفتح صفحة فيسبوك، ومنها يضغط العميل "مراسلة".
+var DP_MESSENGER_PAGE = 'https://www.facebook.com/profile.php?id=61595785806751';
+(function () {
+  var raw = String(DP_MESSENGER_PAGE || '').trim();
+  var href = '';
+  var idm = raw.match(/profile\.php\?id=(\d+)/i);
+  if (idm) {
+    href = 'https://m.me/' + idm[1];
+  } else if (/^https:\/\/(www\.|m\.)?facebook\.com\/share\/[A-Za-z0-9_\-\/]+$/i.test(raw)) {
+    href = raw;
+  } else {
+    var p = raw.replace(/^(https?:\/\/)?(www\.|m\.)?(facebook\.com|fb\.com|m\.me)\//i, '').replace(/[\/?#].*$/, '');
+    if (/^[A-Za-z0-9._-]{3,}$/.test(p)) href = 'https://m.me/' + encodeURIComponent(p);
+  }
+  if (!href) return;
+  document.querySelectorAll('.dp-messenger-link').forEach(function (el) {
+    el.href = href;
+    el.style.display = el.getAttribute('data-show') || 'flex';
+  });
+})();
+</script>
+
+<!-- ─── Stats & Brands inserted by JS ─── -->
+
+<script>
+(function () {
+  // يعمل فقط عند فتح الموقع بالرابط: ?debug=1  (أو بعد تنفيذ localStorage.setItem('dp_debug','1'))
+  try {
+    if (!/[?&]debug=1(&|$)/.test(location.search) && !localStorage.getItem('dp_debug')) return;
+  } catch (e) { return; }
+  var STORE_KEY = 'dp_debug_logs_v1';
+  var LAST_CLICK_KEY = 'dp_debug_lastclick_v1';
+  var MAX_LOGS = 150;
+
+  function loadLogs() {
+    try { return JSON.parse(sessionStorage.getItem(STORE_KEY) || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveLogs(logs) {
+    try { sessionStorage.setItem(STORE_KEY, JSON.stringify(logs.slice(-MAX_LOGS))); }
+    catch (e) {}
+  }
+  var logs = loadLogs();
+
+  function nowStr() {
+    return new Date().toLocaleTimeString('ar-EG-u-nu-latn', { hour12: false });
+  }
+  function pushLog(type, args) {
+    var text;
+    try {
+      text = Array.prototype.map.call(args, function (a) {
+        if (typeof a === 'object') { try { return JSON.stringify(a); } catch (e) { return String(a); } }
+        return String(a);
+      }).join(' ');
+    } catch (e) { text = '[log error]'; }
+    logs.push({ t: nowStr(), type: type, text: text });
+    if (logs.length > MAX_LOGS) logs = logs.slice(-MAX_LOGS);
+    saveLogs(logs);
+    renderIfOpen();
+  }
+
+  // اعتراض console الأصلي بدون كسره
+  ['log', 'warn', 'error', 'info'].forEach(function (level) {
+    var orig = console[level] ? console[level].bind(console) : function () {};
+    console[level] = function () {
+      pushLog(level, arguments);
+      orig.apply(console, arguments);
+    };
+  });
+
+  // التقاط أخطاء JS غير الملتقطة وأخطاء الـ Promise
+  window.addEventListener('error', function (e) {
+    pushLog('error', ['JS ERROR:', e.message, 'at', e.filename + ':' + e.lineno]);
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    pushLog('error', ['UNHANDLED PROMISE:', (e.reason && e.reason.message) || e.reason]);
+  });
+
+  // تسجيل آخر نقرة قبل أي إغلاق/انهيار للصفحة (نفس فكرة الفاحص القديم المفيدة)
+  document.addEventListener('click', function (e) {
+    var target = e.target && e.target.closest ? e.target.closest('button, a, [onclick]') : null;
+    var info = {
+      time: nowStr(),
+      label: target ? (target.getAttribute('onclick') || target.textContent || target.tagName) : 'unknown',
+      page: (document.querySelector('.page-section.active') || {}).id || 'homePage',
+      href: location.href
+    };
+    try { localStorage.setItem(LAST_CLICK_KEY, JSON.stringify(info)); } catch (e2) {}
+  }, true);
+
+  window.addEventListener('beforeunload', function () {
+    try {
+      var last = localStorage.getItem(LAST_CLICK_KEY);
+      if (last) pushLog('warn', ['آخر نقرة قبل الإغلاق/الانهيار:', last]);
+    } catch (e) {}
+  });
+
+  // عند تحميل الصفحة، إذا في نقرة محفوظة من جلسة سابقة انتهت بانهيار غير متوقع، بلّغ عنها فورًا
+  (function reportPreviousCrashIfAny() {
+    try {
+      var last = localStorage.getItem(LAST_CLICK_KEY);
+      if (last) {
+        pushLog('warn', ['⚠️ آخر نقرة مسجّلة من الجلسة السابقة (قد تكون سبب انهيار):', last]);
+      }
+    } catch (e) {}
+  })();
+
+  // ============== واجهة صغيرة غير محجوبة للشاشة ==============
+  var bubble = document.createElement('div');
+  bubble.id = 'dpDebugBubble';
+  bubble.textContent = '🐞';
+  bubble.style.cssText = [
+    'position:fixed', 'bottom:14px', 'left:14px', 'z-index:999999',
+    'width:40px', 'height:40px', 'border-radius:50%',
+    'background:#1e2327', 'color:#fff', 'display:flex',
+    'align-items:center', 'justify-content:center',
+    'font-size:18px', 'box-shadow:0 2px 8px rgba(0,0,0,.35)',
+    'cursor:pointer', 'opacity:0.85', 'user-select:none'
+  ].join(';');
+
+  var panel = document.createElement('div');
+  panel.id = 'dpDebugPanel';
+  panel.style.cssText = [
+    'position:fixed', 'bottom:64px', 'left:14px', 'z-index:999999',
+    'width:min(92vw,380px)', 'height:45vh', 'max-height:400px',
+    'background:#111318', 'color:#eee', 'font:12px/1.5 monospace',
+    'border-radius:12px', 'box-shadow:0 6px 24px rgba(0,0,0,.5)',
+    'display:none', 'flex-direction:column', 'overflow:hidden'
+  ].join(';');
+
+  var header = document.createElement('div');
+  header.style.cssText = 'display:flex;gap:6px;padding:8px;background:#1e2327;flex-shrink:0';
+  header.innerHTML =
+    '<span style="flex:1;font-weight:bold;align-self:center">Debug</span>' +
+    '<button id="dpDebugCopy" style="padding:4px 8px;border:none;border-radius:6px;background:#333;color:#fff">نسخ</button>' +
+    '<button id="dpDebugClear" style="padding:4px 8px;border:none;border-radius:6px;background:#333;color:#fff">مسح</button>' +
+    '<button id="dpDebugClose" style="padding:4px 8px;border:none;border-radius:6px;background:#333;color:#fff">إغلاق</button>';
+
+  var body = document.createElement('div');
+  body.id = 'dpDebugBody';
+  body.style.cssText = 'flex:1;overflow:auto;padding:8px;white-space:pre-wrap;word-break:break-word';
+
+  panel.appendChild(header);
+  panel.appendChild(body);
+
+  function mount() {
+    document.body.appendChild(bubble);
+    document.body.appendChild(panel);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+
+  function colorFor(type) {
+    if (type === 'error') return '#ff6b6b';
+    if (type === 'warn') return '#ffd166';
+    return '#9ad1ff';
+  }
+  function render() {
+    body.innerHTML = logs.map(function (l) {
+      return '<div style="color:' + colorFor(l.type) + ';margin-bottom:4px">[' + l.t + '] ' +
+        l.text.replace(/</g, '&lt;') + '</div>';
+    }).join('');
+    body.scrollTop = body.scrollHeight;
+  }
+  function renderIfOpen() {
+    if (panel.style.display !== 'none') render();
+  }
+
+  bubble.addEventListener('click', function () {
+    var opening = panel.style.display === 'none';
+    panel.style.display = opening ? 'flex' : 'none';
+    if (opening) render();
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.id === 'dpDebugClose') panel.style.display = 'none';
+    if (e.target && e.target.id === 'dpDebugClear') { logs = []; saveLogs(logs); render(); }
+    if (e.target && e.target.id === 'dpDebugCopy') {
+      var text = logs.map(function (l) { return '[' + l.t + '] ' + l.type.toUpperCase() + ': ' + l.text; }).join('\n');
+      if (navigator.clipboard) navigator.clipboard.writeText(text);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
