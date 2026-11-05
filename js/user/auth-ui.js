@@ -340,26 +340,6 @@ async function doLogin() {
   }
 }
 
-async function sendPasswordReset(){
-  const email = document.getElementById('loginIdentifier')?.value.trim();
-  const errorBox = document.getElementById('loginError');
-  const errorMsg = document.getElementById('loginErrorMsg');
-  if (!email || !email.includes('@')) {
-    if (errorMsg) errorMsg.textContent = 'أدخل البريد الإلكتروني أولاً ثم اضغط استعادة كلمة المرور';
-    if (errorBox) errorBox.style.display = 'flex';
-    return;
-  }
-  try {
-    if (typeof window._fbSendPasswordResetEmail !== 'function') throw new Error('Firebase Auth غير جاهز');
-    await window._fbSendPasswordResetEmail(window._auth, email);
-    if (errorMsg) errorMsg.textContent = 'تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني';
-    if (errorBox) { errorBox.style.display = 'flex'; errorBox.style.color = '#087f85'; }
-  } catch(e) {
-    if (errorMsg) errorMsg.textContent = e.code === 'auth/user-not-found' ? 'لا يوجد حساب بهذا البريد في Firebase' : 'تعذّر إرسال رابط الاستعادة، تحقق من البريد وإعدادات Firebase';
-    if (errorBox) { errorBox.style.display = 'flex'; errorBox.style.color = ''; }
-  }
-}
-
 function loginSuccess(user) {
   currentUser = user;
   localStorage.setItem('dentapro_session', JSON.stringify(user));
