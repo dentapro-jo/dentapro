@@ -1,0 +1,21 @@
+/* DentaPro CSS module: client/admin messaging presentation. */
+.message-thread,
+.admin-thread-body { display:flex; flex-direction:column; gap:10px; }
+.message-bubble,
+.thread-message { max-width:min(78%, 520px); padding:10px 14px; border-radius:14px; line-height:1.65; word-break:break-word; }
+.message-bubble.client,
+.thread-message.client { align-self:flex-start; background:#e8f7f6; color:var(--text); border:1px solid rgba(6,182,163,.18); }
+.message-bubble.admin,
+.thread-message.admin { align-self:flex-end; background:var(--gradient-primary); color:#fff; }
+.message-input-row,
+.thread-input-row { display:flex; align-items:flex-end; gap:8px; }
+.message-input-row textarea,
+.thread-input-row textarea { flex:1; min-height:42px; resize:vertical; }
+.message-image-preview,
+.chat-image-preview { max-width:180px; max-height:180px; border-radius:12px; object-fit:cover; }
+.broadcast-client-list { display:grid; gap:8px; max-height:260px; overflow:auto; }
+.broadcast-client-chip { display:inline-flex; align-items:center; gap:6px; padding:5px 9px; border-radius:999px; background:rgba(6,182,163,.1); color:var(--primary-dark); font-size:12px; }
+body.en .message-bubble.client,
+body.en .thread-message.client { align-self:flex-end; }
+body.en .message-bubble.admin,
+body.en .thread-message.admin { align-self:flex-start; }

@@ -1,0 +1,397 @@
+/* DentaPro CSS module: responsive responsibilities. */
+
+@media(min-width:1200px){ .drawer-overlay, .mobile-drawer{display:none} }
+
+@media (max-width:768px){
+  .category-picker{min-height:50px}
+  .category-picker-label{min-height:50px;border-radius:16px;padding:11px 15px;font-size:15px}
+}
+
+@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes modalIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+
+@media(min-width:540px){
+  .notif-dropdown{left:auto; right:24px; margin:0}
+  body.en .notif-dropdown{right:auto; left:24px}
+}
+
+@keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+
+@keyframes toastInLTR{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(10,92,138,0.3); }
+  70%  { box-shadow: 0 0 0 12px rgba(10,92,138,0); }
+  100% { box-shadow: 0 0 0 0 rgba(10,92,138,0); }
+}
+
+@media(max-width:768px){
+  #productDetailPage .orders-page{padding:14px 12px}
+  .product-detail-grid{grid-template-columns:1fr; gap:14px; max-width:100%}
+  .product-detail-img{aspect-ratio:1/1; height:auto; max-height:380px; min-height:260px; border-radius:14px}
+  .product-detail-grid .product-name{font-size:20px !important}
+  .product-detail-grid .product-desc{font-size:15px !important; line-height:1.8}
+  .product-detail-grid .product-price{font-size:28px !important}
+}
+
+@keyframes fadeInTab{ from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+  .categories-grid{grid-template-columns:repeat(3,1fr); gap:10px}
+  .products-grid{grid-template-columns:1fr 1fr; gap:10px}
+  .product-card{height:auto}
+  body.compact-view #productsGrid .compact-hide,
+  body.compact-view #offersGrid .compact-hide,
+  body.compact-view #latestProductsGrid .compact-hide{display:none !important}
+
+  body.compact-view #productsGrid .product-card,
+  body.compact-view #offersGrid .product-card,
+  body.compact-view #latestProductsGrid .product-card{height:190px}
+
+  body.compact-view #productsGrid .product-img-wrap,
+  body.compact-view #offersGrid .product-img-wrap,
+  body.compact-view #latestProductsGrid .product-img-wrap{height:150px}
+
+  body.compact-view #productsGrid .product-info,
+  body.compact-view #offersGrid .product-info,
+  body.compact-view #latestProductsGrid .product-info{padding:8px 10px; justify-content:flex-start}
+
+  body.compact-view #productsGrid .product-name,
+  body.compact-view #offersGrid .product-name,
+  body.compact-view #latestProductsGrid .product-name{margin:0 0 4px !important; line-height:1.25 !important}
+
+  body.compact-view #productsGrid .product-price-row,
+  body.compact-view #offersGrid .product-price-row,
+  body.compact-view #latestProductsGrid .product-price-row{margin-top:0 !important}
+
+  .compact-price-bar{display:none}
+
+  body.compact-view #productsGrid .product-price-row > div:first-child,
+  body.compact-view #offersGrid .product-price-row > div:first-child,
+  body.compact-view #latestProductsGrid .product-price-row > div:first-child{display:none !important}
+
+  body.compact-view #productsGrid .product-img-wrap::after,
+  body.compact-view #offersGrid .product-img-wrap::after,
+  body.compact-view #latestProductsGrid .product-img-wrap::after{
+    content:''; position:absolute; bottom:0; left:0; right:0; height:55px;
+    background:linear-gradient(to top, rgba(0,0,0,0.28), transparent);
+    z-index:1; pointer-events:none;
+  }
+
+  body.compact-view #productsGrid .compact-price-bar,
+  body.compact-view #offersGrid .compact-price-bar,
+  body.compact-view #latestProductsGrid .compact-price-bar{
+    display:inline-flex; align-items:center; justify-content:center;
+    position:absolute; bottom:8px; left:8px; right:auto; z-index:2;
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff; font-weight:800; font-size:12px; padding:5px 12px;
+    border-radius:50px; width:fit-content;
+  }
+
+  body.compact-view #productsGrid .add-to-cart,
+  body.compact-view #offersGrid .add-to-cart,
+  body.compact-view #latestProductsGrid .add-to-cart{
+    display:flex; align-items:center; justify-content:center;
+    position:absolute; bottom:8px; left:12px; top:auto; z-index:2;
+    width:36px; height:36px; border-radius:50%;
+  }
+
+  body.en.compact-view #productsGrid .add-to-cart,
+  body.en.compact-view #offersGrid .add-to-cart,
+  body.en.compact-view #latestProductsGrid .add-to-cart{left:auto; right:12px}
+  .offers-grid{grid-template-columns:1fr 1fr; gap:10px}
+  .product-img{height:170px; font-size:48px; padding:10px}
+  .product-img-wrap{height:130px; font-size:36px; padding:8px}
+  .compare-toggle-btn{width:32px; height:32px; font-size:13px; top:8px}
+  .favorite-toggle-btn{width:32px; height:32px; font-size:13px; top:44px}
+  .product-brand{font-size:9px}
+  .product-name{font-size:13px; margin-bottom:4px}
+  .product-desc{font-size:11px; margin-bottom:8px}
+  .product-stars{font-size:11px; margin-bottom:6px}
+  .product-price{font-size:15px}
+  .product-old-price{font-size:10px}
+  .add-to-cart{width:30px; height:30px; font-size:13px}
+  .product-badge{padding:3px 26px; font-size:8px; top:9px; right:-24px}
+  body.en .product-badge{right:auto; left:-24px}
+}
+
+@media(max-width:640px){
+  .admin-orders-wrap{padding:0 12px 20px}
+  .admin-order-row{
+    grid-template-columns:1fr;
+    gap:8px;
+    padding:16px 14px;
+    border:1px solid #e2eaf0;
+    border-radius:14px;
+    margin-bottom:12px;
+  }
+  .admin-order-row.header-row{ display:none }
+  .admin-order-row > div:last-child{
+    display:flex; justify-content:flex-end;
+  }
+  .admin-order-row .admin-order-field{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding-top:8px; border-top:1px dashed #f0f4f8;
+  }
+  .admin-order-row .admin-order-field::before{
+    content:attr(data-label);
+    font-size:11px; font-weight:700; color:var(--text-muted); flex-shrink:0;
+  }
+  .admin-order-row > div:last-child button{
+    width:100%; padding:12px !important; font-size:14px !important;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin-top:4px;
+  }
+}
+
+@keyframes favPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* ===== SKELETON LOADING ===== */
+@keyframes skeletonPulse{
+  0%{opacity:1}
+  50%{opacity:0.55}
+  100%{opacity:1}
+}
+
+@media (max-width: 767px){
+  body{padding-bottom:64px}
+}
+
+@media (min-width: 768px){
+}
+
+@media (max-width:370px){
+  .logo{left:51px;max-width:calc(100% - 205px)}
+  .logo-text{font-size:19px}
+  #favBtn{right:45px}
+  #msgBtn{right:79px}
+  #notifBtn{right:113px}
+  .cart-btn{right:8px}
+  .header-actions .offers-pill-btn,
+  .header-actions .lang-btn,
+  .header-actions .dark-toggle-inline{font-size:11px;gap:4px}
+}
+
+@media (max-width:370px){#msgBtn::after{font-size:11px}}
+
+@media (max-width:370px){#favBtn::after{font-size:11px}}
+
+@media (max-width: 768px){
+  #favBtn{
+    display:flex !important;
+    top:14px;
+    right:86px;
+    left:auto;
+    bottom:auto;
+    width:34px;
+    height:34px;
+    padding:0;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    color:#13283e;
+    font-size:18px;
+    z-index:8;
+  }
+  #favBtn::after{display:none}
+  #favBtn i{font-size:18px;color:#13283e}
+  #favBtn .notif-badge{top:-3px;right:-4px;width:auto;height:16px;font-size:9px}
+
+  #reorderMobileBtn{
+    display:flex !important;
+    position:absolute;
+    left:calc((100% - 36px) / 3 + 18px);
+    right:auto;
+    top:auto;
+    bottom:8px;
+    width:calc((100% - 36px) / 3);
+    height:43px;
+    padding:0 8px;
+    border:1px solid #e4e4e4;
+    border-radius:999px;
+    background:#fff;
+    color:#3e3e3e;
+    font-family:inherit;
+    font-size:0;
+    gap:6px;
+    align-items:center;
+    justify-content:center;
+    z-index:7;
+  }
+  #reorderMobileBtn i{font-size:15px;color:#13283e}
+#reorderMobileBtn .notif-btn-label{font-size:12px;font-weight:700;color:#3e3e3e}
+}
+
+@media (max-width:370px){#reorderMobileBtn .notif-btn-label{font-size:11px}}
+
+@media (max-width:370px){
+  .logo{left:48px;max-width:calc(100% - 196px)}
+  #notifBtn{right:100px}
+  #favBtn{right:55px}
+  .header-actions .lang-btn{right:10px}
+}
+
+@media (max-width:370px){
+  .logo{left:50px;max-width:calc(100% - 204px)}
+  #notifBtn{right:110px}
+  #favBtn{right:74px}
+  .header-actions .lang-btn{right:38px}
+}
+
+@media (max-width: 768px){
+  #notifBtn,#favBtn,
+  .header-actions .lang-btn{
+    background:#fff !important;
+    color:#111827 !important;
+    border:0 !important;
+    box-shadow:none !important;
+  }
+  #notifBtn i,#favBtn i,
+  .header-actions .lang-btn i.fa-globe{
+    color:#111827 !important;
+    -webkit-text-stroke:.25px #111827;
+  }
+  .notif-badge,.cart-count{
+    background:#ef3340 !important;
+    color:#fff !important;
+    border:2px solid #fff !important;
+    box-shadow:0 1px 3px rgba(0,0,0,.18) !important;
+  }
+}
+
+@media (max-width:370px){
+  .logo{left:46px;max-width:calc(100% - 214px)}
+  #notifBtn{right:108px}
+  #favBtn{right:56px}
+  .header-actions .lang-btn{right:8px}
+}
+
+@keyframes splashPop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+
+@keyframes qtyOfferTextPulse {
+  0%, 100% { opacity:1; }
+  50% { opacity:0.55; }
+}
+
+@keyframes qtyOfferFramePulse {
+  0%, 100% { outline-color: rgba(229,62,62,1); }
+  50% { outline-color: rgba(229,62,62,0.3); }
+}
+
+@keyframes qtyOfferIconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes qtyOfferRibbonPulse {
+  0%, 100% { opacity:1; }
+  50% { opacity:0.55; }
+}
+
+@keyframes quickOrderPulse {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.45); opacity: 0; }
+}
+
+/* ─── Hero float animation ─── */
+@keyframes floatA { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(5deg)} }
+
+@keyframes floatB { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-8px) rotate(-4deg)} }
+
+/* ─── Shimmer skeleton ─── */
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+@keyframes brandScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ─── Notification bell shake ─── */
+@keyframes notifBellPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.3); }
+}
+
+/* ─── Animated entry for product cards ─── */
+@keyframes cardEntry { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+@keyframes tickerScroll { 0%{transform:translateX(-50%)} 100%{transform:translateX(0%)} }
+
+@keyframes tickerScrollEn { 0%{transform:translateX(0%)} 100%{transform:translateX(-50%)} }
+/* ===== توحيد نهائي لأزرار الهيدر (يفوز على كل التعارضات السابقة) =====
+   صف علوي دائري: اللغة + المفضلة + الإشعارات
+   صف بللات تحت البحث: العروض + طلباتي السابقة + الرسائل
+   نفس التصميم على كل المقاسات (جوال وحاسوب) */
+.lang-btn, #favBtn, #notifBtn {
+  display: flex !important;
+  position: absolute !important;
+  top: 14px !important; bottom: auto !important; left: auto !important;
+  width: 34px !important; height: 34px !important; min-width: 34px !important;
+  padding: 0 !important; border: 0 !important;
+  border-radius: 50% !important; background: transparent !important; color: #13283e !important;
+  align-items: center !important; justify-content: center !important;
+  font-size: 18px !important; gap: 0 !important; z-index: 8 !important;
+}
+.lang-btn::after, #favBtn::after, #notifBtn::after { display: none !important; }
+.lang-btn #langLabel, .lang-btn .fa-chevron-down { display: none !important; }
+.lang-btn i.fa-globe, #favBtn i, #notifBtn i { font-size: 18px !important; color: #13283e !important; }
+#notifBtn { right: 12px !important; }
+#favBtn   { right: 54px !important; }
+.lang-btn { right: 96px !important; }
+
+.offers-pill-btn, #reorderMobileBtn, #msgBtn {
+  display: flex !important;
+  position: absolute !important;
+  top: auto !important; bottom: 12px !important; right: auto !important;
+  width: calc((100% - 36px) / 3) !important; height: 43px !important;
+  padding: 0 8px !important; border: 1px solid #e4e4e4 !important; border-radius: 999px !important;
+  background: #fff !important; color: #3e3e3e !important; font-family: inherit !important; font-size: 0 !important;
+  align-items: center !important; justify-content: center !important;
+  gap: 6px !important; z-index: 7 !important;
+}
+body.dark-mode .offers-pill-btn,
+body.dark-mode #reorderMobileBtn,
+body.dark-mode #msgBtn {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+.offers-pill-btn i, #reorderMobileBtn i, #msgBtn i { font-size: 15px !important; color: #13283e !important; }
+body.dark-mode .offers-pill-btn i,
+body.dark-mode #reorderMobileBtn i,
+body.dark-mode #msgBtn i { color: var(--text) !important; }
+.offers-pill-btn span, #reorderMobileBtn .notif-btn-label, #msgBtn .notif-btn-label {
+  font-size: 12px !important; font-weight: 700 !important; color: #3e3e3e !important;
+}
+body.dark-mode .offers-pill-btn span,
+body.dark-mode #reorderMobileBtn .notif-btn-label,
+body.dark-mode #msgBtn .notif-btn-label { color: var(--text) !important; }
+/* تم حذف هذا السطر بالكامل — النص الآن حقيقي بالـHTML (span.notif-btn-label) ومترجم تلقائيًا، مو CSS ثابت */
+
+.offers-pill-btn  { left: 12px !important; }
+#reorderMobileBtn { left: calc((100% - 36px) / 3 + 18px) !important; }
+#msgBtn           { left: calc(2 * (100% - 36px) / 3 + 24px) !important; }
+
+#favBtn .notif-badge, #msgBtn .notif-badge {
+  top: -4px !important; right: -4px !important; width: auto !important; height: 16px !important; font-size: 9px !important;
+}
+
+.cart-btn, .dark-toggle-inline {
+  display: none !important;
+}
+/* ===== فرض ظهور الشريط المتحرك (العروض) بأعلى الشاشة فوق كل شي ===== */
+.offers-ticker {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 2000 !important;
+}
+header {
+  z-index: 900 !important;
+}
