@@ -5,10 +5,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
            sendPasswordResetEmail, signOut, onAuthStateChanged, updateProfile,
            deleteUser, EmailAuthProvider, reauthenticateWithCredential, updateEmail }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getMessaging, getToken, onMessage, isSupported }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
-  import { getFunctions, httpsCallable }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDVVEzXPlfJAD7NSV0tGHzzsx8LiyK2i4w",
@@ -37,28 +33,34 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
   window._fbEmailAuthProvider = EmailAuthProvider;
   window._fbReauthenticate    = reauthenticateWithCredential;
 window._fbUpdateEmail       = updateEmail;
-  // إعداد Firebase Cloud Messaging (إشعارات فعلية حتى عند إغلاق المتصفح)
+  // إعداد Firebase Cloud Messaging بعد اكتمال الواجهة؛ مكتبة Messaging كبيرة
+  // ولا يحتاجها معظم الزوار في لحظة الرسم الأولى.
   const FCM_VAPID_KEY = "BEOJcmas6Rpa_BT3UXB4d3Sjx9dNuAa4-N6s7Fm2MsjCoHudMD46W3wWEzZmUSapX4DSuN7Tt6QLtAxBBW91CPw";
   window._fcmGetTokenFn = null;
-  isSupported().then((supported) => {
-    if (!supported) { console.warn('⚠️ هذا المتصفح لا يدعم Firebase Messaging'); return; }
-    const messaging = getMessaging(app);
-    window._fcmMessaging = messaging;
-    window._fcmGetTokenFn = async (swRegistration) => {
-      try {
-        return await getToken(messaging, { vapidKey: FCM_VAPID_KEY, serviceWorkerRegistration: swRegistration });
-      } catch(e) {
-        console.warn('⚠️ فشل جلب FCM token:', e.message);
-        return null;
-      }
-    };
-    onMessage(messaging, (payload) => {
-      // إشعار يصل والموقع مفتوح فعلياً بالمقدمة — نعرضه كـ toast بدل إشعار نظام مكرر
-      if (typeof window._onForegroundFCMMessage === 'function') {
-        window._onForegroundFCMMessage(payload);
-      }
-    });
-  }).catch(e => console.warn('⚠️ isSupported check failed:', e.message));
+  const initMessaging = async () => {
+    try {
+      const { getMessaging, getToken, onMessage, isSupported } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js");
+      if (!await isSupported()) { console.warn('⚠️ هذا المتصفح لا يدعم Firebase Messaging'); return; }
+      const messaging = getMessaging(app);
+      window._fcmMessaging = messaging;
+      window._fcmGetTokenFn = async (swRegistration) => {
+        try {
+          return await getToken(messaging, { vapidKey: FCM_VAPID_KEY, serviceWorkerRegistration: swRegistration });
+        } catch(e) {
+          console.warn('⚠️ فشل جلب FCM token:', e.message);
+          return null;
+        }
+      };
+      onMessage(messaging, (payload) => {
+        // إشعار يصل والموقع مفتوح فعلياً بالمقدمة — نعرضه كـ toast بدل إشعار نظام مكرر
+        if (typeof window._onForegroundFCMMessage === 'function') {
+          window._onForegroundFCMMessage(payload);
+        }
+      });
+    } catch(e) { console.warn('⚠️ تعذّر تحميل Firebase Messaging:', e.message); }
+  };
+  (window.requestIdleCallback || ((cb) => setTimeout(cb, 1800)))(initMessaging, { timeout: 4000 });
 
   window._db           = db;
   window._fbGetDoc     = getDoc;
@@ -84,8 +86,14 @@ window._fbGetDocFromServer = getDocFromServer;
 
   // Cloud Function لإنشاء الطلب من الخادم (السعر/الخصم/المخزون تُحسب هناك)
   // معطّلة افتراضياً (SERVER_ORDER_CREATION_ENABLED = false) لحد ما تُنشر الدالة فعلياً على Blaze
-  const functions = getFunctions(app);
-  window._fbCreateOrderFn = httpsCallable(functions, 'createOrder');
+  window._fbCreateOrderFn = null;
+  if (window.SERVER_ORDER_CREATION_ENABLED === true) {
+    import("https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js")
+      .then(({ getFunctions, httpsCallable }) => {
+        window._fbCreateOrderFn = httpsCallable(getFunctions(app), 'createOrder');
+      })
+      .catch(e => console.warn('⚠️ تعذّر تحميل Firebase Functions:', e.message));
+  }
 
   // التخزين المحلي مُفعَّل تلقائياً عبر persistentLocalCache() في إعداد Firestore
 
