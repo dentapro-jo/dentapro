@@ -484,20 +484,23 @@ async function submitOrder() {
       console.log(navigator.onLine ? '✅ تم الحفظ في Firebase' : '📦 تم حفظ الطلب محلياً، سيُرسل تلقائياً عند عودة الاتصال');
     } catch(e) {
       console.error('❌ Firebase error:', e.code || e.message, e);
-      if (cleanOrder.couponCode) {
-        // فشل اعتماد الكود: نُرجع المخزون المحجوز ونُزيل الكود ليراجع العميل الإجمالي
+      // أي فشل بعد حجز المخزون: نُرجع الكميات المحجوزة، وإلا يتناقص مخزون المواد مع كل محاولة فاشلة دون طلب فعلي
+      if (cleanOrder.stockReserved) {
         try { await releaseOrderStock(cleanOrder.items); } catch (er) { console.warn('releaseOrderStock:', er && er.message); }
+      }
+      if (cleanOrder.couponCode) {
+        // فشل اعتماد الكود: نُزيل الكود ليراجع العميل الإجمالي
         const denied = e && e.code === 'permission-denied';
         dpClearCoupon();
         updateCartUI();
         showToast(denied
           ? '🎟️ ' + t('تعذّر اعتماد كود الخصم (ربما انتهى أو استُنفد). أُزيل الكود، راجع الإجمالي ثم أعد الإرسال', 'The discount code could not be applied (expired or used up). It was removed, review the total and resubmit')
-          : '❌ تعذّر إرسال الطلب، تحقق من اتصال الإنترنت وحاول مجدداً', 'error');
+          : '❌ تعذّر إرسال الطلب' + (e && e.code ? ' (' + e.code + ')' : '') + '، تحقق من اتصال الإنترنت وحاول مجدداً', 'error');
         btn.disabled = false;
         btn.innerHTML = btnOriginalHTML;
         return;
       }
-      showToast('❌ تعذّر إرسال الطلب، تحقق من اتصال الإنترنت وحاول مجدداً', 'error');
+      showToast('❌ تعذّر إرسال الطلب' + (e && e.code ? ' (' + e.code + ')' : '') + '، تحقق من اتصال الإنترنت وحاول مجدداً', 'error');
       btn.disabled = false;
       btn.innerHTML = btnOriginalHTML;
       return;
