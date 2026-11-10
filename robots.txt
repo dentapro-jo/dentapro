@@ -1,0 +1,5 @@
+# DentaPro: allow all crawlers (JS/CSS are intentionally not blocked so Google can render the page)
+User-agent: *
+Allow: /
+
+Sitemap: https://dentapro-jo.github.io/dentapro/sitemap.xml
