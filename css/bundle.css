@@ -2853,3 +2853,14 @@ header {
 
 /* حجز مساحة بانر الصفحة الرئيسية قبل ظهوره (منع CLS): يُرفع الـ class من ad-banner.js عند الحسم، أو بعد 8 ثوانٍ كحد أقصى */
 html.dp-banner-reserve #adBannerSection{display:block !important; visibility:hidden}
+
+/* [DP-CART-VIEWPORT] سلة التسوق: زر «إتمام الطلب» يبقى ظاهراً فوق شريط المتصفح السفلي على الجوال.
+   dvh = الارتفاع المرئي الفعلي، والهامش السفلي الإضافي يحجز مساحة لشريط المتصفح العائم. */
+.cart-items{min-height:0}
+.cart-footer{flex-shrink:0; padding-bottom:calc(20px + env(safe-area-inset-bottom, 0px))}
+@supports (height:100dvh){
+  .cart-sidebar{bottom:auto; height:100dvh; max-height:100dvh}
+}
+@media (max-width:768px){
+  .cart-footer{padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px))}
+}
