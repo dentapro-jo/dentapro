@@ -252,6 +252,58 @@ async function dpSetOrderWithCoupon(orderNum, order) {
   await batch.commit();
 }
 
+// ---------- تشخيص رفض الكود (يُستدعى فقط بعد فشل كتابة الطلب بسبب الصلاحيات) ----------
+// يعيد نص السبب المحتمل بعد مطابقة نفس شروط قواعد Firestore على بيانات الكود والطلب، أو نصاً فارغاً إن تعذّر.
+async function dpDiagnoseCouponDenial(order) {
+  try {
+    const out = [];
+    const code = order && order.couponCode;
+    if (!code) return '';
+    let c = null;
+    try { c = await dpFetchCouponFromServer(code); } catch (e) { return 'تعذّر قراءة الكود من الخادم'; }
+    if (!c) return 'الكود غير موجود';
+    const need = ['active', 'startsAtMs', 'expiresAtMs', 'minPurchase', 'audience', 'scope', 'type', 'value', 'maxDiscount', 'maxTotal', 'usedCount', 'perClientMax'];
+    const missing = need.filter(k => c[k] === undefined || c[k] === null);
+    if (missing.length) out.push('حقول ناقصة في تعريف الكود: ' + missing.join('، ') + ' (افتح الكود في لوحة الأكواد واحفظه من جديد)');
+    const now = Date.now();
+    if (c.active !== true) out.push('الكود غير فعّال');
+    if (c.startsAtMs && now < c.startsAtMs) out.push('لم يبدأ الكود بعد');
+    if (c.expiresAtMs && now > c.expiresAtMs) out.push('انتهت صلاحية الكود');
+    if (typeof order.originalTotal !== 'number') out.push('إجمالي الطلب الأصلي غير موجود في الطلب');
+    if (c.minPurchase && order.originalTotal < c.minPurchase) out.push('الحد الأدنى للشراء ' + c.minPurchase + ' د.أ لم يتحقق');
+    if (c.maxTotal && (c.usedCount || 0) + 1 > c.maxTotal) out.push('بلغ الكود الحد الأقصى لعدد الاستعمالات');
+    const uid = currentUser && currentUser.uid;
+    const prev = uid ? await dpClientCouponCount(code, uid) : 0;
+    if (c.perClientMax && prev + 1 > c.perClientMax) out.push('استعملت هذا الكود الحد الأقصى المسموح (' + c.perClientMax + ')');
+    if (c.audience === 'specific' && uid) {
+      let ok = false;
+      try { ok = (await window._fbGetDocFromServer(window._fbDoc2('coupon_targets', code + '__' + uid))).exists(); } catch (e) {}
+      if (!ok) out.push('الكود غير مخصص لحسابك');
+    }
+    if (c.audience === 'new') {
+      const p9 = dpPhone9(order.phone);
+      if (!p9) out.push('رقم الهاتف غير صالح لكود الطلب الأول');
+      else {
+        let used = false;
+        try { used = (await window._fbGetDocFromServer(window._fbDoc2('coupon_phones', code + '__' + p9))).exists(); } catch (e) {}
+        if (used) out.push('رقم الهاتف استفاد من هذا الكود سابقاً');
+      }
+      if (prev > 0) out.push('الكود للطلب الأول فقط');
+    }
+    const base = c.scope === 'all' ? order.originalTotal : order.couponEligibleTotal;
+    if (c.scope !== 'all' && !(typeof order.couponEligibleTotal === 'number' && order.couponEligibleTotal >= 0 && order.couponEligibleTotal <= order.originalTotal)) out.push('المبلغ المؤهل للخصم غير صحيح');
+    const allowed = (c.type === 'percent' ? base * (c.value || 0) / 100 : (c.value || 0)) + 0.011;
+    if (typeof order.couponDiscount === 'number' && order.couponDiscount > allowed) out.push('قيمة الخصم (' + order.couponDiscount + ') تتجاوز المسموح (' + (Math.round(allowed * 100) / 100) + ')');
+    if (c.maxDiscount && order.couponDiscount > c.maxDiscount + 0.011) out.push('الخصم يتجاوز السقف الأقصى للكود');
+    const authEmail = window._auth && window._auth.currentUser && window._auth.currentUser.email;
+    if (authEmail && order.clientEmail && authEmail !== order.clientEmail) out.push('بريد الحساب في المصادقة (' + authEmail + ') يختلف عن بريد الطلب (' + order.clientEmail + ') — سجّل الخروج ثم الدخول مجدداً');
+    if (!out.length) out.push('شروط الكود سليمة من جهة المتصفح؛ السبب المرجّح أن قواعد Firestore المنشورة لا تتضمن قواعد الأكواد أو نسختها قديمة (انشر ملف firestore.rules الأخير)');
+    return out.join(' | ');
+  } catch (e) {
+    return '';
+  }
+}
+
 // ---------- إرجاع استعمال الكود عند إلغاء الطلب (للموظف/الأدمن) ----------
 // ينقص عدّاد الكود وعدّاد العميل بواحد، ويضع علامة couponRefunded على الطلب حتى لا يتكرر الإرجاع.
 async function dpReleaseCouponUse(order, docId) {
