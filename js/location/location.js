@@ -497,10 +497,13 @@ async function submitOrder() {
       if (cleanOrder.couponCode) {
         // فشل اعتماد الكود: نُزيل الكود ليراجع العميل الإجمالي
         const denied = e && e.code === 'permission-denied';
+        let denyWhy = '';
+        if (denied && typeof dpDiagnoseCouponDenial === 'function') { try { denyWhy = await dpDiagnoseCouponDenial(cleanOrder); } catch (e2) {} }
+        if (denyWhy) console.warn('🎟️ سبب رفض الكود:', denyWhy);
         dpClearCoupon();
         updateCartUI();
         showToast(denied
-          ? '🎟️ ' + t('تعذّر اعتماد كود الخصم (ربما انتهى أو استُنفد). أُزيل الكود، راجع الإجمالي ثم أعد الإرسال', 'The discount code could not be applied (expired or used up). It was removed, review the total and resubmit')
+          ? '🎟️ ' + t('تعذّر اعتماد كود الخصم (ربما انتهى أو استُنفد). أُزيل الكود، راجع الإجمالي ثم أعد الإرسال', 'The discount code could not be applied (expired or used up). It was removed, review the total and resubmit') + (denyWhy ? ' — ' + denyWhy : '')
           : '❌ تعذّر إرسال الطلب' + (e && e.code ? ' (' + e.code + ')' : '') + '، تحقق من اتصال الإنترنت وحاول مجدداً', 'error');
         btn.disabled = false;
         btn.innerHTML = btnOriginalHTML;
