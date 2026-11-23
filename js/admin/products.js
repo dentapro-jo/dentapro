@@ -548,7 +548,7 @@ function dpPrintColsSave(sel) {
 }
 
 // الصفوف بالترتيب نفسه للطباعة والتنزيل: [{type:'cat',name}|{type:'parent',p}|{type:'item',p,parent,indent,cat}]
-function dpProductsPrintRows() {
+function dpProductsPrintRows(merge) {
   const stockFilter = window._adminStockFilter;
   const list = getAdminFilteredProducts();
   const catName = (id) => (categories.find(c => c.id === id) || {}).ar || (id ? id : 'بدون فئة');
@@ -567,7 +567,19 @@ function dpProductsPrintRows() {
       if (p.hasSizes && !stockFilter) {
         // المادة متعددة المقاسات: عنوان، وتحتها كل مقاس بسطره (كل مقاس يُجرد على حدة)
         rows.push({ type: 'parent', p, cat: cname });
-        getSizeChildren(p).forEach(k => rows.push({ type: 'item', p: k, parent: p, indent: true, cat: cname }));
+        const kids = getSizeChildren(p);
+        if (merge) {
+          // دمج المقاسات المتساوية في السعر: مقاس واحد لكل سعر (الأول المتوفر، وإلا الأول)
+          const groups = new Map();
+          kids.forEach(k => { const key = String(Number(k.price) || 0); if (!groups.has(key)) groups.set(key, []); groups.get(key).push(k); });
+          const isOut = (k) => k.stock !== null && k.stock !== undefined && k.stock <= 0;
+          groups.forEach(g => {
+            const rep = g.find(k => !isOut(k)) || g[0];
+            rows.push({ type: 'item', p: rep, parent: p, indent: true, cat: cname, merged: g.length - 1 });
+          });
+        } else {
+          kids.forEach(k => rows.push({ type: 'item', p: k, parent: p, indent: true, cat: cname }));
+        }
       } else {
         rows.push({ type: 'item', p, parent: null, indent: false, cat: cname });
       }
@@ -582,14 +594,17 @@ function dpPrintImgUrl(p, parent) {
 }
 
 // قيمة الخلية: html للطباعة، وtext للتنزيل
-function dpPrintCell(k, p, parent) {
+function dpPrintCell(k, p, parent, merged) {
   switch (k) {
     case 'img': {
       const u = dpPrintImgUrl(p, parent);
       return { html: u ? `<img src="${escHtml(cldOptimize(u, 120))}" alt="" style="width:54px;height:54px;object-fit:contain">` : '📦', text: u };
     }
     case 'en':      return { html: escHtml(p.en || ''), text: p.en || '' };
-    case 'ar':      return { html: `<b>${escHtml(p.ar || '')}</b>`, text: p.ar || '' };
+    case 'ar': {
+      const note = merged > 0 ? (merged === 1 ? '(+ مقاس آخر بنفس السعر)' : merged === 2 ? '(+ مقاسان آخران بنفس السعر)' : `(+ ${merged} مقاسات أخرى بنفس السعر)`) : '';
+      return { html: `<b>${escHtml(p.ar || '')}</b>` + (note ? `<div style="font-size:10px;color:#555;font-weight:400">${escHtml(note)}</div>` : ''), text: (p.ar || '') + (note ? ' ' + note : '') };
+    }
     case 'brand':   return { html: escHtml(p.brand || ''), text: p.brand || '' };
     case 'country': return { html: escHtml(p.country || ''), text: p.country || '' };
     case 'unit': {
@@ -609,7 +624,7 @@ function dpPrintCell(k, p, parent) {
   }
 }
 
-function buildProductsPrintHtml(selCols, orient) {
+function buildProductsPrintHtml(selCols, orient, merge) {
   const stockFilter = window._adminStockFilter;
   const sel = (selCols && selCols.length) ? selCols : dpPrintColsRead();
   const cols = DP_PRINT_COLS.filter(c => sel.includes(c.k) && c.k !== 'notes');
@@ -620,7 +635,7 @@ function buildProductsPrintHtml(selCols, orient) {
 
   let n = 0;
   let body = '';
-  dpProductsPrintRows().forEach(r => {
+  dpProductsPrintRows(merge).forEach(r => {
     if (r.type === 'cat') {
       body += `<tr class="cat"><td colspan="${COLS}">${escHtml(r.name)}</td></tr>`;
     } else if (r.type === 'parent') {
@@ -629,7 +644,7 @@ function buildProductsPrintHtml(selCols, orient) {
       n++;
       let tds = `<td class="c">${n}</td>`;
       cols.forEach(c => {
-        const v = dpPrintCell(c.k, r.p, r.parent).html;
+        const v = dpPrintCell(c.k, r.p, r.parent, r.merged).html;
         if (c.k === 'img') tds += `<td class="c img">${v}</td>`;
         else if (c.k === 'en') tds += `<td class="en" dir="ltr" style="${r.indent ? 'padding-left:22px' : ''}">${v}</td>`;
         else if (c.k === 'ar') tds += `<td style="${r.indent ? 'padding-right:22px' : ''}">${v}</td>`;
@@ -706,7 +721,7 @@ function buildProductsPrintHtml(selCols, orient) {
 
 // ===== تنزيل ملف Excel حقيقي (.xlsx) دون أي مكتبة خارجية =====
 // المصفوفة: صف العناوين ثم صف لكل مادة (المقاس صف مستقل)، بالأعمدة المختارة نفسها
-function dpProductsExportMatrix(selCols) {
+function dpProductsExportMatrix(selCols, merge) {
   const sel = (selCols && selCols.length) ? selCols : dpPrintColsRead();
   const cols = DP_PRINT_COLS.filter(c => sel.includes(c.k) && c.k !== 'notes');
   const withNotes = sel.includes('notes');
@@ -715,11 +730,11 @@ function dpProductsExportMatrix(selCols) {
     .concat(withNotes ? ['ملاحظات'] : []);
   const out = [head];
   let n = 0;
-  dpProductsPrintRows().forEach(r => {
+  dpProductsPrintRows(merge).forEach(r => {
     if (r.type !== 'item') return;
     n++;
     out.push([n, r.cat, r.parent ? r.parent.ar : '']
-      .concat(cols.map(c => dpPrintCell(c.k, r.p, r.parent).text))
+      .concat(cols.map(c => dpPrintCell(c.k, r.p, r.parent, r.merged).text))
       .concat(withNotes ? [''] : []));
   });
   return out;
@@ -798,21 +813,29 @@ function dpPrintOrientRead() {
   try { const v = localStorage.getItem('dp_print_orient'); if (v === 'landscape' || v === 'portrait') return v; } catch (e) {}
   return 'auto';
 }
+function dpPrintMergeChosen() {
+  const el = document.getElementById('dpPrintMerge');
+  const v = !!(el && el.checked);
+  try { localStorage.setItem('dp_print_merge', v ? '1' : '0'); } catch (e) {}
+  return v;
+}
 function dpPrintColsDoPrint() {
   const sel = dpPrintColsChosen();
+  const merge = dpPrintMergeChosen();
   const oEl = document.getElementById('dpPrintOrient');
   const orient = oEl ? oEl.value : 'auto';
   try { localStorage.setItem('dp_print_orient', orient); } catch (e) {}
   const win = window.open('', '_blank');
   if (!win) { showToast('⚠️ اسمح بالنوافذ المنبثقة لهذا الموقع ثم أعد المحاولة', 'error'); return; }
-  win.document.write(buildProductsPrintHtml(sel, orient));
+  win.document.write(buildProductsPrintHtml(sel, orient, merge));
   win.document.close();
   dpClosePrintColsModal();
 }
 function dpPrintColsDoXlsx() {
   const sel = dpPrintColsChosen();
+  const merge = dpPrintMergeChosen();
   try {
-    const blob = dpBuildXlsxBlob(dpProductsExportMatrix(sel));
+    const blob = dpBuildXlsxBlob(dpProductsExportMatrix(sel, merge));
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'dentapro-products-' + new Date().toISOString().slice(0, 10) + '.xlsx';
@@ -844,6 +867,10 @@ function printProductsList() {
       <div style="font-size:17px;font-weight:800;margin-bottom:4px">🖨️ أعمدة الجدول</div>
       <div style="font-size:12px;color:#667;margin-bottom:12px">التسلسل يظهر دائماً. اختر الأعمدة المطلوبة (الترتيب ثابت، والملاحظات آخر عمود).</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${boxes}</div>
+      <label style="display:flex;align-items:flex-start;gap:10px;margin-top:12px;padding:9px 10px;border:1px solid #cfe3d8;background:#f3faf6;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700">
+        <input type="checkbox" id="dpPrintMerge" ${(() => { try { return localStorage.getItem('dp_print_merge') === '1' ? 'checked' : ''; } catch (e) { return ''; } })()} style="width:18px;height:18px;margin-top:1px">
+        <span>دمج المقاسات المتساوية في السعر<br><span style="font-weight:400;font-size:12px;color:#556">مقاس واحد لكل سعر مختلف في المنتج (المقاسات بنفس السعر تظهر سطراً واحداً)</span></span>
+      </label>
       <div style="margin-top:12px;font-size:13px;font-weight:700">اتجاه الورقة عند الطباعة:
         <select id="dpPrintOrient" style="margin-right:6px;padding:6px 10px;border:1px solid #cdd;border-radius:8px;font-family:inherit;font-size:13px">
           <option value="auto" ${dpPrintOrientRead() === 'auto' ? 'selected' : ''}>حسب اختيار الطابعة</option>
