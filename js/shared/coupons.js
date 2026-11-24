@@ -301,9 +301,13 @@ async function dpDiagnoseCouponDenial(order) {
     const allowed = (c.type === 'percent' ? base * (c.value || 0) / 100 : (c.value || 0)) + 0.011;
     if (typeof order.couponDiscount === 'number' && order.couponDiscount > allowed) out.push('قيمة الخصم (' + order.couponDiscount + ') تتجاوز المسموح (' + (Math.round(allowed * 100) / 100) + ')');
     if (c.maxDiscount && order.couponDiscount > c.maxDiscount + 0.011) out.push('الخصم يتجاوز السقف الأقصى للكود');
+    // شروط تربط سجل الاستعمال بالطلب (تفرضها القواعد على coupon_uses)
+    const authUid = window._auth && window._auth.currentUser && window._auth.currentUser.uid;
+    if (authUid && order.clientUid !== authUid) out.push('clientUid في الطلب (' + (order.clientUid === null || order.clientUid === undefined ? 'فارغ' : order.clientUid) + ') لا يطابق uid الحساب المسجّل — الطلب يُرسل باسم عميل مختار وليس باسم حسابك، وكود الخصم يتطلب أن يكون الطلب من حسابك نفسه');
+    if (currentUser && currentUser.email && order.clientEmail && currentUser.email !== order.clientEmail) out.push('بريد الطلب (' + order.clientEmail + ') يختلف عن بريد حسابك (' + currentUser.email + ')');
     const authEmail = window._auth && window._auth.currentUser && window._auth.currentUser.email;
     if (authEmail && order.clientEmail && authEmail !== order.clientEmail) out.push('بريد الحساب في المصادقة (' + authEmail + ') يختلف عن بريد الطلب (' + order.clientEmail + ') — سجّل الخروج ثم الدخول مجدداً');
-    if (!out.length) out.push('شروط الكود سليمة من جهة المتصفح؛ السبب المرجّح أن قواعد Firestore المنشورة لا تتضمن قواعد الأكواد أو نسختها قديمة (انشر ملف firestore.rules الأخير)');
+    if (!out.length) out.push('كل شروط الكود سليمة من جهة المتصفح وقواعد Firestore مطابقة للمستودع؛ السبب غير ظاهر من هذه الفحوص — أرسل لنا إعدادات الكود (النوع/الجمهور/الحد لكل عميل) ونوع الحساب المستخدم (أدمن أم عميل)');
     return out.join(' | ');
   } catch (e) {
     return '';
