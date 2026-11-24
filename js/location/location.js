@@ -499,7 +499,8 @@ async function submitOrder() {
         const denied = e && e.code === 'permission-denied';
         let denyWhy = '';
         if (denied && typeof dpDiagnoseCouponDenial === 'function') { try { denyWhy = await dpDiagnoseCouponDenial(cleanOrder); } catch (e2) {} }
-        if (denyWhy) console.warn('🎟️ سبب رفض الكود:', denyWhy);
+        if (e && e.dpStep) denyWhy = '[الخطوة التي فشلت: ' + e.dpStep + (e.code ? ' — ' + e.code : '') + '] ' + denyWhy;
+        console.warn('🎟️ سبب رفض الكود:', denyWhy, e);
         dpClearCoupon();
         updateCartUI();
         showToast(denied
