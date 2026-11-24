@@ -390,7 +390,7 @@ function applyProfileLocationToOrder() {
 function openOrderModal() {
   if (!cart.length) { showToast(t('السلة فارغة!','Cart is empty!'), 'error'); return; }
   closeCart();
-  currentStep = 1;
+  currentStep = 2;
   orderSubmitted = false;
   window._autoFilledOnce = false;
   window._orderGuestResolvedClient = null;
@@ -421,11 +421,36 @@ function openOrderModal() {
   // العميل المسجّل لا يحتاج إدخال بريد/كلمة مرور — تظهر هذه الخانات للزائر فقط
   const guestWrap = document.getElementById('guestAccountFieldsWrap');
   if (guestWrap) guestWrap.style.display = currentUser ? 'none' : '';
+  // [DP-FLOW] لا خطوة "ملخص" (السلة تعرض المواد). العميل المسجّل ببيانات مكتملة يتخطى "بياناتك" ويبدأ من "الموقع"
+  dpOrderAutofillFromUser();
+  window._orderFirstStep = dpOrderCanSkipData() ? 3 : 2;
+  currentStep = window._orderFirstStep;
   renderModalStep();
   document.getElementById('orderModal').classList.add('open');
 }
 function closeOrderModal() {
   document.getElementById('orderModal').classList.remove('open');
+}
+
+// [DP-FLOW] تعبئة بيانات العميل المسجّل (نفس المنطق السابق، مرة واحدة لكل طلب)
+function dpOrderAutofillFromUser() {
+  if (currentUser && currentUser.role === 'client' && !window._autoFilledOnce) {
+    const cn = document.getElementById('clinicName');
+    const dn = document.getElementById('doctorName');
+    const ph = document.getElementById('phoneNumber');
+    if (!cn.value && currentUser.clinic) cn.value = currentUser.clinic;
+    if (!dn.value && currentUser.name)   dn.value = currentUser.name;
+    if (!ph.value && currentUser.phone)  ph.value = currentUser.phone.replace(/^\+\d+/, '');
+    window._autoFilledOnce = true;
+  }
+}
+
+// [DP-FLOW] هل يتخطى العميل خطوة "بياناتك"؟ فقط المسجّل الذي تكتمل بياناته المطلوبة (نفس شروط التحقق في الخطوة)
+function dpOrderCanSkipData() {
+  if (!currentUser || currentUser.role !== 'client') return false;
+  const v = id => ((document.getElementById(id) || {}).value || '').trim();
+  const phoneVal = v('phoneNumber').replace(/\s/g, '');
+  return !!(v('clinicName') && v('doctorName') && phoneVal && phoneVal.length >= 7);
 }
 
 function renderModalStep() {
@@ -434,16 +459,23 @@ function renderModalStep() {
   });
   document.getElementById(`modalStep${currentStep}`)?.style && (document.getElementById(`modalStep${currentStep}`).style.display = 'block');
 
-  // Steps highlight
+  // Steps highlight: الخطوات الظاهرة فقط وبترقيم متسلسل (الملخص محذوف، وبياناتك قد تُتخطى للمسجّل)
+  const firstStep = window._orderFirstStep || 2;
+  let visibleNum = 0;
   for(let i=1;i<=4;i++){
     const s = document.getElementById(`step${i}`);
     s.classList.remove('active','done');
+    if (i < firstStep) { s.style.display = 'none'; continue; }
+    s.style.display = '';
+    visibleNum++;
+    const numEl = s.querySelector('.step-num');
+    if (numEl) numEl.textContent = String(visibleNum);
     if(i < currentStep) s.classList.add('done');
     else if(i === currentStep) s.classList.add('active');
   }
 
   // Buttons
-  document.getElementById('btnBack').style.display = currentStep > 1 ? 'flex' : 'none';
+  document.getElementById('btnBack').style.display = currentStep > firstStep ? 'flex' : 'none';
   document.getElementById('btnNext').style.display = currentStep < 4 ? 'flex' : 'none';
   document.getElementById('btnSubmit').style.display = currentStep === 4 ? 'flex' : 'none';
 
@@ -451,15 +483,7 @@ function renderModalStep() {
   if (currentStep === 2) {
     const banner = document.getElementById('autoFillBanner');
     if (banner) banner.style.display = 'none';
-    if (currentUser && currentUser.role === 'client' && !window._autoFilledOnce) {
-      const cn = document.getElementById('clinicName');
-      const dn = document.getElementById('doctorName');
-      const ph = document.getElementById('phoneNumber');
-      if (!cn.value && currentUser.clinic) cn.value = currentUser.clinic;
-      if (!dn.value && currentUser.name)   dn.value = currentUser.name;
-      if (!ph.value && currentUser.phone)  ph.value = currentUser.phone.replace(/^\+\d+/, '');
-      window._autoFilledOnce = true;
-    }
+    dpOrderAutofillFromUser();
   }
   if (currentStep === 4) {
     // عند دخول الخطوة نُفرغ الصندوق ليظهر مؤشر التحميل بدل بيانات قديمة
@@ -600,17 +624,22 @@ async function _renderConfirmDetailsCore(myToken) {
             ${i.points ? `<div style="font-size:11px;color:#d97706;font-weight:700">🏆 ${i.points * i.qty} نقطة</div>` : ''}
           </div>
         </div>`).join('')}
-      <div style="display:flex;justify-content:space-between;padding-top:10px;font-weight:900;font-size:15px;color:var(--primary)">
-        <span>${t('المجموع','Subtotal')}</span>
-        <div style="text-align:left">
-          <div>
+      <div style="padding-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--text-muted);font-weight:600">
+          <span>${t('المجموع','Subtotal')}</span>
+          <span>
             ${discountPreview
-              ? `<span style="text-decoration:line-through;color:var(--text-muted);font-size:12px;font-weight:600;margin-inline-end:6px">${fmtPrice(discountPreview.originalTotal)} ${t('د.أ','JD')}</span><span>${fmtPrice(subtotalForDelivery)} ${t('د.أ','JD')}</span> <span style="font-size:10px;color:#e53e3e;font-weight:800">(${t('خصم','off')} ${discountPreview.discountPercent}%)</span>`
+              ? `<span style="text-decoration:line-through;font-size:12px;margin-inline-end:6px">${fmtPrice(discountPreview.originalTotal)} ${t('د.أ','JD')}</span><span>${fmtPrice(subtotalForDelivery)} ${t('د.أ','JD')}</span> <span style="font-size:10px;color:#e53e3e;font-weight:800">(${t('خصم','off')} ${discountPreview.discountPercent}%)</span>`
               : `${fmtPrice(subtotalForDelivery)} ${t('د.أ','JD')}`}
-          </div>
-          ${dpDeliveryRowHTML(deliveryResult.fee, deliveryResult.determined)}
-          ${totalPoints > 0 ? `<div style="font-size:12px;color:#d97706;font-weight:700">🏆 ${totalPoints} نقطة مطلوبة</div>` : ''}
+          </span>
         </div>
+        <div style="text-align:left">${dpDeliveryRowHTML(deliveryResult.fee, deliveryResult.determined)}</div>
+        ${deliveryResult.determined ? `
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-weight:900;font-size:15px;color:var(--primary)">
+          <span>${t('المجموع الكلي','Total')}</span>
+          <span>${fmtPrice(finalTotalWithDelivery)} ${t('د.أ','JD')}</span>
+        </div>` : ''}
+        ${totalPoints > 0 ? `<div style="font-size:12px;color:#d97706;font-weight:700;text-align:left;margin-top:4px">🏆 ${totalPoints} نقطة مطلوبة</div>` : ''}
       </div>
     </div>
 
@@ -723,7 +752,7 @@ async function nextStep() {
   if (currentStep < 4) { currentStep++; renderModalStep(); }
 }
 function prevStep() {
-  if (currentStep > 1) { currentStep--; renderModalStep(); }
+  if (currentStep > (window._orderFirstStep || 2)) { currentStep--; renderModalStep(); }
 }
 
 function validateStep(step) {
