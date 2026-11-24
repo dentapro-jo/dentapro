@@ -219,16 +219,22 @@ function renderCouponBox() {
 
 // ---------- كتابة الطلب مع تسجيل استعمال الكود (دفعة واحدة ذرّية) ----------
 // تُرفض الدفعة كلها من القواعد إن لم تتحقق شروط الكود وقت الكتابة (انتهى، استُنفد، سبق استعماله...).
+// يوسم أي خطأ بالخطوة التي فشلت (للتشخيص فقط، لا يغيّر سلوك الخطأ)
+async function dpCouponStep(label, fn) {
+  try { return await fn(); }
+  catch (e) { try { if (e && typeof e === 'object') e.dpStep = label; } catch (x) {} throw e; }
+}
+
 async function dpSetOrderWithCoupon(orderNum, order) {
   const uid = currentUser && currentUser.uid;
   if (!uid) throw new Error('coupon-requires-login');
   const code = order.couponCode;
   const cRef = window._fbDoc2('coupons', code);
-  const cSnap = await window._fbGetDocFromServer(cRef);
+  const cSnap = await dpCouponStep('قراءة الكود', () => window._fbGetDocFromServer(cRef));
   if (!cSnap.exists()) throw new Error('coupon-missing');
   const cd = cSnap.data();
   const clRef = window._fbDoc2('coupon_clients', code + '__' + uid);
-  const clSnap = await window._fbGetDocFromServer(clRef);
+  const clSnap = await dpCouponStep('قراءة عدّاد العميل (coupon_clients)', () => window._fbGetDocFromServer(clRef));
   const prevCount = clSnap.exists() ? (clSnap.data().count || 0) : 0;
 
   const batch = window._fbWriteBatch();
@@ -241,7 +247,7 @@ async function dpSetOrderWithCoupon(orderNum, order) {
     const p9 = dpPhone9(order.phone);
     if (!p9) throw new Error('coupon-needs-phone');
     const phRef = window._fbDoc2('coupon_phones', code + '__' + p9);
-    const phSnap = await window._fbGetDocFromServer(phRef);
+    const phSnap = await dpCouponStep('قراءة علامة الهاتف (coupon_phones)', () => window._fbGetDocFromServer(phRef));
     if (phSnap.exists()) throw Object.assign(new Error('coupon-phone-used'), { code: 'permission-denied' });
     useDoc.phone9 = p9;
     batch.set(phRef, { code, phone9: p9, uid });
@@ -249,7 +255,7 @@ async function dpSetOrderWithCoupon(orderNum, order) {
   batch.set(window._fbDoc2('coupon_uses', orderNum), useDoc);
   batch.set(clRef, { code, uid, count: prevCount + 1 });
   batch.update(cRef, { usedCount: (cd.usedCount || 0) + 1, lastOrderId: orderNum });
-  await batch.commit();
+  await dpCouponStep('كتابة الطلب + سجل الاستعمال + العدّادات (الدفعة)', () => batch.commit());
 }
 
 // ---------- تشخيص رفض الكود (يُستدعى فقط بعد فشل كتابة الطلب بسبب الصلاحيات) ----------
