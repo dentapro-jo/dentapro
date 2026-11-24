@@ -52,31 +52,31 @@ try{if(localStorage.getItem('dp_noBanner')!=='1'){document.documentElement.class
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
-<link rel="stylesheet" href="./css/bundle.css?v=r47">
+<link rel="stylesheet" href="./css/bundle.css?v=r48">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js">
-<link rel="modulepreload" href="./js/firebase/firebase-init.js?v=r47">
-<link rel="modulepreload" href="./js/app.js?v=r47">
-<link rel="modulepreload" href="./js/config.js?v=r47">
-<link rel="modulepreload" href="./js/constants.js?v=r47">
-<link rel="modulepreload" href="./js/state.js?v=r47">
-<link rel="modulepreload" href="./js/utils.js?v=r47">
-<link rel="modulepreload" href="./js/firebase/firebase-services.js?v=r47">
-<link rel="preload" as="script" href="./js/products/products.js?v=r47">
-<link rel="preload" as="script" href="./js/cart/cart.js?v=r47">
-<link rel="preload" as="script" href="./js/location/location.js?v=r47">
-<link rel="preload" as="script" href="./js/ui/navigation.js?v=r47">
-<link rel="preload" as="script" href="./js/user/auth-ui.js?v=r47">
-<script src="./js/shared/media.js?v=r47" defer></script>
-<script src="./js/shared/discounts.js?v=r47" defer></script>
-<script src="./js/shared/coupons.js?v=r47" defer></script>
-<script src="./js/shared/credit.js?v=r47" defer></script>
-<script src="./js/shared/loyalty.js?v=r47" defer></script>
-<script src="./js/shared/ad-banner.js?v=r47" defer></script>
-<script src="./js/push/onesignal.js?v=r47" defer></script>
-<script type="module" src="./js/firebase/firebase-init.js?v=r47"></script>
-<script type="module" src="./js/app.js?v=r47"></script>
+<link rel="modulepreload" href="./js/firebase/firebase-init.js?v=r48">
+<link rel="modulepreload" href="./js/app.js?v=r48">
+<link rel="modulepreload" href="./js/config.js?v=r48">
+<link rel="modulepreload" href="./js/constants.js?v=r48">
+<link rel="modulepreload" href="./js/state.js?v=r48">
+<link rel="modulepreload" href="./js/utils.js?v=r48">
+<link rel="modulepreload" href="./js/firebase/firebase-services.js?v=r48">
+<link rel="preload" as="script" href="./js/products/products.js?v=r48">
+<link rel="preload" as="script" href="./js/cart/cart.js?v=r48">
+<link rel="preload" as="script" href="./js/location/location.js?v=r48">
+<link rel="preload" as="script" href="./js/ui/navigation.js?v=r48">
+<link rel="preload" as="script" href="./js/user/auth-ui.js?v=r48">
+<script src="./js/shared/media.js?v=r48" defer></script>
+<script src="./js/shared/discounts.js?v=r48" defer></script>
+<script src="./js/shared/coupons.js?v=r48" defer></script>
+<script src="./js/shared/credit.js?v=r48" defer></script>
+<script src="./js/shared/loyalty.js?v=r48" defer></script>
+<script src="./js/shared/ad-banner.js?v=r48" defer></script>
+<script src="./js/push/onesignal.js?v=r48" defer></script>
+<script type="module" src="./js/firebase/firebase-init.js?v=r48"></script>
+<script type="module" src="./js/app.js?v=r48"></script>
 </head>
 <body>
 
@@ -529,22 +529,12 @@ window.dpSplash = (function () {
           <label class="form-label"><i class="fas fa-map-marker-alt" style="color:var(--primary-light)"></i> <span data-ar="تحديد الموقع" data-en="Set Location">تحديد الموقع</span> <span class="required">*</span></label>
           <div class="location-section">
             <div class="location-methods">
-              <button class="loc-method-btn active" id="btnManual" onclick="switchLocMethod('manual')">
-                <i class="fas fa-keyboard"></i> <span data-ar="كتابة يدوية" data-en="Type Address">كتابة يدوية</span>
-              </button>
               <button class="loc-method-btn" id="btnGPS" onclick="getGPSLocation()">
                 <i class="fas fa-crosshairs"></i> <span data-ar="موقعي الحالي" data-en="My Location">موقعي الحالي</span>
               </button>
               <button class="loc-method-btn" id="btnMapPick" onclick="openMapPicker('cart')">
                 <i class="fas fa-map-marked-alt"></i> <span data-ar="اختر من الخريطة" data-en="Pick on Map">اختر من الخريطة</span>
               </button>
-            </div>
-
-            <!-- Manual Input -->
-            <div id="manualInput">
-              <input type="text" class="form-input" id="addressInput"
-                placeholder="المدينة، الحي، الشارع، رقم المبنى / City, District, Street, Building No."
-                style="margin-bottom:10px" oninput="onAddressType()">
             </div>
 
             <!-- GPS Loading -->
@@ -565,8 +555,16 @@ window.dpSplash = (function () {
               <span id="locationConfirmText"></span>
             </div>
 
-            <div class="field-error" id="locationError" style="margin-top:8px"><i class="fas fa-exclamation-circle"></i> <span data-ar="يرجى تحديد الموقع" data-en="Please set a location">يرجى تحديد الموقع</span></div>
+            <div class="field-error" id="locationError" style="margin-top:8px"><i class="fas fa-exclamation-circle"></i> <span data-ar="يرجى تحديد الموقع بـ GPS أو الخريطة، أو كتابة العنوان" data-en="Please set your location via GPS or map, or type the address">يرجى تحديد الموقع بـ GPS أو الخريطة، أو كتابة العنوان</span></div>
           </div>
+        </div>
+
+        <!-- الموقع بالتفصيل (كتابة العنوان) -->
+        <div class="form-group" id="manualInput">
+          <label class="form-label"><i class="fas fa-map-pin" style="color:var(--primary-light)"></i> <span data-ar="الموقع بالتفصيل (اختياري)" data-en="Detailed location (optional)">الموقع بالتفصيل (اختياري)</span></label>
+          <input type="text" class="form-input" id="addressInput"
+            placeholder="المدينة، الحي، الشارع، رقم المبنى / City, District, Street, Building No."
+            oninput="onAddressType()">
         </div>
 
         <!-- رقم بديل / سكرتيرة / مستلم الطلبية (اختياري) -->
