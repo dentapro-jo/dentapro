@@ -411,6 +411,8 @@ function openOrderModal() {
   });
   document.getElementById('charCount').textContent = '0';
   document.getElementById('successScreen').classList.remove('show');
+  // بعد نجاح طلب سابق في نفس الجلسة يكون تذييل النافذة (التالي/رجوع/إرسال) مخفياً؛ نعيده لكل طلب جديد
+  const _mf = document.getElementById('modalFooter'); if (_mf) _mf.style.display = '';
   document.getElementById('modalBody').querySelector('.modal-steps').style.display='flex';
   window._selectedPayMethod = 'money';
   applyProfileLocationToOrder();
