@@ -85,15 +85,29 @@ function loadLeafletIfNeeded() {
 }
 
 // يجلب موقع المستخدم الحالي؛ لا يفشل أبداً: يرجع {lat,lng} أو null
+// [DP-PICKER-GPS] نفس أسلوب زر "موقعي الحالي" (الإعدادات الافتراضية بلا مهلة قصيرة)، وإن فشل نعيد المحاولة بدقة عالية.
+// رمز آخر خطأ يُحفظ في window._pickerGpsErr (1 = إذن مرفوض، 2 = الموقع غير متاح، 3 = انتهت المهلة) ويظهر في الرسالة للتشخيص.
 function getPickerGPS() {
-  return new Promise((resolve) => {
-    if (!navigator.geolocation) return resolve(null);
-    navigator.geolocation.getCurrentPosition(
-      pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-      () => resolve(null),
-      { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 }
-    );
+  window._pickerGpsErr = null;
+  const once = (opts) => new Promise((resolve) => {
+    let done = false;
+    const fin = (v) => { if (!done) { done = true; clearTimeout(guard); resolve(v); } };
+    const guard = setTimeout(() => { window._pickerGpsErr = window._pickerGpsErr || { code: 3, message: 'guard timeout' }; fin(null); }, 30000);
+    try {
+      navigator.geolocation.getCurrentPosition(
+        pos => fin({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        err => { window._pickerGpsErr = { code: err && err.code, message: err && err.message }; fin(null); },
+        opts
+      );
+    } catch (e) { window._pickerGpsErr = { code: 0, message: String(e && e.message || e) }; fin(null); }
   });
+  return (async () => {
+    if (!navigator.geolocation) { window._pickerGpsErr = { code: 0, message: 'no geolocation' }; return null; }
+    let pos = await once(undefined);
+    if (!pos && !(window._pickerGpsErr && window._pickerGpsErr.code === 1)) pos = await once({ enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+    if (!pos) console.warn('📍 تعذر تحديد الموقع داخل الخريطة', window._pickerGpsErr);
+    return pos;
+  })();
 }
 
 // ===== نافذة خريطة واحدة مشتركة لكل الاستخدامات =====
@@ -108,7 +122,7 @@ function dpSetPickerGpsStatus(state) {
   const m = {
     loading: ['⏳ ' + t('جارٍ تحديد موقعك الحالي...', 'Detecting your current location...'), 'var(--text-muted)'],
     ok: ['✅ ' + t('تم الانتقال لموقعك الحالي، حرّك الدبوس لاختيار الموقع المناسب', 'Moved to your location — drag the pin to adjust'), 'var(--success)'],
-    fail: ['⚠️ ' + t('تعذر تحديد موقعك الحالي (فعّل إذن الموقع)، اختر الموقع يدوياً على الخريطة', 'Could not detect your location (enable location permission) — pick it on the map'), '#d97706']
+    fail: ['⚠️ ' + t('تعذر تحديد موقعك الحالي (فعّل إذن الموقع)، اختر الموقع يدوياً على الخريطة', 'Could not detect your location (enable location permission) — pick it on the map') + (window._pickerGpsErr ? ' [' + window._pickerGpsErr.code + ']' : ''), '#d97706']
   }[state];
   el.textContent = m[0]; el.style.color = m[1];
 }
