@@ -2900,3 +2900,21 @@ body.dark-mode .dp-size-pill{background:#1f3a4d; color:#9cd3f0}
 @supports (height:100dvh){
   .modal{max-height:calc(100dvh - 32px)}
 }
+
+/* [DP-MODAL-COMPACT] نافذة الطلب على الجوال فقط: شريط خطوات أنحف، خيارات دفع مدمجة بلا أيقونات، وفراغات أقل لتقليل التمرير */
+@media (max-width:768px){
+  #orderModal .modal-body{padding:14px 16px 8px}
+  #orderModal .modal-steps{padding:6px; gap:6px; margin-bottom:12px}
+  #orderModal .step{flex-direction:row; justify-content:center; gap:6px; padding:6px 8px; font-size:12px}
+  #orderModal .step-num{width:20px; height:20px; font-size:11px}
+  #orderModal .order-summary{padding:12px; margin-bottom:8px}
+  #orderModal .order-summary-title{margin-bottom:8px}
+  #orderModal .points-balance-box{padding:8px 14px; margin-bottom:8px}
+  #orderModal .pay-method-wrap{flex-direction:column; gap:6px; margin-bottom:8px}
+  #orderModal .pay-method-btn{flex:none; width:100%; min-width:0; padding:9px 14px; border-width:1.5px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px; text-align:start}
+  #orderModal .pay-method-icon{display:none}
+  #orderModal .pay-method-label{font-size:14px}
+  #orderModal .pay-method-sub{margin-top:0; font-size:12px; text-align:end}
+  #orderModal .modal-footer{padding:12px 16px; gap:8px}
+}
