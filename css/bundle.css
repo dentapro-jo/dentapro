@@ -2896,9 +2896,7 @@ html.dp-banner-reserve #adBannerSection{display:block !important; visibility:hid
 body.dark-mode .dp-size-pill{background:#1f3a4d; color:#9cd3f0}
 
 
-/* [DP-MODAL-STICKY] نافذة الطلب: أزرار التالي/رجوع/إرسال تبقى ظاهرة أسفل النافذة مهما طال المحتوى (الموقع مع الخريطة)،
-   والارتفاع بوحدة dvh ليطابق المساحة المرئية الفعلية على الجوال (حتى بعد العودة للمتصفح من الخلفية) */
-.modal-footer{position:sticky; bottom:0; z-index:5; box-shadow:0 -6px 16px rgba(5,25,40,0.07)}
+/* [DP-MODAL-DVH] نافذة الطلب: الارتفاع بوحدة dvh ليطابق المساحة المرئية الفعلية على الجوال (حتى بعد العودة للمتصفح من الخلفية) */
 @supports (height:100dvh){
   .modal{max-height:calc(100dvh - 32px)}
 }
