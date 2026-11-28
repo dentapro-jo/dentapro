@@ -177,6 +177,7 @@ function dpRenderCreditStatement() {
     </div>
     <div style="overflow-x:auto">${dpCreditTableHTML(st, false)}</div>
 
+    ${(typeof isAdmin === 'function' && !isAdmin()) ? `<div style="margin-top:16px;padding:12px;border-radius:12px;border:1.5px dashed var(--border);background:#fafcfe;color:#6b7a86;font-size:13px;font-weight:700;text-align:center">🔒 تسجيل دفعات السداد من صلاحية مدير النظام فقط</div>` : `
     <div style="margin-top:16px;padding:14px;border-radius:12px;border:1.5px solid var(--border);background:#fafcfe">
       <div style="font-weight:800;margin-bottom:8px">تسجيل دفعة سداد</div>
       <select id="cpTarget" class="form-input" style="margin-bottom:8px">
@@ -190,10 +191,11 @@ function dpRenderCreditStatement() {
       <input type="text" id="cpNote" class="form-input" maxlength="120" placeholder="ملاحظة (اختياري: نقداً، حوالة، شيك...)" style="margin-bottom:8px">
       <div id="cpPayError" style="display:none;color:var(--danger);font-size:13px;font-weight:700;margin-bottom:8px"></div>
       <button onclick="saveCreditPayment()" ${unpaid.length ? '' : 'disabled'} style="width:100%;padding:11px;border:none;border-radius:50px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;font-family:inherit;font-weight:800;cursor:pointer;${unpaid.length ? '' : 'opacity:.5'}"><i class="fas fa-check"></i> تسجيل الدفعة</button>
-    </div>`;
+    </div>`}`;
 }
 
 async function saveCreditPayment() {
+  if (typeof isAdmin === 'function' && !isAdmin()) { showToast('⚠️ تسجيل الدفعات من صلاحية مدير النظام فقط', 'error'); return; }
   const st = _creditStmt;
   const err = (m) => { const e = document.getElementById('cpPayError'); e.textContent = m; e.style.display = 'block'; };
   const amount = dpRound2(parseFloat(document.getElementById('cpAmount').value));
