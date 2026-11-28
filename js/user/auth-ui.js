@@ -22,6 +22,45 @@ function normalizeClientPhone(phone) {
   return digits;
 }
 
+// ===== فهرس أرقام الهواتف (phone_index): يمنع تسجيل الرقم نفسه لحسابين =====
+// يرجع { taken, uid, key, error } — error عند تعذّر القراءة (مثلاً قبل نشر القواعد): نكمل ولا نعطّل المتجر
+async function dpPhoneIndexOwner(phone) {
+  const key = normalizeClientPhone(phone);
+  if (!key || key.length < 7) return { taken: false, key };
+  try {
+    if (!(window._fbGetDoc && window._fbDoc2)) return { taken: false, key, error: true };
+    const snap = await window._fbGetDoc(window._fbDoc2('phone_index', key));
+    if (snap.exists()) return { taken: true, uid: (snap.data() || {}).uid || null, key };
+    return { taken: false, key };
+  } catch (e) {
+    console.warn('phone_index read failed:', e && (e.code || e.message));
+    return { taken: false, key, error: true };
+  }
+}
+// حجز الرقم لحساب: { ok:true } أو { taken:true } أو { error:true }
+async function dpReservePhone(phone, uid) {
+  const key = normalizeClientPhone(phone);
+  if (!key || key.length < 7 || !uid) return { ok: true, skipped: true };
+  try {
+    await window._fbSetDoc(window._fbDoc2('phone_index', key), { uid });
+    return { ok: true, key };
+  } catch (e) {
+    const cur = await dpPhoneIndexOwner(phone);
+    if (cur.taken) return cur.uid === uid ? { ok: true, key } : { taken: true, key };
+    console.warn('phone_index reserve failed:', e && (e.code || e.message));
+    return { error: true, key };
+  }
+}
+async function dpReleasePhone(phone, uid) {
+  const key = normalizeClientPhone(phone);
+  if (!key || key.length < 7) return;
+  try {
+    const cur = await dpPhoneIndexOwner(phone);
+    if (cur.taken && cur.uid === uid) await window._fbDeleteDoc(window._fbDoc2('phone_index', key));
+  } catch (e) { console.warn('phone_index release failed:', e && (e.code || e.message)); }
+}
+const DP_PHONE_TAKEN_MSG = 'هذا الرقم مسجّل لدينا لحساب آخر. سجّل دخولك أو استعد كلمة المرور، أو استخدم رقماً آخر.';
+
 async function findRegisteredClientByPhone(phone) {
   const normalized = normalizeClientPhone(phone);
   if (!normalized) return null;
@@ -433,9 +472,20 @@ async function doRegister() {
 
   const { email: finalEmail, isReal: hasRealEmail } = resolveGuestEmail(email, phone);
 
+  // الرقم مستخدم لحساب آخر؟ (قبل إنشاء أي شيء)
+  const _phoneOwner = await dpPhoneIndexOwner(phone);
+  if (_phoneOwner.taken) return showRegError(DP_PHONE_TAKEN_MSG);
+
   try {
     const cred = await window._fbCreateUser(window._auth, finalEmail, password);
     const fbUser = cred.user;
+
+    // حجز الرقم قبل حفظ الحساب: إن سبقنا غيرنا إليه نحذف الحساب الذي أنشأناه ونوقف التسجيل
+    const _reserve = await dpReservePhone(phone, fbUser.uid);
+    if (_reserve.taken) {
+      try { await window._fbDeleteUser(fbUser); } catch (delErr) { console.warn('cleanup user failed:', delErr && delErr.code); }
+      return showRegError(DP_PHONE_TAKEN_MSG);
+    }
 
     await window._fbUpdateProfile(fbUser, { displayName: firstName });
 
@@ -489,9 +539,19 @@ async function createGuestAccountIfNeeded(rawEmail, password, passwordConfirm, n
   }
   const { email, isReal } = resolveGuestEmail(rawEmail, phone);
 
+  const _phoneOwner = await dpPhoneIndexOwner(phone);
+  if (_phoneOwner.taken) return { ok: false, message: DP_PHONE_TAKEN_MSG };
+
   try {
     const cred = await window._fbCreateUser(window._auth, email, password);
     const fbUser = cred.user;
+
+    const _reserve = await dpReservePhone(phone, fbUser.uid);
+    if (_reserve.taken) {
+      try { await window._fbDeleteUser(fbUser); } catch (delErr) { console.warn('cleanup user failed:', delErr && delErr.code); }
+      return { ok: false, message: DP_PHONE_TAKEN_MSG };
+    }
+
     await window._fbUpdateProfile(fbUser, { displayName: name });
 
     await window._fbSetDoc(
