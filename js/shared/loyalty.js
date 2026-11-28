@@ -110,3 +110,16 @@ async function renderPointsInHeader() {
     ordersInner.appendChild(card);
   }
 }
+
+// تحديث رصيد النقاط الظاهر للعميل عند عودته للتطبيق (مثلاً بعد أن يسلّم الأدمن طلباً بالنقاط)، مع حد أدنى 20 ثانية بين قراءتين
+var _dpPointsLastRefresh = 0;
+document.addEventListener('visibilitychange', function () {
+  try {
+    if (document.hidden) return;
+    if (!currentUser || currentUser.role !== 'client') return;
+    var now = Date.now();
+    if (now - _dpPointsLastRefresh < 20000) return;
+    _dpPointsLastRefresh = now;
+    renderPointsInHeader();
+  } catch (e) { /* تحسين اختياري */ }
+});
