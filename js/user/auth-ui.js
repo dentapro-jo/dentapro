@@ -9,10 +9,16 @@ function getActiveClientSession() {
 }
 
 function normalizeClientPhone(phone) {
-  const digits = String(phone || '').replace(/\D/g, '');
-  if (digits.startsWith('009627')) return '9627' + digits.slice(6);
-  if (digits.startsWith('9627')) return digits;
-  if (digits.startsWith('07')) return '9627' + digits.slice(2);
+  // توحيد كل صيغ الرقم الأردني: 0790408680 / 790408680 / +962790408680 / 00962790408680 / 962 0790408680
+  let digits = String(phone || '').replace(/\D/g, '');
+  if (digits.startsWith('00')) digits = digits.slice(2);
+  if (digits.startsWith('962')) {
+    let rest = digits.slice(3);
+    if (rest.startsWith('0')) rest = rest.slice(1);
+    return '962' + rest;
+  }
+  if (digits.startsWith('07')) return '962' + digits.slice(1);
+  if (digits.length === 9 && digits.startsWith('7')) return '962' + digits;
   return digits;
 }
 
@@ -564,7 +570,7 @@ async function sendPasswordReset() {
   if (!id.includes('@')) {
     const matched = await findRegisteredClientByPhone(id);
     if (!matched || !matched.email || matched.hasRealEmail === false) {
-      document.getElementById('loginErrorMsg').textContent = 'استرجاع كلمة المرور يحتاج بريد إلكتروني حقيقي مسجّل — أضفه من صفحة "تعديل الملف" أولاً';
+      document.getElementById('loginErrorMsg').textContent = 'استرجاع كلمة المرور يحتاج بريداً إلكترونياً حقيقياً مسجّلاً. تواصل معنا عبر واتساب لمساعدتك، أو أنشئ حساباً جديداً ببريد حقيقي';
       document.getElementById('loginError').style.display = 'flex';
       return;
     }
@@ -573,7 +579,7 @@ async function sendPasswordReset() {
 
   try {
     await window._fbSendPasswordResetEmail(window._auth, resetEmail);
-    showToast('✅ تم إرسال رابط استعادة كلمة المرور لبريدك', 'success');
+    showToast('✅ تم إرسال رابط استعادة كلمة المرور. إن لم تجده في الوارد فابحث في الرسائل غير المرغوب فيها (Spam)', 'success', { duration: 8000 });
   } catch(e) {
     document.getElementById('loginErrorMsg').textContent = 'تعذر إرسال رابط الاستعادة، تأكد من صحة البريد/الرقم المدخل';
     document.getElementById('loginError').style.display = 'flex';
