@@ -208,6 +208,15 @@ async function deleteClientRecord() {
         disabled: true,
         disabledAt: new Date().toISOString()
       });
+      // الحساب المعطّل لا يحجز رقمه: نحرر الرقم من الفهرس إن كان مسجلاً باسمه
+      try {
+        const _cl = (_cachedClientsList || []).find(c => c.uid === pending.uid);
+        const _k = _cl && typeof normalizeClientPhone === 'function' ? normalizeClientPhone(_cl.phone) : '';
+        if (_k) {
+          const _snap = await window._fbGetDoc(window._fbDoc2('phone_index', _k));
+          if (_snap.exists() && (_snap.data() || {}).uid === pending.uid) await window._fbDeleteDoc(window._fbDoc2('phone_index', _k));
+        }
+      } catch (_e) { console.warn('phone_index release on disable failed:', _e && _e.code); }
     }
 
     _cachedClientsList = _cachedClientsList.filter(client => client.email !== pending.email && (!pending.uid || client.uid !== pending.uid));
@@ -708,4 +717,91 @@ async function saveGlobalDeliveryDiscount() {
     errEl.textContent = 'فشل الحفظ: ' + e.message;
     errEl.style.display = 'block';
   }
+}
+
+// ===== فحص تكرار أرقام الهواتف ومزامنة فهرس الهواتف (للأدمن فقط) =====
+async function dpOpenPhoneAudit() {
+  if (typeof isAdmin === 'function' && !isAdmin()) { showToast('⚠️ هذه الأداة لمدير النظام فقط', 'error'); return; }
+  const old = document.getElementById('phoneAuditModal');
+  if (old) old.remove();
+  const modal = document.createElement('div');
+  modal.id = 'phoneAuditModal';
+  modal.className = 'modal-overlay open';
+  modal.style.zIndex = '5000';
+  modal.innerHTML = `<div class="modal" style="max-width:760px;width:94%">
+    <div class="modal-header"><h3 style="margin:0">📞 فحص تكرار الهواتف</h3>
+      <button class="close-btn" type="button" onclick="document.getElementById('phoneAuditModal').remove()"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body" id="phoneAuditBody" style="text-align:start"><div style="text-align:center;padding:24px"><i class="fas fa-spinner fa-spin"></i> جاري الفحص...</div></div>
+  </div>`;
+  document.body.appendChild(modal);
+  await dpRunPhoneAudit();
+}
+
+async function dpRunPhoneAudit() {
+  const body = document.getElementById('phoneAuditBody');
+  if (!body) return;
+  try {
+    const [users, idxSnap] = await Promise.all([
+      fetchAllUsersList(),
+      window._fbGetDocs(window._fbCollection(window._db, 'phone_index'))
+    ]);
+    const index = {};
+    idxSnap.docs.forEach(d => { index[d.id] = (d.data() || {}).uid || null; });
+    const clients = users.filter(u => u.role === 'client' && !u.disabled);
+    const groups = {};
+    const noPhone = [];
+    clients.forEach(u => {
+      const k = normalizeClientPhone(u.phone);
+      if (!k || k.length < 7) { noPhone.push(u); return; }
+      (groups[k] = groups[k] || []).push(u);
+    });
+    const dups = Object.entries(groups).filter(([, arr]) => arr.length > 1);
+    const toIndex = Object.entries(groups).filter(([k, arr]) => arr.length === 1 && !index[k]);
+    const mismatched = Object.entries(groups).filter(([k, arr]) => arr.length === 1 && index[k] && index[k] !== arr[0].uid);
+    const person = u => `${escHtml(u.firstName || u.name || 'عميل')} — ${escHtml(u.clinic || '')} — ${escHtml(u.email || '')}`;
+    body.innerHTML = `
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;font-weight:800;font-size:13px">
+        <span style="background:#eef6fb;border-radius:50px;padding:6px 12px">العملاء الفعّالون: ${clients.length}</span>
+        <span style="background:${dups.length ? '#fee2e2' : '#dcfce7'};border-radius:50px;padding:6px 12px">أرقام مكررة: ${dups.length}</span>
+        <span style="background:#fef9c3;border-radius:50px;padding:6px 12px">غير مفهرسة: ${toIndex.length}</span>
+        <span style="background:#eef6fb;border-radius:50px;padding:6px 12px">بلا رقم: ${noPhone.length}</span>
+        ${mismatched.length ? `<span style="background:#fee2e2;border-radius:50px;padding:6px 12px">فهرس لحساب آخر: ${mismatched.length}</span>` : ''}
+      </div>
+      ${dups.length ? `<div style="font-weight:900;margin:10px 0 6px;color:#b91c1c">أرقام مسجّلة لأكثر من حساب (عالجها بتعطيل الحساب الزائد من قائمة العملاء، ثم أعد الفحص):</div>` +
+        dups.map(([k, arr]) => `<div style="border:1.5px solid #fecaca;background:#fff5f5;border-radius:12px;padding:10px;margin-bottom:8px">
+          <div style="font-weight:900;direction:ltr;text-align:start">${escHtml(k)}</div>
+          ${arr.map(u => `<div style="font-size:13px;margin-top:4px">• ${person(u)} <span style="color:var(--text-muted)">(${escHtml((u.createdAt || '').toString().slice(0, 10))})</span></div>`).join('')}
+        </div>`).join('') : `<div style="color:#15803d;font-weight:800;margin:8px 0">✅ لا توجد أرقام مكررة بين العملاء الفعّالين.</div>`}
+      ${mismatched.length ? `<div style="font-weight:900;margin:10px 0 6px;color:#b91c1c">أرقام محجوزة في الفهرس لحساب مختلف:</div>` +
+        mismatched.map(([k, arr]) => `<div style="font-size:13px;margin-bottom:4px;direction:rtl">• <span style="direction:ltr;display:inline-block">${escHtml(k)}</span> — ${person(arr[0])}</div>`).join('') : ''}
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" onclick="dpSyncPhoneIndex()" ${toIndex.length ? '' : 'disabled'}
+          style="padding:10px 18px;border-radius:50px;border:none;background:linear-gradient(135deg,#0a5c8a,#00c2a8);color:#fff;font-family:inherit;font-weight:800;cursor:pointer;${toIndex.length ? '' : 'opacity:.5'}">
+          <i class="fas fa-sync"></i> مزامنة الفهرس (${toIndex.length})</button>
+        <button type="button" onclick="dpRunPhoneAudit()" style="padding:10px 18px;border-radius:50px;border:2px solid var(--border);background:#fff;font-family:inherit;font-weight:700;cursor:pointer"><i class="fas fa-redo"></i> إعادة الفحص</button>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:10px;line-height:1.8">المزامنة تسجّل في الفهرس الأرقام غير المكررة فقط. الأرقام المكررة لا تُفهرس حتى تعالجها.</div>`;
+    window._phoneAuditToIndex = toIndex.map(([k, arr]) => ({ key: k, uid: arr[0].uid }));
+  } catch (e) {
+    console.error('phone audit failed', e);
+    body.innerHTML = `<div style="color:var(--danger);font-weight:800">تعذّر الفحص: ${escHtml(e.code || e.message || 'خطأ')}${(e.code === 'permission-denied') ? '<br><small>انشر قواعد Firestore المحدّثة (phone_index) أولاً.</small>' : ''}</div>`;
+  }
+}
+
+async function dpSyncPhoneIndex() {
+  const list = window._phoneAuditToIndex || [];
+  if (!list.length) return;
+  const body = document.getElementById('phoneAuditBody');
+  if (body) body.innerHTML = '<div style="text-align:center;padding:24px"><i class="fas fa-spinner fa-spin"></i> جاري المزامنة...</div>';
+  try {
+    for (let i = 0; i < list.length; i += 400) {
+      const batch = window._fbWriteBatch();
+      list.slice(i, i + 400).forEach(r => batch.set(window._fbDoc2('phone_index', r.key), { uid: r.uid }));
+      await batch.commit();
+    }
+    showToast(`✅ تمت مزامنة ${list.length} رقم`, 'success');
+  } catch (e) {
+    showToast('❌ تعذّرت المزامنة: ' + (e.code || e.message), 'error');
+  }
+  await dpRunPhoneAudit();
 }
