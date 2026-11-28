@@ -549,8 +549,10 @@ async function _renderAdminOrdersInner() {
       const itemsSummary = order.items.slice(0,2)
         .map(i => `${escHtml(i.icon || '')} ${escHtml((i.ar||'').substring(0,12))}`).join(' · ')
         + (order.items.length > 2 ? ` +${order.items.length - 2}` : '');
+      // المدير الفرعي لا يسلّم الطلبات (التسليم يخصم/يضيف نقاطاً وهذا من صلاحية مدير النظام فقط)
+      const _managerOnly = (typeof isManager === 'function') && isManager();
       const statusOpts = ORDER_STATUSES.map(s =>
-        `<option value="${s.key}" ${order.status===s.key?'selected':''}>${s.label}</option>`
+        `<option value="${s.key}" ${order.status===s.key?'selected':''} ${(_managerOnly && s.key==='delivered' && order.status!=='delivered') ? 'disabled' : ''}>${s.label}${(_managerOnly && s.key==='delivered' && order.status!=='delivered') ? ' (مدير النظام فقط)' : ''}</option>`
       ).join('');
 
       return `
@@ -650,6 +652,12 @@ async function saveOrderDeliveryFee(docId) {
 }
 async function updateOrderStatus(docId, orderId, newStatus) {
   try {
+    // حماية إضافية: المدير الفرعي لا يستطيع تغيير الحالة إلى "تم التسليم"
+    if (newStatus === 'delivered' && typeof isManager === 'function' && isManager()) {
+      showToast('⚠️ تسليم الطلبات من صلاحية مدير النظام فقط', 'error');
+      if (typeof renderAdminOrders === 'function') renderAdminOrders();
+      return;
+    }
     // نقرأ الطلب طازجاً من قاعدة البيانات مباشرة (وليس من الكاش المحلي الذي قد يكون قديماً)
     // حتى نضمن أن قرار خصم النقاط/المخزون يُبنى على القيم الفعلية الحالية
     // (payMethod, pointsDeducted, stockDeducted, totalPoints, clientUid, ...)
@@ -1777,6 +1785,18 @@ async function saveProfile() {
     return;
   }
 
+  // تغيير رقم الهاتف: يجب ألا يكون مسجّلاً لحساب آخر
+  const _oldPhoneKey = normalizeClientPhone(currentUser.phone);
+  const _newPhoneKey = normalizeClientPhone(phone);
+  const _phoneChanged = !!_newPhoneKey && _newPhoneKey !== _oldPhoneKey;
+  if (_phoneChanged && typeof dpPhoneIndexOwner === 'function') {
+    const _owner = await dpPhoneIndexOwner(phone);
+    if (_owner.taken && _owner.uid !== currentUser.uid) {
+      showToast('⚠️ ' + DP_PHONE_TAKEN_MSG, 'error');
+      return;
+    }
+  }
+
   const oldEmail = currentUser.email;
   const emailChanged = newEmail && newEmail !== oldEmail;
 
@@ -1816,6 +1836,15 @@ async function saveProfile() {
       updatedAt: new Date().toISOString() };
   const userRef = window._fbDoc2('users', currentUser.uid);
   let altSaved = true;
+  let _phoneReservedNow = false;
+  if (_phoneChanged && typeof dpReservePhone === 'function') {
+    const _res = await dpReservePhone(phone, currentUser.uid);
+    if (_res.taken) {
+      showToast('⚠️ ' + DP_PHONE_TAKEN_MSG, 'error');
+      return;
+    }
+    _phoneReservedNow = !!_res.ok;
+  }
   try {
     try {
       await window._fbUpdateDoc(userRef, { ...profilePayload, altPhone });
@@ -1831,12 +1860,17 @@ async function saveProfile() {
     }
   } catch (e) {
     console.error('saveProfile Firebase:', e);
+    if (_phoneReservedNow && typeof dpReleasePhone === 'function') { await dpReleasePhone(phone, currentUser.uid); }
     showToast('❌ تعذّر حفظ الملف الشخصي (' + (e.code || e.message || 'خطأ') + '). لم يُحفظ أي تغيير' +
       (e && e.code === 'permission-denied' ? '، وقد تحتاج قواعد Firestore إلى النشر من جديد.' : '، حاول مرة أخرى.'), 'error');
     return;
   }
 
-  // نجحت الكتابة: نحدّث الجلسة المحلية
+  // نجحت الكتابة: نحرر الرقم القديم من الفهرس (يخص هذا الحساب فقط)
+  if (_phoneChanged && _oldPhoneKey && typeof dpReleasePhone === 'function') {
+    try { await dpReleasePhone(currentUser.phone, currentUser.uid); } catch (e) {}
+  }
+  // نحدّث الجلسة المحلية
   currentUser.name   = name;
   currentUser.clinic = clinic;
   currentUser.phone  = phone;
@@ -1952,6 +1986,9 @@ async function confirmDeleteAccount() {
     // إعادة تأكيد الهوية (مطلوبة من Firebase لأي عملية حذف حساب)
     const credential = window._fbEmailAuthProvider.credential(fbUser.email, password);
     await window._fbReauthenticate(fbUser, credential);
+
+    // تحرير رقم الهاتف من الفهرس ليستطيع التسجيل به لاحقاً
+    try { if (typeof dpReleasePhone === 'function') await dpReleasePhone(currentUser.phone, fbUser.uid); } catch (e) {}
 
     // حذف مستند بيانات المستخدم من Firestore
     try {
