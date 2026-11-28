@@ -199,7 +199,7 @@ function showToast(msg, type='', opts) {
     toast.style.opacity='0';
     toast.style.transform = center ? 'scale(.9)' : 'translateX(40px)';
     setTimeout(()=>toast.remove(),300);
-  }, center ? 1600 : 3000);
+  }, (opts && opts.duration) ? opts.duration : (center ? 1600 : 3000));
 }
 
 function openQuickView(id) {
