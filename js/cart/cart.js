@@ -292,7 +292,16 @@ async function updateFreeShippingBar() {
   const phone = (!currentUser && phoneInput && phoneInput.value)
     ? formatPhoneForWhatsApp((document.getElementById('countryCode')?.value || '') + phoneInput.value)
     : null;
-  const deliveryResult = await computeCartDeliveryPreview(subtotal, phone);
+  // نفس منطق نافذة الطلب: درجة التوصيل تُقاس على المجموع بعد الخصم (والكوبون)، والكود الذي يمنح توصيلاً مجانياً يُطبَّق
+  let subtotalForDelivery = subtotal;
+  try {
+    const dpClientEmail = currentUser ? (currentUser.email || 'guest') : 'guest';
+    const dpClientPhone = currentUser ? (currentUser.phone || '') : '';
+    const dpPreview = await computeCartDiscountWithCoupon(cart, dpClientEmail, dpClientPhone);
+    if (dpPreview && typeof dpPreview.total === 'number') subtotalForDelivery = dpPreview.total;
+  } catch (e) { /* نعود للمجموع الخام */ }
+  if (getTotal() !== subtotal) return;
+  const deliveryResult = await computeCartDeliveryPreview(subtotalForDelivery, phone, undefined, { coupon: true });
   if (getTotal() !== subtotal) return;
   wrap.innerHTML = dpDeliveryRowHTML(deliveryResult.fee, deliveryResult.determined);
 }
@@ -735,6 +744,12 @@ async function nextStep() {
       matched = await findRegisteredClientByPhone(phone);
     }
     window._guestResolvedClient = matched;
+
+    // فهرس الهواتف يعمل لكل الزوار (بخلاف قراءة قائمة العملاء المقصورة على الموظفين)
+    if (!matched && typeof dpPhoneIndexOwner === 'function') {
+      const idx = await dpPhoneIndexOwner(phone);
+      if (idx.taken) matched = { uid: idx.uid, fromIndex: true };
+    }
 
     if (matched) {
       // الرقم مسجّل لعميل آخر: لا نكمل كزائر (القواعد سترفض الطلب)، نطلب تسجيل الدخول
