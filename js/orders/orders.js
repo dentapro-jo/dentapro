@@ -657,6 +657,20 @@ async function updateOrderStatus(docId, orderId, newStatus) {
     const order = freshSnap.exists()
       ? { _docId: docId, ...freshSnap.data() }
       : ((window._cachedOrders || []).find(o => o._docId === docId) || {});
+    // طلب بالنقاط: نتأكد من رصيد العميل قبل تغيير الحالة إلى "تم التسليم"، حتى لا يُسلَّم طلب دون خصم نقاطه
+    if (newStatus === 'delivered' && order.payMethod === 'points' && !order.pointsDeducted && (order.totalPoints || 0) > 0) {
+      if (!order.clientUid) {
+        showToast('⚠️ لا يمكن تسليم الطلب: الطلب غير مرتبط بحساب عميل لخصم النقاط', 'error');
+        if (typeof renderAdminOrders === 'function') renderAdminOrders();
+        return;
+      }
+      const balNow = await getClientPoints(order.clientUid);
+      if (balNow < order.totalPoints) {
+        showToast(`⚠️ رصيد العميل (${balNow} نقطة) لا يكفي — المطلوب ${order.totalPoints} نقطة. لم تتغير حالة الطلب`, 'error');
+        if (typeof renderAdminOrders === 'function') renderAdminOrders();
+        return;
+      }
+    }
     await window._fbUpdateDoc(window._fbDoc(docId), { status: newStatus });
 
     if (order.clientEmail && order.clientEmail !== 'guest') {
@@ -720,8 +734,12 @@ async function updateOrderStatus(docId, orderId, newStatus) {
         reason: `شراء بالنقاط — طلب #${order.id || orderId}`,
         date: new Date().toISOString(),
       };
-      await saveClientPoints(order.clientUid, order.clientEmail, -(order.totalPoints || 0), log);
+      const balAfterSpend = await saveClientPoints(order.clientUid, order.clientEmail, -(order.totalPoints || 0), log);
       await window._fbUpdateDoc(window._fbDoc(docId), { pointsDeducted: true });
+      if (typeof balAfterSpend === 'number') {
+        showToast(`🏆 خُصم ${order.totalPoints || 0} نقطة — رصيد العميل الآن ${balAfterSpend} نقطة`, 'success');
+        if (document.getElementById('adminPointsList') && typeof renderAdminPoints === 'function') renderAdminPoints();
+      }
     }
 
     // إضافة نقاط تلقائية من قيمة الطلب عند التسليم، وفقط إذا لم تُضف من قبل (مرة واحدة لكل طلب)
@@ -736,7 +754,11 @@ async function updateOrderStatus(docId, orderId, newStatus) {
             reason: `نقاط تلقائية من الطلب #${order.id || orderId}`,
             date: new Date().toISOString(),
           };
-          await saveClientPoints(order.clientUid, order.clientEmail, earnedPoints, log);
+          const balAfterEarn = await saveClientPoints(order.clientUid, order.clientEmail, earnedPoints, log);
+          if (typeof balAfterEarn === 'number') {
+            showToast(`🏆 أُضيف ${earnedPoints} نقطة — رصيد العميل الآن ${balAfterEarn} نقطة`, 'success');
+            if (document.getElementById('adminPointsList') && typeof renderAdminPoints === 'function') renderAdminPoints();
+          }
         }
       }
       await window._fbUpdateDoc(window._fbDoc(docId), { earnPointsAwarded: true });
