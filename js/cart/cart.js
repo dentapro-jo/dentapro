@@ -736,6 +736,16 @@ async function nextStep() {
     }
     window._guestResolvedClient = matched;
 
+    if (matched) {
+      // الرقم مسجّل لعميل آخر: لا نكمل كزائر (القواعد سترفض الطلب)، نطلب تسجيل الدخول
+      const errBox = document.getElementById('guestPasswordError');
+      if (errBox) {
+        errBox.classList.add('show');
+        errBox.querySelector('span').textContent = 'هذا الرقم مسجّل لدينا. سجّل دخولك أولاً لإكمال الطلب، أو استخدم رقماً آخر.';
+      }
+      return;
+    }
+
     if (!matched) {
       const doctor = document.getElementById('doctorName').value.trim();
       const clinic = document.getElementById('clinicName').value.trim();
